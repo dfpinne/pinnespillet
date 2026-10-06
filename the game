@@ -345,6 +345,7 @@
       <button class="btn primary" onclick="goTo('setup-bot')">Mot boten<br><small>Lett, middels eller perfekt</small></button>
       <button class="btn" onclick="goTo('setup-online')">Spill online<br><small>Del en romkode med en venn</small></button>
       <button class="btn" onclick="onRankedClick()">Spill rangert<br><small>Krever innlogging — påvirker Elo</small></button>
+      <button class="btn" onclick="goTo('setup-analysis')">Analysemodus<br><small>Sett opp en stilling, spill med hint</small></button>
     </div>
     <button class="btn ghost" onclick="openLeaderboard()">🏆 Se toppliste</button>
   </div>
@@ -455,6 +456,29 @@
     </div>
   </div>
 
+  <!-- SCREEN: SETUP ANALYSIS -->
+  <div id="screen-setup-analysis" class="hidden">
+    <button class="back-link" onclick="goTo('menu')">‹ tilbake</button>
+    <div class="card stack">
+      <h2>Analysemodus</h2>
+      <p class="msg">Sett opp en hvilken som helst lovlig stilling og spill videre derfra — mot deg selv, med hint tilgjengelig hele tiden. Nyttig for å teste stillinger du har sett eller lurer på.</p>
+      <div>
+        <div class="label" style="margin-bottom:8px;">Brettstørrelse: <span id="analysis-size-label">5×5</span></div>
+        <input type="range" min="2" max="20" value="5" id="analysis-size" oninput="onAnalysisSizeChange(this.value)">
+      </div>
+      <div>
+        <div class="label" style="margin-bottom:8px;">Antall pinner i hver rad (rad 1 øverst). Hver rad må være ≤ raden over.</div>
+        <div id="analysis-row-inputs" class="stack" style="gap:8px;"></div>
+      </div>
+      <p class="msg" id="analysis-error" style="color:var(--rose);"></p>
+      <div class="row">
+        <button class="btn ghost" onclick="fillAnalysisFull()">Fyll brettet helt</button>
+        <button class="btn ghost" onclick="fillAnalysisEmpty()">Tøm brettet</button>
+      </div>
+      <button class="btn primary" onclick="startAnalysisGame()">Start analyse</button>
+    </div>
+  </div>
+
   <!-- SCREEN: GAME -->
   <div id="screen-game" class="hidden">
     <button class="back-link" onclick="leaveGame()">‹ avslutt spillet</button>
@@ -491,38 +515,85 @@
 
 </div>
 
+<!-- ============================================================
+     VALGFRITT: Firebase-backend for selvhosting (GitHub Pages o.l.)
+     Inne i Claude.ai trenger du IKKE dette — window.storage finnes
+     allerede der, og denne blokken gjør ingenting (se if-sjekken under).
+
+     Slik kobler du til din egen gratis Firebase-database (5 min):
+     1. Gå til https://console.firebase.google.com → "Legg til prosjekt"
+        (gratis, ingen kort nødvendig for Spark-planen).
+     2. I prosjektet: Build → Realtime Database → "Create Database"
+        (velg en region, start i testmodus er greit for et vennespill).
+     3. Project settings (tannhjulet) → scroll til "Your apps" →
+        velg web-ikonet </> → registrer en app (navn spiller ingen rolle).
+     4. Firebase viser deg et objekt som ser sånn ut som konfigObjektet
+        under — kopier DET inn og erstatt placeholderen nedenfor.
+     5. (Anbefalt) I Realtime Database → Rules, lim inn:
+          { "rules": { ".read": true, ".write": true } }
+        Enkelt og fungerer fint for et lite vennespill. Alle med lenken
+        din kan lese/skrive databasen — ikke bruk dette til noe sensitivt.
+     ============================================================ -->
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
 <script>
-/* GitHub Pages compatibility: the original app used window.storage,
-   which is not available on a normal GitHub Pages site.
-   This adapter uses localStorage instead. Data is therefore local to
-   this browser/device; true cross-device online play needs a backend. */
-if (typeof window.storage === 'undefined') {
+(function(){
+  // ---- LIM INN DIN EGEN KONFIGURASJON HER ----
+  const firebaseConfig = {
+    apiKey: "LIM_INN_DIN_API_KEY_HER",
+    authDomain: "DITT-PROSJEKT.firebaseapp.com",
+    databaseURL: "https://DITT-PROSJEKT-default-rtdb.firebaseio.com",
+    projectId: "DITT-PROSJEKT",
+    storageBucket: "DITT-PROSJEKT.appspot.com",
+    messagingSenderId: "000000000000",
+    appId: "1:000000000000:web:xxxxxxxxxxxxxxxxxxxxxx"
+  };
+  // ---------------------------------------------
+
+  // Gjør ingenting før du faktisk har limt inn din egen config over,
+  // slik at appen fortsatt viser "delt lagring ikke tilgjengelig"
+  // i stedet for å krasje, hvis du åpner filen uten å ha satt den opp.
+  if (firebaseConfig.apiKey === "LIM_INN_DIN_API_KEY_HER") return;
+
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.database();
+
+  // Nøklene appen bruker (f.eks. "room:7QXA", "user:ola") inneholder
+  // ingen tegn Firebase misliker i nøkler, men vi renser likevel
+  // defensivt for sikkerhets skyld.
+  function safeKey(k){ return String(k).replace(/[.#$\[\]]/g, '_'); }
+
+  // Denne shimmen implementerer samme grensesnitt som window.storage i
+  // Claude-artifacts (get/set/delete/list), men behandler alt som delt —
+  // helt greit her, siden spillet aldri bruker personlig (ikke-delt) lagring.
   window.storage = {
-    async get(key, shared) {
-      const value = localStorage.getItem(key);
-      return value === null ? null : { value };
+    async get(key, shared){
+      const snap = await db.ref('store/' + safeKey(key)).once('value');
+      const val = snap.val();
+      if (val === null || val === undefined) throw new Error('Nøkkel finnes ikke: ' + key);
+      return { key, value: val, shared: !!shared };
     },
-    async set(key, value, shared) {
-      localStorage.setItem(key, value);
-      return { value };
+    async set(key, value, shared){
+      await db.ref('store/' + safeKey(key)).set(value);
+      return { key, value, shared: !!shared };
     },
-    async list(prefix = '', shared) {
+    async delete(key, shared){
+      await db.ref('store/' + safeKey(key)).remove();
+      return { key, deleted: true, shared: !!shared };
+    },
+    async list(prefix, shared){
+      const ref = db.ref('store');
+      const snap = prefix
+        ? await ref.orderByKey().startAt(safeKey(prefix)).endAt(safeKey(prefix) + '\uf8ff').once('value')
+        : await ref.once('value');
       const keys = [];
-      for (let i = 0; i < localStorage.length; i++) {
-        const key = localStorage.key(i);
-        if (key && key.startsWith(prefix)) keys.push(key);
-      }
-      keys.sort();
-      return { keys };
-    },
-    async delete(key, shared) {
-      localStorage.removeItem(key);
-      return true;
+      snap.forEach(child => { keys.push(child.key); });
+      return { keys, prefix, shared: !!shared };
     }
   };
-}
-
+})();
 </script>
+
 <script>
 /* ============ GAME ENGINE ============ */
 // state.rows: array length N, non-increasing, values 0..N (row lengths, row 0 = top)
@@ -773,6 +844,11 @@ async function writeSlot(val){
 }
 
 async function onRankedClickInner(){
+  if(!storageAvailable()){
+    goTo('matchmaking');
+    document.getElementById('matchmaking-status').textContent = 'Rangert spill krever delt lagring, som bare finnes når dette kjører som et Claude-artifact. Det er ikke tilgjengelig i denne visningen.';
+    return;
+  }
   matchmakingCancelled = false;
   matchmakingAttempts = 0;
   goTo('matchmaking');
@@ -962,6 +1038,70 @@ function startLocalGame(){
     turn: 0, // 0 or 1
     winner: null,
     log: []
+  };
+  enterGameScreen();
+}
+
+/* ============ ANALYSIS MODE ============ */
+function onAnalysisSizeChange(val){
+  const N = parseInt(val,10);
+  document.getElementById('analysis-size-label').textContent = N+'×'+N;
+  const box = document.getElementById('analysis-row-inputs');
+  // keep existing values where possible when resizing
+  const old = Array.from(box.querySelectorAll('input')).map(i => parseInt(i.value,10)||0);
+  box.innerHTML = '';
+  for(let i=0;i<N;i++){
+    const row = document.createElement('div');
+    row.className = 'row';
+    const defaultVal = i < old.length ? Math.min(old[i], N) : N;
+    row.innerHTML = `<span class="label" style="width:56px;">Rad ${i+1}</span>
+      <input type="number" min="0" max="${N}" value="${defaultVal}" id="arow-${i}" oninput="validateAnalysisRows()" style="width:90px;">`;
+    box.appendChild(row);
+  }
+  validateAnalysisRows();
+}
+
+function readAnalysisRows(){
+  const N = parseInt(document.getElementById('analysis-size').value,10);
+  const rows = [];
+  for(let i=0;i<N;i++){
+    const el = document.getElementById('arow-'+i);
+    rows.push(el ? Math.max(0, Math.min(N, parseInt(el.value,10)||0)) : 0);
+  }
+  return rows;
+}
+
+function validateAnalysisRows(){
+  const rows = readAnalysisRows();
+  let err = '';
+  for(let i=0;i<rows.length-1;i++){
+    if(rows[i] < rows[i+1]){
+      err = `Rad ${i+1} (${rows[i]}) kan ikke være kortere enn rad ${i+2} (${rows[i+1]}) — brettet må holde trappeformen.`;
+      break;
+    }
+  }
+  document.getElementById('analysis-error').textContent = err;
+  return err === '';
+}
+
+function fillAnalysisFull(){
+  const N = parseInt(document.getElementById('analysis-size').value,10);
+  for(let i=0;i<N;i++){ document.getElementById('arow-'+i).value = N; }
+  validateAnalysisRows();
+}
+function fillAnalysisEmpty(){
+  const N = parseInt(document.getElementById('analysis-size').value,10);
+  for(let i=0;i<N;i++){ document.getElementById('arow-'+i).value = 0; }
+  validateAnalysisRows();
+}
+
+function startAnalysisGame(){
+  if(!validateAnalysisRows()) return;
+  const N = parseInt(document.getElementById('analysis-size').value,10);
+  const rows = readAnalysisRows();
+  G = {
+    mode:'analysis', N,
+    rows, turn: 0, winner: null, log: []
   };
   enterGameScreen();
 }
@@ -1207,6 +1347,9 @@ function renderStatus(){
     const oppName = G.playerNames ? G.playerNames[1-ROOM.myPlayerIndex] : 'motstanderen';
     text.textContent = my ? 'Din tur' : (oppName||'Motstanderen')+' sin tur';
     pillDot.style.background = my ? 'var(--brass)' : 'var(--rose)';
+  } else if(G.mode === 'analysis'){
+    text.textContent = 'Analyse — trekk ' + (G.turn+1) + ' sin tur';
+    pillDot.style.background = 'var(--brass)';
   } else {
     text.textContent = 'Spiller '+(G.turn+1)+' sin tur';
     pillDot.style.background = G.turn===0 ? 'var(--brass)' : 'var(--rose)';
@@ -1217,12 +1360,15 @@ function canIMove(){
   if(G.winner !== null) return false;
   if(G.mode === 'bot') return G.turn === 0;
   if(G.mode === 'online' || G.mode === 'ranked') return ROOM.myPlayerIndex === G.turn;
-  return true; // local: whoever's turn, same device
+  return true; // local & analysis: whoever's turn, same device
 }
 
 function updateHintVisibility(){
   const btn = document.getElementById('hint-btn');
-  const showable = G.mode === 'bot' && G.turn === 0 && G.winner === null;
+  const showable = G.winner === null && (
+    (G.mode === 'bot' && G.turn === 0) ||
+    G.mode === 'analysis'
+  );
   btn.style.display = showable ? 'inline-block' : 'none';
   if(!showable){
     document.getElementById('hint-box').classList.add('hidden');
@@ -1333,6 +1479,8 @@ function showWinner(){
     const iwon = G.winner === ROOM.myPlayerIndex;
     const oppName = G.playerNames ? G.playerNames[1-ROOM.myPlayerIndex] : 'motstanderen';
     banner.textContent = iwon ? 'Du tok siste pinne — du vant mot '+(oppName||'motstanderen')+'!' : (oppName||'Motstanderen')+' tok siste pinne.';
+  } else if(G.mode === 'analysis'){
+    banner.textContent = 'Trekk '+(G.winner+1)+' tok siste pinne — den som trakk den vinner herfra.';
   } else {
     banner.textContent = 'Spiller '+(G.winner+1)+' tok siste pinne og vant!';
   }
@@ -1350,9 +1498,11 @@ function restartSameSetup(){
   else if(G.mode==='bot'){ document.getElementById('bot-size').value = G.N; startBotGame(); }
   else if(G.mode==='online'){ leaveGame(); goTo('online'); }
   else if(G.mode==='ranked'){ leaveGame(); onRankedClick(); }
+  else if(G.mode==='analysis'){ document.getElementById('analysis-size').value = G.N; onAnalysisSizeChange(G.N); goTo('setup-analysis'); }
 }
 
 renderAccountBar();
+onAnalysisSizeChange(5);
 </script>
 </body>
 </html>
