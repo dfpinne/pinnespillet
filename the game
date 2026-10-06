@@ -492,6 +492,38 @@
 </div>
 
 <script>
+/* GitHub Pages compatibility: the original app used window.storage,
+   which is not available on a normal GitHub Pages site.
+   This adapter uses localStorage instead. Data is therefore local to
+   this browser/device; true cross-device online play needs a backend. */
+if (typeof window.storage === 'undefined') {
+  window.storage = {
+    async get(key, shared) {
+      const value = localStorage.getItem(key);
+      return value === null ? null : { value };
+    },
+    async set(key, value, shared) {
+      localStorage.setItem(key, value);
+      return { value };
+    },
+    async list(prefix = '', shared) {
+      const keys = [];
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key && key.startsWith(prefix)) keys.push(key);
+      }
+      keys.sort();
+      return { keys };
+    },
+    async delete(key, shared) {
+      localStorage.removeItem(key);
+      return true;
+    }
+  };
+}
+
+</script>
+<script>
 /* ============ GAME ENGINE ============ */
 // state.rows: array length N, non-increasing, values 0..N (row lengths, row 0 = top)
 
