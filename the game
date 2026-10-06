@@ -540,14 +540,14 @@
 (function(){
   // ---- LIM INN DIN EGEN KONFIGURASJON HER ----
   const firebaseConfig = {
-    apiKey: "LIM_INN_DIN_API_KEY_HER",
-    authDomain: "DITT-PROSJEKT.firebaseapp.com",
-    databaseURL: "https://DITT-PROSJEKT-default-rtdb.firebaseio.com",
-    projectId: "DITT-PROSJEKT",
-    storageBucket: "DITT-PROSJEKT.appspot.com",
-    messagingSenderId: "000000000000",
-    appId: "1:000000000000:web:xxxxxxxxxxxxxxxxxxxxxx"
-  };
+  apiKey: "AIzaSyBHPkKkkNT7QIa7l16Lfs9dEzEwqaZMFjg",
+  authDomain: "pinnespillet.firebaseapp.com",
+  projectId: "pinnespillet",
+  storageBucket: "pinnespillet.firebasestorage.app",
+  messagingSenderId: "838499154987",
+  appId: "1:838499154987:web:ce34b5fa0b22ddbad63e6e",
+  measurementId: "G-HZ7KKQTVT6"
+};
   // ---------------------------------------------
 
   // Gjør ingenting før du faktisk har limt inn din egen config over,
