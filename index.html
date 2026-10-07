@@ -184,6 +184,12 @@
     background: linear-gradient(180deg, var(--rose) 0 24%, var(--stone) 24% 100%);
     box-shadow: 0 1px 2px rgba(0,0,0,.35);
   }
+  .cell.powerup-cell.filled{
+    box-shadow:0 0 0 2px #e3d23d inset;
+  }
+  .cell.powerup-cell.filled::after{
+    background: linear-gradient(180deg, #e3d23d 0 40%, var(--stone) 40% 100%);
+  }
   .cell.corner-cell.filled{
     box-shadow:0 0 0 2px var(--brass) inset;
   }
@@ -346,6 +352,7 @@
       <button class="btn" onclick="goTo('setup-online')">Spill online<br><small>Del en romkode med en venn</small></button>
       <button class="btn" onclick="onRankedClick()">Spill rangert<br><small>Krever innlogging — påvirker Elo</small></button>
       <button class="btn" onclick="goTo('setup-analysis')">Analysemodus<br><small>Sett opp en stilling, spill med hint</small></button>
+      <button class="btn" onclick="goTo('setup-variants')">Varianter<br><small>Tilfeldig brett, power-ups, turbo</small></button>
     </div>
     <button class="btn ghost" onclick="openLeaderboard()">🏆 Se toppliste</button>
   </div>
@@ -402,6 +409,14 @@
         <div class="label" style="margin-bottom:8px;">Brettstørrelse: <span id="local-size-label">5×5</span></div>
         <input type="range" min="3" max="20" value="5" id="local-size" oninput="document.getElementById('local-size-label').textContent = this.value+'×'+this.value">
       </div>
+      <div class="row" style="align-items:center;">
+        <input type="checkbox" id="local-timer-on" style="width:18px;height:18px;" onchange="document.getElementById('local-timer-row').style.display=this.checked?'flex':'none';">
+        <label for="local-timer-on" class="label" style="margin:0;">Bruk tidsur</label>
+      </div>
+      <div class="row" id="local-timer-row" style="display:none;">
+        <span class="label" style="width:100px;">Sekunder/trekk</span>
+        <input type="number" id="local-timer-secs" value="20" min="5" max="120" style="width:90px;">
+      </div>
       <button class="btn primary" onclick="startLocalGame()">Start spillet</button>
     </div>
   </div>
@@ -445,6 +460,14 @@
         <div class="label" style="margin-bottom:8px;">Brettstørrelse for nytt rom: <span id="online-size-label">5×5</span></div>
         <input type="range" min="3" max="20" value="5" id="online-size" oninput="document.getElementById('online-size-label').textContent = this.value+'×'+this.value">
       </div>
+      <div class="row" style="align-items:center;">
+        <input type="checkbox" id="online-timer-on" style="width:18px;height:18px;" onchange="document.getElementById('online-timer-row').style.display=this.checked?'flex':'none';">
+        <label for="online-timer-on" class="label" style="margin:0;">Bruk tidsur</label>
+      </div>
+      <div class="row" id="online-timer-row" style="display:none;">
+        <span class="label" style="width:100px;">Sekunder/trekk</span>
+        <input type="number" id="online-timer-secs" value="20" min="5" max="120" style="width:90px;">
+      </div>
       <button class="btn primary" onclick="createRoom()">Opprett nytt rom</button>
       <div style="height:1px;background:var(--line);margin:4px 0;"></div>
       <div class="label" style="margin-bottom:8px;">Har du en romkode?</div>
@@ -479,6 +502,55 @@
     </div>
   </div>
 
+  <!-- SCREEN: SETUP VARIANTS -->
+  <div id="screen-setup-variants" class="hidden">
+    <button class="back-link" onclick="goTo('menu')">‹ tilbake</button>
+    <div class="card stack">
+      <h2>Varianter</h2>
+      <p class="msg">Kryss av for de variantene du vil blande inn. Du kan kombinere flere.</p>
+
+      <div class="row" style="align-items:center;">
+        <input type="checkbox" id="var-dynamic" style="width:18px;height:18px;" onchange="document.getElementById('var-dynamic-row').style.display=this.checked?'block':'none'; document.getElementById('var-size-row').style.display=this.checked?'none':'block';">
+        <label for="var-dynamic" class="label" style="margin:0;">🎲 Dynamisk brett — tilfeldig generert størrelse og form</label>
+      </div>
+      <div id="var-dynamic-row" style="display:none; padding-left:26px;">
+        <p class="msg">Brettstørrelsen og selve formen trekkes tilfeldig hver gang du starter.</p>
+      </div>
+
+      <div class="row" style="align-items:center;">
+        <input type="checkbox" id="var-powerup" style="width:18px;height:18px;">
+        <label for="var-powerup" class="label" style="margin:0;">⭐ Power-ups — en gyllen pinne gir ekstra trekk</label>
+      </div>
+      <div style="padding-left:26px;">
+        <p class="msg">1–2 tilfeldige pinner markeres med en stjerne. Tar du en av dem (selv som del av et større trekk), får du trekke på nytt med en gang.</p>
+      </div>
+
+      <div class="row" style="align-items:center;">
+        <input type="checkbox" id="var-turbo" style="width:18px;height:18px;" onchange="document.getElementById('var-turbo-row').style.display=this.checked?'flex':'none';">
+        <label for="var-turbo" class="label" style="margin:0;">⚡ Turbo-modus — kort tid per trekk</label>
+      </div>
+      <div class="row" id="var-turbo-row" style="display:none; padding-left:26px;">
+        <span class="label" style="width:100px;">Sekunder/trekk</span>
+        <input type="number" id="var-turbo-secs" value="10" min="3" max="60" style="width:90px;">
+      </div>
+
+      <div id="var-size-row">
+        <div class="label" style="margin-bottom:8px;">Brettstørrelse: <span id="var-size-label">5×5</span></div>
+        <input type="range" min="3" max="20" value="5" id="var-size" oninput="document.getElementById('var-size-label').textContent = this.value+'×'+this.value">
+      </div>
+
+      <div>
+        <div class="label" style="margin-bottom:8px;">Spillmodus</div>
+        <select id="var-mode">
+          <option value="local">Lokalt — to spillere</option>
+          <option value="bot">Mot bot (middels)</option>
+        </select>
+      </div>
+
+      <button class="btn primary" onclick="startVariantGame()">Start spillet</button>
+    </div>
+  </div>
+
   <!-- SCREEN: GAME -->
   <div id="screen-game" class="hidden">
     <button class="back-link" onclick="leaveGame()">‹ avslutt spillet</button>
@@ -486,6 +558,7 @@
       <div class="board-area">
         <div class="status-bar">
           <div class="turn-pill" id="turn-pill"><span class="dot" style="background:var(--brass);"></span><span id="turn-text">Din tur</span></div>
+          <div class="turn-pill hidden" id="timer-pill" style="background:var(--rose-dim); border-color:var(--rose);">⏱ <span id="timer-text">20</span>s</div>
           <div id="room-code-mini" class="msg hidden"></div>
         </div>
         <div id="board" class="board"></div>
@@ -1032,12 +1105,78 @@ function goTo(id){
 /* ============ LOCAL 2-PLAYER ============ */
 function startLocalGame(){
   const N = parseInt(document.getElementById('local-size').value,10);
+  const timerOn = document.getElementById('local-timer-on').checked;
+  const timerSecs = timerOn ? Math.max(3, parseInt(document.getElementById('local-timer-secs').value,10)||20) : null;
   G = {
     mode:'local', N,
     rows: Array(N).fill(N),
     turn: 0, // 0 or 1
     winner: null,
-    log: []
+    log: [],
+    timerSeconds: timerSecs,
+    powerups: []
+  };
+  enterGameScreen();
+}
+
+/* ============ VARIANTER ============ */
+function randomValidBoard(maxN){
+  // pick a random size, then a random non-increasing row sequence
+  const N = 3 + Math.floor(Math.random()*(maxN-2)); // 3..maxN
+  const rows = [];
+  let prev = N;
+  for(let i=0;i<N;i++){
+    // each row is a random value between 0 and prev, biased to not drop too fast at first
+    const v = Math.floor(Math.random()*(prev+1));
+    rows.push(v);
+    prev = v;
+  }
+  // make sure the board isn't totally empty
+  if(rows.every(x=>x===0)) rows[0] = N;
+  return rows;
+}
+
+function placeRandomPowerups(rows, N, count){
+  const cells = [];
+  for(let r=0;r<N;r++){ for(let c=0;c<rows[r];c++){ cells.push({r,c}); } }
+  const chosen = [];
+  const pool = cells.slice();
+  for(let i=0;i<count && pool.length>0;i++){
+    const idx = Math.floor(Math.random()*pool.length);
+    chosen.push(pool.splice(idx,1)[0]);
+  }
+  return chosen;
+}
+
+function startVariantGame(){
+  const dynamic = document.getElementById('var-dynamic').checked;
+  const powerup = document.getElementById('var-powerup').checked;
+  const turbo = document.getElementById('var-turbo').checked;
+  const turboSecs = turbo ? Math.max(3, parseInt(document.getElementById('var-turbo-secs').value,10)||10) : null;
+  const mode = document.getElementById('var-mode').value;
+  const fixedSize = parseInt(document.getElementById('var-size').value,10);
+
+  let N, rows;
+  if(dynamic){
+    rows = randomValidBoard(fixedSize);
+    N = rows.length;
+  } else {
+    N = fixedSize;
+    rows = Array(N).fill(N);
+  }
+
+  const powerupCount = 1 + (Math.random() < 0.5 ? 1 : 0); // 1 or 2
+  const powerups = powerup ? placeRandomPowerups(rows, N, powerupCount) : [];
+
+  G = {
+    mode: mode === 'bot' ? 'bot' : 'local',
+    N, rows,
+    turn: 0,
+    winner: null,
+    log: [],
+    timerSeconds: turboSecs,
+    powerups,
+    difficulty: 'medium'
   };
   enterGameScreen();
 }
@@ -1207,17 +1346,19 @@ async function createRoom(){
     return;
   }
   const N = parseInt(document.getElementById('online-size').value,10);
+  const timerOn = document.getElementById('online-timer-on').checked;
+  const timerSecs = timerOn ? Math.max(3, parseInt(document.getElementById('online-timer-secs').value,10)||20) : null;
   const code = randCode();
   const state = {
     N, rows: Array(N).fill(N), turn:0,
     players:[myClientId, null],
     winner:null, version:1,
-    log:[]
+    log:[], timerSeconds: timerSecs
   };
   try{
     await window.storage.set('room:'+code, JSON.stringify(state), true);
     ROOM = {code, myPlayerIndex:0};
-    G = {mode:'online', N, rows: state.rows, turn: state.turn, winner:null, log:[]};
+    G = {mode:'online', N, rows: state.rows, turn: state.turn, winner:null, log:[], timerSeconds: timerSecs, powerups: []};
     enterGameScreen();
     document.getElementById('online-panel').classList.remove('hidden');
     document.getElementById('side-room-code').textContent = code;
@@ -1262,7 +1403,7 @@ async function joinRoom(){
     state.version = (state.version||1) + 1;
     await window.storage.set('room:'+code, JSON.stringify(state), true);
     ROOM = {code, myPlayerIndex: myIndex};
-    G = {mode:'online', N: state.N, rows: state.rows, turn: state.turn, winner:null, log:[]};
+    G = {mode:'online', N: state.N, rows: state.rows, turn: state.turn, winner:null, log:[], timerSeconds: state.timerSeconds||null, powerups: []};
     enterGameScreen();
     document.getElementById('online-panel').classList.remove('hidden');
     document.getElementById('side-room-code').textContent = code;
@@ -1296,6 +1437,7 @@ async function pollRoom(){
       document.getElementById('online-status').textContent = online2 ? 'Begge spillere tilkoblet.' : 'Venter på at en venn blir med...';
       renderBoard();
       renderStatus();
+      restartTurnTimer();
       if(G.winner !== null) showWinner();
     }
   }catch(e){ /* ignore transient errors */ }
@@ -1323,6 +1465,39 @@ function enterGameScreen(){
   document.getElementById('log').innerHTML='';
   renderBoard();
   renderStatus();
+  restartTurnTimer();
+}
+
+/* ---- Turn timer (local, online, turbo) ---- */
+let timerInterval = null;
+let timerDeadline = null;
+function restartTurnTimer(){
+  if(timerInterval){ clearInterval(timerInterval); timerInterval = null; }
+  const pill = document.getElementById('timer-pill');
+  if(!G || !G.timerSeconds || G.winner !== null){
+    pill.classList.add('hidden');
+    return;
+  }
+  pill.classList.remove('hidden');
+  timerDeadline = Date.now() + G.timerSeconds*1000;
+  tickTimer();
+  timerInterval = setInterval(tickTimer, 250);
+}
+function tickTimer(){
+  if(!G || G.winner !== null){ if(timerInterval) clearInterval(timerInterval); return; }
+  const left = Math.max(0, Math.ceil((timerDeadline - Date.now())/1000));
+  const txt = document.getElementById('timer-text');
+  if(txt) txt.textContent = left;
+  if(left <= 0){
+    clearInterval(timerInterval); timerInterval = null;
+    if(canIMove()){
+      const moves = generateMoves(G.rows, G.N);
+      if(moves.length){
+        const m = moves[Math.floor(Math.random()*moves.length)];
+        applyMove(m, playerLabel() + ' (tiden løp ut)');
+      }
+    }
+  }
 }
 
 function renderStatus(){
@@ -1390,7 +1565,12 @@ function renderBoard(){
       const filled = c < G.rows[r];
       cell.className = 'cell ' + (filled ? 'filled' : 'empty');
       if(r===0 && c===0) cell.classList.add('corner-cell');
-      cell.title = (r===0 && c===0) ? 'Denne pinnen er alltid den siste som kan tas' : '';
+      if(G.powerups && G.powerups.some(p=>p.r===r && p.c===c)){
+        cell.classList.add('powerup-cell');
+        cell.title = '⭐ Power-up: gir ekstra trekk';
+      } else if(r===0 && c===0){
+        cell.title = 'Denne pinnen er alltid den siste som kan tas';
+      }
       if(filled && interactive){
         const rowLegal = c >= floorAt(G.rows, r);
         const colLegal = r >= floorAt(colH, c);
@@ -1431,18 +1611,45 @@ function playerLabel(){
   return 'Spiller '+(G.turn+1);
 }
 
+function removedCells(prevRows, move, N){
+  const cells = [];
+  if(move.axis === 'row'){
+    const oldLen = prevRows[move.index];
+    for(let c=move.value; c<oldLen; c++) cells.push({r:move.index, c});
+  } else if(move.axis === 'col'){
+    const oldColH = conjugate(prevRows, N)[move.index];
+    for(let r=move.value; r<oldColH; r++) cells.push({r, c:move.index});
+  }
+  return cells;
+}
+
 function applyMove(move, label){
+  const prevRows = G.rows.slice();
   const takenCount = totalPieces(G.rows) - totalPieces(move.rows);
-  const dirTxt = move.axis === 'row' ? 'rad '+(move.index+1)+', bortover' : 'kolonne '+(move.index+1)+', nedover';
-  addLog(`${label} tok ${takenCount} pinne(r) — ${dirTxt}`);
+  const dirTxt = move.axis ? (move.axis === 'row' ? 'rad '+(move.index+1)+', bortover' : 'kolonne '+(move.index+1)+', nedover') : '';
+  addLog(`${label} tok ${takenCount} pinne(r)${dirTxt ? ' — '+dirTxt : ''}`);
+
+  let hitPowerup = false;
+  if(G.powerups && G.powerups.length && move.axis){
+    const removed = removedCells(prevRows, move, G.N);
+    const stillThere = [];
+    for(const p of G.powerups){
+      const wasRemoved = removed.some(rc => rc.r===p.r && rc.c===p.c);
+      if(wasRemoved) hitPowerup = true; else stillThere.push(p);
+    }
+    G.powerups = stillThere;
+  }
 
   G.rows = move.rows;
   const mover = G.turn;
-  const nextTurn = 1 - G.turn;
   const finished = totalPieces(G.rows) === 0;
   const winner = finished ? mover : null;
-  G.turn = nextTurn;
+  G.turn = (hitPowerup && !finished) ? mover : 1 - mover;
   G.winner = winner;
+
+  if(hitPowerup && !finished){
+    addLog(`⭐ ${label} fikk en power-up — trekker på nytt!`);
+  }
 
   if(G.mode === 'online' || G.mode === 'ranked'){
     pushOnlineMove(G.rows, G.turn, G.winner);
@@ -1450,6 +1657,7 @@ function applyMove(move, label){
 
   renderBoard();
   renderStatus();
+  restartTurnTimer();
   if(G.winner !== null){
     showWinner();
     if(G.mode === 'ranked'){
@@ -1488,6 +1696,7 @@ function showWinner(){
 
 function leaveGame(){
   if(ROOM && ROOM.pollHandle){ clearInterval(ROOM.pollHandle); }
+  if(timerInterval){ clearInterval(timerInterval); timerInterval = null; }
   ROOM = null;
   G = null;
   goTo('menu');
