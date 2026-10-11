@@ -2,10 +2,6 @@
 <html lang="no">
 <head>
 <meta charset="UTF-8">
-  <title>Pinnespillet – Gratis pinnespill på nett</title>
-
-  <meta name="description" content="Spill Pinnespillet gratis på nett. Et enkelt og morsomt pinnespill direkte i nettleseren.">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pinnespillet</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -188,6 +184,13 @@
     background: linear-gradient(180deg, var(--rose) 0 24%, var(--stone) 24% 100%);
     box-shadow: 0 1px 2px rgba(0,0,0,.35);
   }
+  .cell{position:relative;}
+  .cell.pu-shield.filled::after{ background: linear-gradient(180deg, #4aa3df 0 40%, var(--stone) 40% 100%); }
+  .cell.pu-shield.filled{ box-shadow:0 0 0 2px #4aa3df inset; }
+  .cell.pu-time.filled::after{ background: linear-gradient(180deg, #a56be0 0 40%, var(--stone) 40% 100%); }
+  .cell.pu-time.filled{ box-shadow:0 0 0 2px #a56be0 inset; }
+  .cell.locked.filled{ box-shadow:0 0 0 2px #4aa3df inset; opacity:.75; }
+  .cell.locked::before{ content:'🔒'; position:absolute; top:-3px; right:-3px; font-size:12px; z-index:2; }
   .cell.powerup-cell.filled{
     box-shadow:0 0 0 2px #e3d23d inset;
   }
@@ -511,22 +514,29 @@
     <button class="back-link" onclick="goTo('menu')">‹ tilbake</button>
     <div class="card stack">
       <h2>Varianter</h2>
-      <p class="msg">Kryss av for de variantene du vil blande inn. Du kan kombinere flere.</p>
+      <p class="msg">Kryss av for de variantene du vil blande inn. Du kan kombinere hvilke som helst — alle kan være med i samme spill, men ingen må.</p>
 
       <div class="row" style="align-items:center;">
-        <input type="checkbox" id="var-dynamic" style="width:18px;height:18px;" onchange="document.getElementById('var-dynamic-row').style.display=this.checked?'block':'none'; document.getElementById('var-size-row').style.display=this.checked?'none':'block';">
-        <label for="var-dynamic" class="label" style="margin:0;">🎲 Dynamisk brett — tilfeldig generert størrelse og form</label>
-      </div>
-      <div id="var-dynamic-row" style="display:none; padding-left:26px;">
-        <p class="msg">Brettstørrelsen og selve formen trekkes tilfeldig hver gang du starter.</p>
+        <input type="checkbox" id="var-dynamic" style="width:18px;height:18px;" onchange="document.getElementById('var-size-row').style.display=this.checked?'none':'block';">
+        <label for="var-dynamic" class="label" style="margin:0;">🎲 Dynamisk brett — komplekse, tilfeldige stillinger (5×5 til 10×10)</label>
       </div>
 
+      <div class="label" style="margin-top:6px;">Power-ups (plasseres tilfeldig på brettet)</div>
       <div class="row" style="align-items:center;">
-        <input type="checkbox" id="var-powerup" style="width:18px;height:18px;">
-        <label for="var-powerup" class="label" style="margin:0;">⭐ Power-ups — en gyllen pinne gir ekstra trekk</label>
+        <input type="checkbox" id="var-pu-extra" style="width:18px;height:18px;">
+        <label for="var-pu-extra" class="label" style="margin:0;">⭐ Ekstra trekk — ta den, og du trekker på nytt</label>
       </div>
-      <div style="padding-left:26px;">
-        <p class="msg">1–2 tilfeldige pinner markeres med en stjerne. Tar du en av dem (selv som del av et større trekk), får du trekke på nytt med en gang.</p>
+      <div class="row" style="align-items:center;">
+        <input type="checkbox" id="var-pu-trap" style="width:18px;height:18px;">
+        <label for="var-pu-trap" class="label" style="margin:0;">🪤 Fellebrikke — kamuflert! Den som tar den mister neste tur</label>
+      </div>
+      <div class="row" style="align-items:center;">
+        <input type="checkbox" id="var-pu-shield" style="width:18px;height:18px;">
+        <label for="var-pu-shield" class="label" style="margin:0;">🛡 Skjold — ta den, og en tilfeldig pinne låses i 1–3 trekk</label>
+      </div>
+      <div class="row" style="align-items:center;">
+        <input type="checkbox" id="var-pu-time" style="width:18px;height:18px;">
+        <label for="var-pu-time" class="label" style="margin:0;">⏳ Tidstyv — motstanderen får 5–10 sek mindre tenketid (krever Turbo/tidsur)</label>
       </div>
 
       <div class="row" style="align-items:center;">
@@ -535,7 +545,7 @@
       </div>
       <div class="row" id="var-turbo-row" style="display:none; padding-left:26px;">
         <span class="label" style="width:100px;">Sekunder/trekk</span>
-        <input type="number" id="var-turbo-secs" value="10" min="3" max="60" style="width:90px;">
+        <input type="number" id="var-turbo-secs" value="15" min="8" max="60" style="width:90px;">
       </div>
 
       <div id="var-size-row">
@@ -548,10 +558,13 @@
         <select id="var-mode">
           <option value="local">Lokalt — to spillere</option>
           <option value="bot">Mot bot (middels)</option>
+          <option value="online">Online — opprett rom for en venn</option>
         </select>
       </div>
+      <p class="msg" id="var-error" style="color:var(--rose);"></p>
 
       <button class="btn primary" onclick="startVariantGame()">Start spillet</button>
+      <p class="msg">Online: etter at du har opprettet rommet, blir vennen din med via «Spill online» → «Bli med» og romkoden.</p>
     </div>
   </div>
 
@@ -1124,65 +1137,115 @@ function startLocalGame(){
 }
 
 /* ============ VARIANTER ============ */
-function randomValidBoard(maxN){
-  // pick a random size, then a random non-increasing row sequence
-  const N = 3 + Math.floor(Math.random()*(maxN-2)); // 3..maxN
-  const rows = [];
-  let prev = N;
-  for(let i=0;i<N;i++){
-    // each row is a random value between 0 and prev, biased to not drop too fast at first
-    const v = Math.floor(Math.random()*(prev+1));
-    rows.push(v);
-    prev = v;
+function randomValidBoard(){
+  // Komplekse stillinger: størrelse 5-10, jevn trapp med platåer, minst 3 ulike radlengder
+  for(let attempt=0; attempt<200; attempt++){
+    const N = 5 + Math.floor(Math.random()*6); // 5..10
+    const rows = [];
+    let prev = N - (Math.random()<0.3 ? 1 : 0);
+    for(let i=0;i<N;i++){
+      if(i>0){
+        const step = Math.random()<0.4 ? 0 : 1 + Math.floor(Math.random()*2);
+        prev = Math.max(0, prev - step);
+      }
+      rows.push(prev);
+    }
+    const distinct = new Set(rows.filter(x=>x>0)).size;
+    const total = rows.reduce((a,b)=>a+b,0);
+    if(distinct >= 3 && total >= 0.45*N*N && rows[N-1] >= 0 && rows[0] >= N-1) return rows;
   }
-  // make sure the board isn't totally empty
-  if(rows.every(x=>x===0)) rows[0] = N;
-  return rows;
+  return Array(7).fill(7);
 }
 
-function placeRandomPowerups(rows, N, count){
-  const cells = [];
-  for(let r=0;r<N;r++){ for(let c=0;c<rows[r];c++){ cells.push({r,c}); } }
-  const chosen = [];
-  const pool = cells.slice();
-  for(let i=0;i<count && pool.length>0;i++){
-    const idx = Math.floor(Math.random()*pool.length);
-    chosen.push(pool.splice(idx,1)[0]);
+function placeRandomPowerups(rows, N, types){
+  const pool = [];
+  for(let r=0;r<N;r++){ for(let c=0;c<rows[r];c++){ if(!(r===0 && c===0)) pool.push({r,c}); } }
+  const perType = N >= 8 ? 2 : 1;
+  const placed = [];
+  for(const type of types){
+    for(let i=0;i<perType && pool.length>0;i++){
+      const idx = Math.floor(Math.random()*pool.length);
+      const cell = pool.splice(idx,1)[0];
+      placed.push({r:cell.r, c:cell.c, type});
+    }
   }
-  return chosen;
+  return placed;
+}
+
+function readVariantConfig(){
+  const types = [];
+  if(document.getElementById('var-pu-extra').checked) types.push('extra');
+  if(document.getElementById('var-pu-trap').checked) types.push('trap');
+  if(document.getElementById('var-pu-shield').checked) types.push('shield');
+  if(document.getElementById('var-pu-time').checked) types.push('time');
+  const turbo = document.getElementById('var-turbo').checked;
+  const turboSecs = turbo ? Math.max(8, parseInt(document.getElementById('var-turbo-secs').value,10)||15) : null;
+  return {
+    dynamic: document.getElementById('var-dynamic').checked,
+    types, turbo, turboSecs,
+    mode: document.getElementById('var-mode').value,
+    fixedSize: parseInt(document.getElementById('var-size').value,10)
+  };
+}
+
+function buildVariantBoard(cfg){
+  let N, rows;
+  if(cfg.dynamic){ rows = randomValidBoard(); N = rows.length; }
+  else { N = cfg.fixedSize; rows = Array(N).fill(N); }
+  const powerups = cfg.types.length ? placeRandomPowerups(rows, N, cfg.types) : [];
+  return {N, rows, powerups};
 }
 
 function startVariantGame(){
-  const dynamic = document.getElementById('var-dynamic').checked;
-  const powerup = document.getElementById('var-powerup').checked;
-  const turbo = document.getElementById('var-turbo').checked;
-  const turboSecs = turbo ? Math.max(3, parseInt(document.getElementById('var-turbo-secs').value,10)||10) : null;
-  const mode = document.getElementById('var-mode').value;
-  const fixedSize = parseInt(document.getElementById('var-size').value,10);
-
-  let N, rows;
-  if(dynamic){
-    rows = randomValidBoard(fixedSize);
-    N = rows.length;
-  } else {
-    N = fixedSize;
-    rows = Array(N).fill(N);
+  const cfg = readVariantConfig();
+  const err = document.getElementById('var-error');
+  err.textContent = '';
+  if(cfg.types.includes('time') && !cfg.turbo){
+    err.textContent = 'Tidstyv krever at Turbo-modus (tidsur) er slått på.';
+    return;
   }
-
-  const powerupCount = 1 + (Math.random() < 0.5 ? 1 : 0); // 1 or 2
-  const powerups = powerup ? placeRandomPowerups(rows, N, powerupCount) : [];
-
+  const {N, rows, powerups} = buildVariantBoard(cfg);
+  if(cfg.mode === 'online'){ createVariantRoom(cfg, N, rows, powerups); return; }
   G = {
-    mode: mode === 'bot' ? 'bot' : 'local',
-    N, rows,
-    turn: 0,
-    winner: null,
-    log: [],
-    timerSeconds: turboSecs,
-    powerups,
-    difficulty: 'medium'
+    mode: cfg.mode === 'bot' ? 'bot' : 'local',
+    N, rows, turn: 0, winner: null, log: [],
+    timerSeconds: cfg.turbo ? cfg.turboSecs : null,
+    powerups, locks: [], skip: [false,false], timePenalty: [0,0],
+    difficulty: 'medium', variant: true
   };
   enterGameScreen();
+}
+
+async function createVariantRoom(cfg, N, rows, powerups){
+  const err = document.getElementById('var-error');
+  if(!storageAvailable()){
+    err.textContent = 'Online krever delt lagring (Claude-artifact eller Firebase satt opp i index.html).';
+    return;
+  }
+  const code = randCode();
+  const timerSecs = cfg.turbo ? cfg.turboSecs : null;
+  const state = {
+    N, rows, turn:0, players:[myClientId, null], winner:null, version:1, log:[],
+    timerSeconds: timerSecs, powerups, locks:[], skip:[false,false], timePenalty:[0,0],
+    variant:true, note:'', noteBy:''
+  };
+  try{
+    await window.storage.set('room:'+code, JSON.stringify(state), true);
+    ROOM = {code, myPlayerIndex:0};
+    G = {mode:'online', N, rows, turn:0, winner:null, log:[], timerSeconds: timerSecs,
+         powerups, locks:[], skip:[false,false], timePenalty:[0,0], variant:true};
+    lastKnownVersion = 1;
+    enterGameScreen();
+    document.getElementById('online-panel').classList.remove('hidden');
+    document.getElementById('side-room-code').textContent = code;
+    document.getElementById('room-code-mini').classList.remove('hidden');
+    document.getElementById('room-code-mini').textContent = 'Rom: '+code;
+    document.getElementById('online-status').textContent = 'Venter på at en venn blir med (Spill online → Bli med)...';
+    startPolling();
+  }catch(e){
+    console.error(e);
+    err.textContent = 'Kunne ikke opprette rom (' + (e && e.message ? e.message : 'ukjent feil') + ').';
+  }
 }
 
 /* ============ ANALYSIS MODE ============ */
@@ -1265,10 +1328,21 @@ function startBotGame(){
   if(G.turn === 1) setTimeout(botMove, 500);
 }
 
+function removesLocked(prevRows, m){
+  if(!G.locks || !G.locks.length) return false;
+  const rem = removedCells(prevRows, m, G.N);
+  return rem.some(rc => G.locks.some(l => l.r===rc.r && l.c===rc.c));
+}
+function legalMovesNow(){
+  const all = generateMoves(G.rows, G.N);
+  if(!G.locks || !G.locks.length) return all;
+  return all.filter(m => !removesLocked(G.rows, m));
+}
+
 function botMove(){
   if(G.winner !== null) return;
   const N = G.N;
-  const moves = generateMoves(G.rows, N);
+  const moves = legalMovesNow();
   if(moves.length === 0) return;
   let chosen;
   if(G.difficulty === 'easy'){
@@ -1286,6 +1360,7 @@ function botMove(){
       }
     }
   }
+  if(removesLocked(G.rows, chosen)) chosen = moves[Math.floor(Math.random()*moves.length)];
   applyMove(chosen, 'Boten');
 }
 
@@ -1297,6 +1372,11 @@ function requestHint(){
   setTimeout(() => {
     const N = G.N;
     const res = evaluatePosition(G.rows, N);
+    if(res.suggested && removesLocked(G.rows, res.suggested)){
+      const lm = legalMovesNow();
+      res.suggested = lm.length ? lm[Math.floor(Math.random()*lm.length)] : null;
+      res.exact = false; res.positionIsLost = null;
+    }
     const dirWord = m => m.axis === 'row' ? ('rad '+(m.index+1)+', bortover') : ('kolonne '+(m.index+1)+', nedover');
     if(!res.suggested){
       box.innerHTML = '<span class="hint-title">Ingen trekk igjen</span>Spillet er over.';
@@ -1407,7 +1487,8 @@ async function joinRoom(){
     state.version = (state.version||1) + 1;
     await window.storage.set('room:'+code, JSON.stringify(state), true);
     ROOM = {code, myPlayerIndex: myIndex};
-    G = {mode:'online', N: state.N, rows: state.rows, turn: state.turn, winner:null, log:[], timerSeconds: state.timerSeconds||null, powerups: []};
+    G = {mode:'online', N: state.N, rows: state.rows, turn: state.turn, winner:null, log:[], timerSeconds: state.timerSeconds||null,
+         powerups: state.powerups||[], locks: state.locks||[], skip: state.skip||[false,false], timePenalty: state.timePenalty||[0,0], variant: !!state.variant};
     enterGameScreen();
     document.getElementById('online-panel').classList.remove('hidden');
     document.getElementById('side-room-code').textContent = code;
@@ -1437,6 +1518,11 @@ async function pollRoom(){
       G.rows = state.rows;
       G.turn = state.turn;
       G.winner = state.winner;
+      G.powerups = state.powerups || [];
+      G.locks = state.locks || [];
+      G.skip = state.skip || [false,false];
+      G.timePenalty = state.timePenalty || [0,0];
+      if(state.note && state.noteBy !== myClientId) addLog(state.note);
       const online2 = state.players[0] && state.players[1];
       document.getElementById('online-status').textContent = online2 ? 'Begge spillere tilkoblet.' : 'Venter på at en venn blir med...';
       renderBoard();
@@ -1447,13 +1533,20 @@ async function pollRoom(){
   }catch(e){ /* ignore transient errors */ }
 }
 
-async function pushOnlineMove(newRows, newTurn, winner){
+async function pushOnlineMove(newRows, newTurn, winner, extras){
+  extras = extras || {powerups:G.powerups||[], locks:G.locks||[], skip:G.skip||[false,false], timePenalty:G.timePenalty||[0,0], note:G.lastNote||''};
   let res = null;
   try{ res = await window.storage.get('room:'+ROOM.code, true); }catch(e){ res = null; }
   const state = res ? JSON.parse(res.value) : {N:G.N, players:[myClientId,null]};
   state.rows = newRows;
   state.turn = newTurn;
   state.winner = winner;
+  state.powerups = extras.powerups;
+  state.locks = extras.locks;
+  state.skip = extras.skip;
+  state.timePenalty = extras.timePenalty;
+  state.note = extras.note;
+  state.noteBy = myClientId;
   state.version = (state.version||1) + 1;
   lastKnownVersion = state.version;
   await window.storage.set('room:'+ROOM.code, JSON.stringify(state), true);
@@ -1483,7 +1576,12 @@ function restartTurnTimer(){
     return;
   }
   pill.classList.remove('hidden');
-  timerDeadline = Date.now() + G.timerSeconds*1000;
+  let secs = G.timerSeconds;
+  if(G.timePenalty && G.timePenalty[G.turn] > 0){
+    secs = Math.max(3, secs - G.timePenalty[G.turn]);
+    G.timePenalty[G.turn] = 0;
+  }
+  timerDeadline = Date.now() + secs*1000;
   tickTimer();
   timerInterval = setInterval(tickTimer, 250);
 }
@@ -1495,7 +1593,7 @@ function tickTimer(){
   if(left <= 0){
     clearInterval(timerInterval); timerInterval = null;
     if(canIMove()){
-      const moves = generateMoves(G.rows, G.N);
+      const moves = legalMovesNow();
       if(moves.length){
         const m = moves[Math.floor(Math.random()*moves.length)];
         applyMove(m, playerLabel() + ' (tiden løp ut)');
@@ -1569,15 +1667,23 @@ function renderBoard(){
       const filled = c < G.rows[r];
       cell.className = 'cell ' + (filled ? 'filled' : 'empty');
       if(r===0 && c===0) cell.classList.add('corner-cell');
-      if(G.powerups && G.powerups.some(p=>p.r===r && p.c===c)){
-        cell.classList.add('powerup-cell');
-        cell.title = '⭐ Power-up: gir ekstra trekk';
-      } else if(r===0 && c===0){
+      const pu = (G.powerups||[]).find(p=>p.r===r && p.c===c);
+      const lockedHere = (G.locks||[]).find(l=>l.r===r && l.c===c);
+      if(pu && pu.type==='extra'){ cell.classList.add('powerup-cell'); cell.title='⭐ Ekstra trekk'; }
+      else if(pu && pu.type==='shield'){ cell.classList.add('pu-shield'); cell.title='🛡 Skjold: låser en pinne'; }
+      else if(pu && pu.type==='time'){ cell.classList.add('pu-time'); cell.title='⏳ Tidstyv: motstanderen får mindre tid'; }
+      // 'trap' (fellebrikke) vises ikke med vilje — den er kamuflert
+      if(lockedHere){ cell.classList.add('locked'); cell.title='🔒 Låst i '+lockedHere.turnsLeft+' trekk'; }
+      if(!pu && !lockedHere && r===0 && c===0){
         cell.title = 'Denne pinnen er alltid den siste som kan tas';
       }
       if(filled && interactive){
-        const rowLegal = c >= floorAt(G.rows, r);
-        const colLegal = r >= floorAt(colH, c);
+        let rowLegal = c >= floorAt(G.rows, r);
+        let colLegal = r >= floorAt(colH, c);
+        if(G.locks && G.locks.length){
+          if(rowLegal){ const nr=G.rows.slice(); nr[r]=c; if(removesLocked(G.rows,{axis:'row',index:r,value:c,rows:nr})) rowLegal=false; }
+          if(colLegal){ if(removesLocked(G.rows,{axis:'col',index:c,value:r,rows:G.rows})) colLegal=false; }
+        }
         if(rowLegal || colLegal){
           cell.classList.add('clickable');
           cell.addEventListener('click', () => onCellClick(r,c,rowLegal,colLegal));
@@ -1628,35 +1734,81 @@ function removedCells(prevRows, move, N){
 }
 
 function applyMove(move, label){
+  G.locks = G.locks || [];
+  G.skip = G.skip || [false,false];
+  G.timePenalty = G.timePenalty || [0,0];
   const prevRows = G.rows.slice();
   const takenCount = totalPieces(G.rows) - totalPieces(move.rows);
   const dirTxt = move.axis ? (move.axis === 'row' ? 'rad '+(move.index+1)+', bortover' : 'kolonne '+(move.index+1)+', nedover') : '';
+  const notes = [];
   addLog(`${label} tok ${takenCount} pinne(r)${dirTxt ? ' — '+dirTxt : ''}`);
 
-  let hitPowerup = false;
+  const mover = G.turn;
+  const other = 1 - mover;
+  const hits = [];
   if(G.powerups && G.powerups.length && move.axis){
     const removed = removedCells(prevRows, move, G.N);
     const stillThere = [];
     for(const p of G.powerups){
-      const wasRemoved = removed.some(rc => rc.r===p.r && rc.c===p.c);
-      if(wasRemoved) hitPowerup = true; else stillThere.push(p);
+      if(removed.some(rc => rc.r===p.r && rc.c===p.c)) hits.push(p.type); else stillThere.push(p);
     }
     G.powerups = stillThere;
   }
 
+  // tick down existing locks (one tick per move made)
+  G.locks = G.locks.map(l => ({...l, turnsLeft: l.turnsLeft-1})).filter(l => l.turnsLeft > 0);
+
   G.rows = move.rows;
-  const mover = G.turn;
   const finished = totalPieces(G.rows) === 0;
   const winner = finished ? mover : null;
-  G.turn = (hitPowerup && !finished) ? mover : 1 - mover;
+
+  let nextTurn = other;
+  if(!finished){
+    if(hits.includes('extra')){ nextTurn = mover; notes.push(`⭐ ${label} fikk ekstra trekk`); }
+    if(hits.includes('trap')){ G.skip[mover] = true; notes.push(`🪤 ${label} gikk i en felle og mister neste tur`); }
+    if(hits.includes('shield')){
+      const cells = [];
+      for(let r=0;r<G.N;r++) for(let c=0;c<G.rows[r];c++){
+        if(!G.locks.some(l=>l.r===r&&l.c===c) && !(r===0&&c===0)) cells.push({r,c});
+      }
+      if(cells.length){
+        const pick = cells[Math.floor(Math.random()*cells.length)];
+        const dur = 1 + Math.floor(Math.random()*3);
+        G.locks.push({r:pick.r, c:pick.c, turnsLeft:dur});
+        notes.push(`🛡 ${label} tok et skjold — en pinne er låst i ${dur} trekk`);
+      }
+    }
+    if(hits.includes('time') && G.timerSeconds){
+      const pen = 5 + Math.floor(Math.random()*6);
+      G.timePenalty[other] += pen;
+      notes.push(`⏳ ${label} stjal ${pen} sekunder av motstanderens neste tenketid`);
+    }
+    // skipped-turn resolution
+    if(G.skip[nextTurn]){
+      G.skip[nextTurn] = false;
+      notes.push(`⏭ Spiller ${nextTurn+1} hoppes over (felle)`);
+      nextTurn = 1 - nextTurn;
+    }
+  }
+  G.turn = nextTurn;
   G.winner = winner;
 
-  if(hitPowerup && !finished){
-    addLog(`⭐ ${label} fikk en power-up — trekker på nytt!`);
+  // if the player to move has no legal move (all remaining blocked by locks), pass
+  let guard = 0;
+  while(!finished && legalMovesNow().length === 0 && guard < 4){
+    notes.push(`Spiller ${G.turn+1} har ingen lovlige trekk (låste pinner) og passerer`);
+    G.locks = G.locks.map(l => ({...l, turnsLeft: l.turnsLeft-1})).filter(l => l.turnsLeft > 0);
+    G.turn = 1 - G.turn;
+    guard++;
   }
+  notes.forEach(n => addLog(n));
+  G.lastNote = notes.join(' · ');
 
   if(G.mode === 'online' || G.mode === 'ranked'){
-    pushOnlineMove(G.rows, G.turn, G.winner);
+    pushOnlineMove(G.rows, G.turn, G.winner, JSON.parse(JSON.stringify({
+      powerups: G.powerups||[], locks: G.locks||[], skip: G.skip||[false,false],
+      timePenalty: G.timePenalty||[0,0], note: G.lastNote||''
+    })));
   }
 
   renderBoard();
