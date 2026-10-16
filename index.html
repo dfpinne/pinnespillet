@@ -1,24 +1,47 @@
 <!DOCTYPE html>
 <html lang="no">
 <head>
-<link rel="icon" type="image/png" href="favicon.png">
-<meta name="description" content="Spill Pinnespillet online, mot bot, eller lokalt gratis på nett.">
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": "Pinnespillet",
-  "alternateName": "Pinnespillet på nett",
-  "url": "https://dfpinne.github.io/pinnespillet/"
-}
-</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pinnespillet</title>
+<title>Pinnespillet — strategispill for to spillere</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700;800&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<meta name="description" content="Pinnespillet er et gratis strategispill for to spillere: ta turvis pinner fra et brett og vær den som tar den siste. Spill lokalt, mot bot eller online med venner, og klatre på rangeringen.">
+<meta name="robots" content="index,follow">
+<meta name="application-name" content="Pinnespillet">
 <meta name="theme-color" content="#EFE8D7">
-<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Crect%20x='3'%20y='12'%20width='5'%20height='18'%20fill='%23C79B62'/%3E%3Ccircle%20cx='5.5'%20cy='10.5'%20r='4'%20fill='%23C2361F'/%3E%3Crect%20x='13.5'%20y='18'%20width='5'%20height='12'%20fill='%23C79B62'/%3E%3Ccircle%20cx='16'%20cy='16.5'%20r='4'%20fill='%23C2361F'/%3E%3Crect%20x='24'%20y='24'%20width='5'%20height='6'%20fill='%23C79B62'/%3E%3Ccircle%20cx='26.5'%20cy='22.5'%20r='4'%20fill='%23C2361F'/%3E%3C/svg%3E">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Pinnespillet">
+<meta property="og:title" content="Pinnespillet — strategispill for to spillere">
+<meta property="og:description" content="Pinnespillet er et gratis strategispill for to spillere: ta turvis pinner fra et brett og vær den som tar den siste. Spill lokalt, mot bot eller online med venner, og klatre på rangeringen.">
+<meta property="og:locale" content="nb_NO">
+<meta property="og:image" content="og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Pinnespillet — strategispill for to spillere">
+<meta name="twitter:description" content="Pinnespillet er et gratis strategispill for to spillere: ta turvis pinner fra et brett og vær den som tar den siste. Spill lokalt, mot bot eller online med venner, og klatre på rangeringen.">
+<link rel="icon" href="favicon.ico" sizes="48x48">
+<link rel="icon" type="image/svg+xml" href="favicon.svg" sizes="any">
+<link rel="icon" type="image/png" sizes="48x48" href="favicon-48.png">
+<link rel="icon" type="image/png" sizes="96x96" href="favicon-96.png">
+<link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<script>
+/* Absolutte adresser for canonical, og:url, og:image og strukturert data (nettstedsnavn i Google) settes ut fra
+   adressen siden faktisk ligger på, så ingenting må byttes manuelt. */
+(function(){
+  if(!/^https?:$/.test(location.protocol)) return;
+  var base = location.origin + location.pathname.replace(/[^\/]*$/, '');
+  function add(tag, attrs){ var el=document.createElement(tag); for(var k in attrs) el.setAttribute(k, attrs[k]); document.head.appendChild(el); }
+  add('link', {rel:'canonical', href:base});
+  add('meta', {property:'og:url', content:base});
+  var img = document.querySelector('meta[property="og:image"]'); if(img) img.setAttribute('content', base+'og-image.png');
+  var ld = document.createElement('script'); ld.type='application/ld+json';
+  ld.textContent = JSON.stringify({"@context":"https://schema.org","@type":"WebSite","name":"Pinnespillet","alternateName":"Pinnespill","url":base,"inLanguage":"nb"});
+  document.head.appendChild(ld);
+})();
+</script>
 <style>
   :root{
     --paper:#EFE8D7;
@@ -108,32 +131,19 @@
   .demo .board{--cs:34px; background:var(--table); border:1.5px solid var(--ink); padding:8px; flex:none; margin:0;}
   .demo figcaption{font-size:14.5px; color:var(--ink-3); max-width:24ch; line-height:1.4;}
   .modes{display:flex; flex-direction:column;}
-  .group{font:600 13px/1 var(--f-body); letter-spacing:.09em; text-transform:uppercase; color:var(--ink-3); margin:30px 0 10px; font-family:var(--f-body);}
-  .group:first-child{margin-top:0;}
   .mode{
     display:block; width:100%; text-align:left;
     background:none; border:0; border-bottom:1px solid var(--ink);
-    padding:13px 6px 13px 0; cursor:pointer; color:var(--ink); font:inherit;
+    padding:16px 6px 16px 0; cursor:pointer; color:var(--ink); font:inherit;
   }
-  .group + .mode{border-top:1px solid var(--ink);}
+  .modes .mode:first-child{border-top:1px solid var(--ink);}
   .mode-inner{display:flex; align-items:center; justify-content:space-between; gap:16px;}
   .mode-text{display:flex; flex-direction:column; gap:2px;}
-  .mode-name{font:700 23px/1.1 var(--f-display);}
+  .mode-name{font:700 26px/1.1 var(--f-display);}
   .mode-desc{color:var(--ink-2); font-size:15px; line-height:1.35;}
   .mode .ic{width:22px; height:22px;}
   .mode:hover{background:var(--paper-2);}
   .mode:hover .ic{color:var(--red);}
-  .mode.lead{padding:18px 6px 18px 18px; box-shadow:inset 5px 0 0 var(--red);}
-  .mode.lead .mode-name{font-size:34px; font-weight:800;}
-  .mode.lead .mode-desc{font-size:16px;}
-  .mode.quiet .mode-name{font-size:20px;}
-  .mode.quiet .mode-desc{font-size:14.5px; color:var(--ink-3);}
-  .mode.plain{border:0; padding:16px 0 0; display:inline-block; width:auto;}
-  .mode.plain .mode-inner{display:inline-flex; justify-content:flex-start; gap:8px;}
-  .mode.plain .mode-name{font:600 16px var(--f-body); text-decoration:underline; text-underline-offset:4px;}
-  .mode.plain .ic{width:18px;height:18px;}
-  .mode.plain:hover{background:none;}
-  .mode.plain:hover .mode-name{color:var(--red);}
 
   /* ---- ark (oppsett, innlogging, toppliste) ---- */
   .sheet{
@@ -309,8 +319,7 @@
     .brand h1{font-size:28px;}
     .screens{padding-top:28px;}
     .board-area{padding:16px 14px 20px;}
-    .mode.lead .mode-name{font-size:30px;}
-  }
+    }
 </style>
 </head>
 <body>
@@ -350,7 +359,7 @@
   <section id="screen-menu">
     <div class="intro">
       <h2 class="lede">Ta siste pinne — vinn</h2>
-      <p class="rules">Brettet er et kvadrat av pinner. Du kan ta så mange pinner du vil fra én rad (bortover) eller én kolonne (nedover), ingen pinne kan stå med tomrom over eller til venstre for seg. Den som tar siste pinne, vinner..</p>
+      <p class="rules">Klikk en pinne, den og alt til høyre eller under i raden i raden blir tatt. kan bare ta fra en rekke om gangen. Den som tar den siste pinnen vinner.</p>
       <figure class="demo" aria-hidden="true">
         <div class="board" style="grid-template-columns:repeat(5,auto);">
           <div class="cell filled"></div>
@@ -383,16 +392,13 @@
       </figure>
     </div>
     <nav class="modes" aria-label="Spillmodus">
-      <h3 class="group">Spill</h3>
-      <button class="mode lead" onclick="goTo('setup-local')"><span class="mode-inner"><span class="mode-text"><span class="mode-name">Lokalt — to spillere</span><span class="mode-desc">Del skjerm, bytt på trekk</span></span><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
-      <button class="mode lead" onclick="goTo('setup-bot')"><span class="mode-inner"><span class="mode-text"><span class="mode-name">Mot boten</span><span class="mode-desc">Lett, middels eller perfekt</span></span><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
+      <button class="mode" onclick="goTo('setup-local')"><span class="mode-inner"><span class="mode-text"><span class="mode-name">Lokalt — to spillere</span><span class="mode-desc">Del skjerm, bytt på trekk</span></span><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
+      <button class="mode" onclick="goTo('setup-bot')"><span class="mode-inner"><span class="mode-text"><span class="mode-name">Mot boten</span><span class="mode-desc">Lett, middels eller perfekt</span></span><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
       <button class="mode" onclick="goTo('setup-online')"><span class="mode-inner"><span class="mode-text"><span class="mode-name">Spill online</span><span class="mode-desc">Del en romkode med en venn</span></span><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
-      <h3 class="group">Rangert</h3>
       <button class="mode" onclick="onRankedClick()"><span class="mode-inner"><span class="mode-text"><span class="mode-name">Spill rangert</span><span class="mode-desc">Krever innlogging — påvirker Elo</span></span><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
-      <button class="mode plain" onclick="openLeaderboard()"><span class="mode-inner"><svg class="ic" aria-hidden="true"><use href="#i-trophy"/></svg><span class="mode-name">Se toppliste</span></span></button>
-      <h3 class="group">Utforsk</h3>
-      <button class="mode quiet" onclick="goTo('setup-analysis')"><span class="mode-inner"><span class="mode-text"><span class="mode-name">Analysemodus</span><span class="mode-desc">Sett opp en stilling, spill med hint</span></span><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
-      <button class="mode quiet" onclick="goTo('setup-variants')"><span class="mode-inner"><span class="mode-text"><span class="mode-name">Varianter</span><span class="mode-desc">Tilfeldig brett, power-ups, turbo</span></span><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
+      <button class="mode" onclick="goTo('setup-analysis')"><span class="mode-inner"><span class="mode-text"><span class="mode-name">Analysemodus</span><span class="mode-desc">Sett opp en stilling, spill med hint</span></span><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
+      <button class="mode" onclick="goTo('setup-variants')"><span class="mode-inner"><span class="mode-text"><span class="mode-name">Varianter</span><span class="mode-desc">Tilfeldig brett, power-ups, turbo</span></span><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
+      <button class="mode" onclick="openLeaderboard()"><span class="mode-inner"><span class="mode-text"><span class="mode-name">Se toppliste</span><span class="mode-desc">Rangering etter Elo</span></span><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
     </nav>
   </section>
 
@@ -633,7 +639,7 @@
         </section>
         <section class="panel">
           <h3>Hvordan spille</h3>
-          <p class="msg">Klikk en pinne, den og alt til høyre eller under i raden i raden blir tatt. kan bare ta fra en rekke om gangen. Den som tar den siste pinnen vinner.</p>
+          <p class="msg">Klikk en pinne — den og alt til høyre i raden blir tatt. Er det ikke lovlig i raden, tas den og alt nedover i kolonnen i stedet. Den som tar den siste pinnen vinner.</p>
         </section>
         <section class="panel">
           <h3>Trekkhistorikk</h3>
@@ -670,22 +676,23 @@
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
 <script>
 (function(){
-  // ---- LIM INN DIN EGEN KONFIGURASJON HER ----
+  // ---- DIN FIREBASE-KONFIGURASJON (satt inn) ----
   const firebaseConfig = {
-  apiKey: "AIzaSyBHPkKkkNT7QIa7l16Lfs9dEzEwqaZMFjg",
-  authDomain: "pinnespillet.firebaseapp.com",
-  projectId: "pinnespillet",
-  storageBucket: "pinnespillet.firebasestorage.app",
-  messagingSenderId: "838499154987",
-  appId: "1:838499154987:web:ce34b5fa0b22ddbad63e6e",
-  measurementId: "G-HZ7KKQTVT6"
-};
+    apiKey: "AIzaSyBHPkKkkNT7QIa7l16Lfs9dEzEwqaZMFjg",
+    authDomain: "pinnespillet.firebaseapp.com",
+    databaseURL: "https://pinnespillet-default-rtdb.firebaseio.com",
+    projectId: "pinnespillet",
+    storageBucket: "pinnespillet.firebasestorage.app",
+    messagingSenderId: "838499154987",
+    appId: "1:838499154987:web:ce34b5fa0b22ddbad63e6e",
+    measurementId: "G-HZ7KKQTVT6"
+  };
   // ---------------------------------------------
 
   // Gjør ingenting før du faktisk har limt inn din egen config over,
   // slik at appen fortsatt viser "delt lagring ikke tilgjengelig"
   // i stedet for å krasje, hvis du åpner filen uten å ha satt den opp.
-  if (firebaseConfig.apiKey === "LIM_INN_DIN_API_KEY_HER") return;
+  if (firebaseConfig.apiKey === "LIM_INN_DIN_API_KEY_HER" || typeof firebase === "undefined") return;
 
   firebase.initializeApp(firebaseConfig);
   const db = firebase.database();
@@ -980,7 +987,7 @@ async function writeSlot(val){
 async function onRankedClickInner(){
   if(!storageAvailable()){
     goTo('matchmaking');
-    document.getElementById('matchmaking-status').textContent = ';
+    document.getElementById('matchmaking-status').textContent = 'Rangert spill krever delt lagring, som bare finnes når dette kjører som et Claude-artifact. Det er ikke tilgjengelig i denne visningen.';
     return;
   }
   matchmakingCancelled = false;
@@ -1438,7 +1445,7 @@ function requestHint(){
       }
     } else {
       html += `<span class="hint-title">Sterkt trekk (søk, ikke bevist optimalt)</span>
-        Ta ${taken} pinne(r) fra ${dirWord(res.suggested)}. Brettet er for stort (over ${EXACT_LIMIT}×${EXACT_LIMIT}) til å analysere fullstendig i sanntid, så dette er det beste trekket et begrenset søk fant, ikke en garantert perfekt løsning.`;
+        Ta ${taken} pinne(r) fra ${dirWord(res.suggested)}. Brettet er for stort (over ${EXACT_LIMIT}×${EXACT_LIMIT}) til å analysere fullstendig i sanntid, så dette er det beste trekket et begrenset søk fant — ikke en garantert perfekt løsning.`;
     }
     html += `<div class="hint-actions">
       <button class="btn primary" onclick="applyHintMove()">Spill dette trekket</button>
