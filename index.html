@@ -42,6 +42,8 @@
   document.head.appendChild(ld);
 })();
 </script>
+<meta name="color-scheme" content="light dark">
+<script>(function(){try{var t=localStorage.getItem('pinne.theme');if(!t&&window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)t='dark';if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
 <style>
   :root{
     --paper:#EFE8D7;
@@ -84,7 +86,7 @@
   /* ---- toppfelt ---- */
   .masthead{
     position:relative;
-    display:flex; align-items:center; justify-content:space-between; gap:16px;
+    display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px 16px;
     padding:20px 0 14px;
     border-bottom:3px solid var(--ink);
     margin-bottom:8px;
@@ -293,7 +295,7 @@
   .fx-banner{
     display:flex; gap:14px; align-items:center;
     min-width:250px; max-width:92%;
-    background:var(--ink); color:var(--paper); border-top:6px solid var(--c);
+    background:#1E1C18; color:#EFE8D7; border-top:6px solid var(--c);
     padding:14px 22px 14px 18px; animation:fxin 2.6s ease forwards;
   }
   .fx-banner .ic{width:38px; height:38px; color:var(--c); stroke-width:1.6;}
@@ -317,28 +319,64 @@
   @media (max-width:560px){
     .app{padding:0 16px 56px;}
     .brand h1{font-size:28px;}
+    .tools{flex-wrap:wrap;}
     .screens{padding-top:28px;}
     .board-area{padding:16px 14px 20px;}
     }
+
+  /* ---- verktøylinje, språk, tema ---- */
+  .tools{display:flex; align-items:center; gap:10px; flex-wrap:nowrap; justify-content:flex-end;}
+  .tools > *{flex:0 0 auto;}
+  .tools{margin-left:auto;}
+  select.lang{min-width:104px;}
+  select.lang{width:auto; padding:6px 30px 6px 10px; font-size:14px;}
+  .icon-btn{padding:6px 9px;}
+  button:disabled{opacity:.55; cursor:default;}
+  button:disabled:hover{background:transparent; color:var(--ink);}
+
+  /* ---- nye kontroller rundt brettet ---- */
+  .actions{display:flex; gap:10px; flex-wrap:wrap; align-self:stretch;}
+  .actions:not(:has(.btn:not([style*="display: none"]))){display:none;}
+  .puzzle-info{width:100%; border-top:1.5px solid var(--ink); border-bottom:1px solid var(--hair); padding:10px 0 12px; display:flex; flex-direction:column; gap:8px;}
+  .pz-head{display:flex; gap:8px; align-items:center; flex-wrap:wrap; font:700 22px/1.1 var(--f-display);}
+  .pz-meta{font-size:14.5px; color:var(--ink-2);}
+  .pz-actions{display:flex; gap:8px; flex-wrap:wrap;}
+  .analysis-box{align-self:stretch; background:var(--paper-2); border:1.5px solid var(--ink); padding:16px 18px;}
+  .analysis-box h3{font-size:24px; margin-bottom:6px;}
+  .an-summary{font-weight:600; margin:6px 0 10px;}
+  .an-list{list-style:none; padding:0; margin:0; display:flex; flex-direction:column;}
+  .an-list li{padding:9px 0 9px 12px; border-top:1px solid var(--hair); border-left:4px solid var(--hair);}
+  .an-list li.an-best{border-left-color:var(--good);}
+  .an-list li.an-mistake{border-left-color:var(--red);}
+  .an-list li.an-lost{border-left-color:var(--ink-3);}
+  .an-line{display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap;}
+  .an-move{font-weight:600;}
+  .an-verdict{font-size:14px; color:var(--ink-2);}
+  .an-mistake .an-verdict{color:var(--red-ink); font-weight:600;}
+  .analysis-box details summary{cursor:pointer; color:var(--ink-2); font-size:14.5px; margin-top:4px;}
+  .an-boards{display:flex; gap:18px; flex-wrap:wrap; margin-top:8px;}
+  .an-boards figure{margin:0; display:flex; flex-direction:column; gap:4px; align-items:flex-start;}
+  .an-boards figcaption{font-size:13px; color:var(--ink-3);}
+  .board.mini{--cs:16px; background:var(--table); border:1px solid var(--ink); padding:4px; margin:0;}
+
+  /* ---- mørk modus ---- */
+  :root[data-theme="dark"]{
+    color-scheme:dark;
+    --paper:#1A1813; --paper-2:#24211A; --table:#2A261D;
+    --ink:#EDE6D3; --ink-2:#C9C1AD; --ink-3:#A39B87; --hair:#3D382C;
+    --red:#E2563C; --red-ink:#F08A74; --teal:#6FB0C8; --ochre:#E0A23A; --good:#7DB578;
+  }
+  :root[data-theme="dark"] select{
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23EDE6D3' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><path d='M6 9l6 6 6-6'/></svg>");
+  }
+  :root[data-theme="dark"] .cell.pu-shield{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236FB0C8' stroke-width='2.6' stroke-linejoin='round'><path d='M12 3l7 3v5c0 5-3 8.5-7 10-4-1.5-7-5-7-10V6z'/></svg>");}
+  :root[data-theme="dark"] .cell.pu-time{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23EDE6D3' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'><path d='M6 3h12M6 21h12M7 3v4l5 5-5 5v4M17 3v4l-5 5 5 5v4'/></svg>");}
+  :root[data-theme="dark"] .cell.locked{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236FB0C8' stroke-width='2.8' stroke-linecap='round' stroke-linejoin='round'><rect x='5' y='11' width='14' height='10' rx='1'/><path d='M8 11V8a4 4 0 0 1 8 0v3'/></svg>");}
+  :root[data-theme="dark"] .cell.clickable:hover{background-color:rgba(226,86,60,.18);}
 </style>
 </head>
 <body>
-<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
-  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></symbol>
-  <symbol id="i-back" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol>
-  <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3l2.8 5.9 6.2.8-4.6 4.3 1.2 6.3L12 17.3 6.4 20.3l1.2-6.3L3 9.7l6.2-.8z"/></symbol>
-  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 5-3 8.5-7 10-4-1.5-7-5-7-10V6z"/></symbol>
-  <symbol id="i-hourglass" viewBox="0 0 24 24"><path d="M6 3h12M6 21h12M7 3v4l5 5-5 5v4M17 3v4l-5 5 5 5v4"/></symbol>
-  <symbol id="i-trap" viewBox="0 0 24 24"><path d="M3 14c0-4 4-7 9-7s9 3 9 7M3 14l3 3 3-3 3 3 3-3 3 3 3-3"/></symbol>
-  <symbol id="i-skip" viewBox="0 0 24 24"><path d="M5 4l10 8-10 8zM19 5v14"/></symbol>
-  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="1"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></symbol>
-  <symbol id="i-trophy" viewBox="0 0 24 24"><path d="M8 4h8v5a4 4 0 0 1-8 0zM8 6H4v2a3 3 0 0 0 4 3M16 6h4v2a3 3 0 0 1-4 3M12 13v4M8 21h8M10 17h4"/></symbol>
-  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></symbol>
-  <symbol id="i-bulb" viewBox="0 0 24 24"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10.5c.7.7 1 1.5 1 2.5h6c0-1 .3-1.8 1-2.5A6 6 0 0 0 12 3z"/></symbol>
-  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
-  <symbol id="i-dice" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h.01M15 9h.01M9 15h.01M15 15h.01M12 12h.01"/></symbol>
-  <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></symbol>
-</defs></svg>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><symbol id="i-arrow" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></symbol><symbol id="i-back" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol><symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3l2.8 5.9 6.2.8-4.6 4.3 1.2 6.3L12 17.3 6.4 20.3l1.2-6.3L3 9.7l6.2-.8z"/></symbol><symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 5-3 8.5-7 10-4-1.5-7-5-7-10V6z"/></symbol><symbol id="i-hourglass" viewBox="0 0 24 24"><path d="M6 3h12M6 21h12M7 3v4l5 5-5 5v4M17 3v4l-5 5 5 5v4"/></symbol><symbol id="i-trap" viewBox="0 0 24 24"><path d="M3 14c0-4 4-7 9-7s9 3 9 7M3 14l3 3 3-3 3 3 3-3 3 3 3-3"/></symbol><symbol id="i-skip" viewBox="0 0 24 24"><path d="M5 4l10 8-10 8zM19 5v14"/></symbol><symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="1"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></symbol><symbol id="i-trophy" viewBox="0 0 24 24"><path d="M8 4h8v5a4 4 0 0 1-8 0zM8 6H4v2a3 3 0 0 0 4 3M16 6h4v2a3 3 0 0 1-4 3M12 13v4M8 21h8M10 17h4"/></symbol><symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></symbol><symbol id="i-bulb" viewBox="0 0 24 24"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10.5c.7.7 1 1.5 1 2.5h6c0-1 .3-1.8 1-2.5A6 6 0 0 0 12 3z"/></symbol><symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol><symbol id="i-dice" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h.01M15 9h.01M9 15h.01M15 15h.01M12 12h.01"/></symbol><symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></symbol><symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></symbol><symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol><symbol id="i-undo" viewBox="0 0 24 24"><path d="M9 14L4 9l5-5M4 9h10a6 6 0 0 1 0 12h-3"/></symbol><symbol id="i-rematch" viewBox="0 0 24 24"><path d="M3 12a9 9 0 0 1 15-6.7L21 8M21 3v5h-5M21 12a9 9 0 0 1-15 6.7L3 16M3 21v-5h5"/></symbol><symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-8M22 20H2"/></symbol></defs></svg>
 <div class="app">
 
   <header class="masthead">
@@ -350,7 +388,13 @@
       </svg>
       <h1>Pinnespillet</h1>
     </div>
-    <div id="account-bar"></div>
+    <div class="tools">
+      <select id="lang-select" class="lang" onchange="setLang(this.value)" aria-label="Språk" data-i18n-aria="lang_label">
+        <option value="nb">Norsk</option><option value="en">English</option><option value="es">Español</option>
+      </select>
+      <button class="btn sm icon-btn" id="theme-btn" onclick="toggleTheme()" aria-label="Bytt til mørk modus" data-i18n-aria="theme_to_dark"><svg class="ic" aria-hidden="true"><use href="#i-moon"/></svg></button>
+      <div id="account-bar"></div>
+    </div>
   </header>
 
   <main class="screens">
@@ -358,8 +402,8 @@
   <!-- SCREEN: MAIN MENU -->
   <section id="screen-menu">
     <div class="intro">
-      <h2 class="lede">Ta siste pinne — vinn</h2>
-      <p class="rules">Klikk en pinne, den og alt til høyre eller under i raden i raden blir tatt. kan bare ta fra en rekke om gangen. Den som tar den siste pinnen vinner.</p>
+      <h2 class="lede" data-i18n="lede">Ta siste pinne — vinn</h2>
+      <p class="rules" data-i18n="rules">Klikk en pinne, den og alt til høyre eller under i raden blir tatt. Du kan bare ta fra én rad om gangen. Den som tar den siste pinnen vinner.</p>
       <figure class="demo" aria-hidden="true">
         <div class="board" style="grid-template-columns:repeat(5,auto);">
           <div class="cell filled"></div>
@@ -388,40 +432,41 @@
           <div class="cell empty"></div>
           <div class="cell empty"></div>
         </div>
-        <figcaption>Eksempel: de to siste pinnene i rad 3 kan tas. Raden kan ikke bli kortere enn raden under.</figcaption>
+        <figcaption data-i18n="demo_caption">Eksempel: de to siste pinnene i rad 3 kan tas. Raden kan ikke bli kortere enn raden under.</figcaption>
       </figure>
     </div>
     <nav class="modes" aria-label="Spillmodus">
-      <button class="mode" onclick="goTo('setup-local')"><span class="mode-inner"><span class="mode-text"><span class="mode-name">Lokalt — to spillere</span><span class="mode-desc">Del skjerm, bytt på trekk</span></span><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
-      <button class="mode" onclick="goTo('setup-bot')"><span class="mode-inner"><span class="mode-text"><span class="mode-name">Mot boten</span><span class="mode-desc">Lett, middels eller perfekt</span></span><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
-      <button class="mode" onclick="goTo('setup-online')"><span class="mode-inner"><span class="mode-text"><span class="mode-name">Spill online</span><span class="mode-desc">Del en romkode med en venn</span></span><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
-      <button class="mode" onclick="onRankedClick()"><span class="mode-inner"><span class="mode-text"><span class="mode-name">Spill rangert</span><span class="mode-desc">Krever innlogging — påvirker Elo</span></span><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
-      <button class="mode" onclick="goTo('setup-analysis')"><span class="mode-inner"><span class="mode-text"><span class="mode-name">Analysemodus</span><span class="mode-desc">Sett opp en stilling, spill med hint</span></span><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
-      <button class="mode" onclick="goTo('setup-variants')"><span class="mode-inner"><span class="mode-text"><span class="mode-name">Varianter</span><span class="mode-desc">Tilfeldig brett, power-ups, turbo</span></span><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
-      <button class="mode" onclick="openLeaderboard()"><span class="mode-inner"><span class="mode-text"><span class="mode-name">Se toppliste</span><span class="mode-desc">Rangering etter Elo</span></span><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
+      <button class="mode" onclick="goTo('setup-local')"><span class="mode-inner"><span class="mode-text"><span class="mode-name" data-i18n="m_local_n">Lokalt — to spillere</span><span class="mode-desc" data-i18n="m_local_d">Del skjerm, bytt på trekk</span></span><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
+      <button class="mode" onclick="goTo('setup-bot')"><span class="mode-inner"><span class="mode-text"><span class="mode-name" data-i18n="m_bot_n">Mot boten</span><span class="mode-desc" data-i18n="m_bot_d">Lett, middels eller perfekt</span></span><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
+      <button class="mode" onclick="goTo('setup-online')"><span class="mode-inner"><span class="mode-text"><span class="mode-name" data-i18n="m_online_n">Spill online</span><span class="mode-desc" data-i18n="m_online_d">Del en romkode med en venn</span></span><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
+      <button class="mode" onclick="onRankedClick()"><span class="mode-inner"><span class="mode-text"><span class="mode-name" data-i18n="m_ranked_n">Spill rangert</span><span class="mode-desc" data-i18n="m_ranked_d">Krever innlogging — påvirker Elo</span></span><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
+      <button class="mode" onclick="startPuzzle('daily')"><span class="mode-inner"><span class="mode-text"><span class="mode-name" data-i18n="m_puzzle_n">Dagens oppgave</span><span class="mode-desc" data-i18n="m_puzzle_d">Finn vinnertrekket i en vanskelig stilling</span></span><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
+      <button class="mode" onclick="goTo('setup-analysis')"><span class="mode-inner"><span class="mode-text"><span class="mode-name" data-i18n="m_analysis_n">Analysemodus</span><span class="mode-desc" data-i18n="m_analysis_d">Sett opp en stilling, spill med hint</span></span><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
+      <button class="mode" onclick="goTo('setup-variants')"><span class="mode-inner"><span class="mode-text"><span class="mode-name" data-i18n="m_variants_n">Varianter</span><span class="mode-desc" data-i18n="m_variants_d">Tilfeldig brett, power-ups, turbo</span></span><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
+      <button class="mode" onclick="openLeaderboard()"><span class="mode-inner"><span class="mode-text"><span class="mode-name" data-i18n="m_leader_n">Se toppliste</span><span class="mode-desc" data-i18n="m_leader_d">Rangering etter Elo</span></span><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
     </nav>
   </section>
 
   <!-- SCREEN: AUTH -->
   <section id="screen-auth" class="hidden">
-    <button class="back-link" onclick="goTo('menu')"><svg class="ic" aria-hidden="true"><use href="#i-back"/></svg>tilbake</button>
+    <button class="back-link" onclick="goTo('menu')"><svg class="ic" aria-hidden="true"><use href="#i-back"/></svg><span data-i18n="back">tilbake</span></button>
     <div class="sheet">
       <div class="sheet-head">
-        <h2>Logg inn for rangert spill</h2>
-        <p class="msg">Dette er et enkelt kontosystem for gøy/rangert spilling mellom venner — ikke bruk et passord du bruker andre steder.</p>
+        <h2 data-i18n="auth_h">Logg inn for rangert spill</h2>
+        <p class="msg" data-i18n="auth_msg">Dette er et enkelt kontosystem for gøy/rangert spilling mellom venner — ikke bruk et passord du bruker andre steder.</p>
       </div>
       <div class="sheet-body">
         <div class="tabs">
-          <button class="tab-btn active" id="tab-login" onclick="setAuthTab('login')">Logg inn</button>
-          <button class="tab-btn" id="tab-register" onclick="setAuthTab('register')">Opprett konto</button>
+          <button class="tab-btn active" id="tab-login" onclick="setAuthTab('login')" data-i18n="tab_login">Logg inn</button>
+          <button class="tab-btn" id="tab-register" onclick="setAuthTab('register')" data-i18n="tab_register">Opprett konto</button>
         </div>
         <div class="field">
-          <label for="auth-username">Brukernavn</label>
-          <input type="text" id="auth-username" placeholder="brukernavn" autocomplete="username">
+          <label for="auth-username" data-i18n="username">Brukernavn</label>
+          <input type="text" id="auth-username" placeholder="brukernavn" data-i18n-ph="ph_username" autocomplete="username">
         </div>
         <div class="field">
-          <label for="auth-password">Passord</label>
-          <input type="password" id="auth-password" placeholder="passord" autocomplete="current-password">
+          <label for="auth-password" data-i18n="password">Passord</label>
+          <input type="password" id="auth-password" placeholder="passord" data-i18n-ph="ph_password" autocomplete="current-password">
         </div>
         <div class="auth-error" id="auth-error"></div>
         <div><button class="btn primary" id="auth-submit-btn" onclick="submitAuth()">Logg inn</button></div>
@@ -432,23 +477,21 @@
   <!-- SCREEN: MATCHMAKING -->
   <section id="screen-matchmaking" class="hidden">
     <div class="sheet">
-      <div class="sheet-head">
-        <h2>Søker rangert motstander...</h2>
-      </div>
+      <div class="sheet-head"><h2 data-i18n="mm_h">Søker rangert motstander...</h2></div>
       <div class="sheet-body">
         <p class="msg" id="matchmaking-status">Kobler til køen...</p>
         <div class="wait" id="matchmaking-dots"></div>
-        <p class="msg">Rangerte kamper spilles på fast 6×6-brett, for at Elo skal bety det samme for alle.</p>
-        <div><button class="btn" onclick="cancelMatchmaking()">Avbryt søk</button></div>
+        <p class="msg" data-i18n="mm_note">Rangerte kamper spilles på fast 6×6-brett, for at Elo skal bety det samme for alle.</p>
+        <div><button class="btn" onclick="cancelMatchmaking()" data-i18n="mm_cancel">Avbryt søk</button></div>
       </div>
     </div>
   </section>
 
   <!-- SCREEN: LEADERBOARD -->
   <section id="screen-leaderboard" class="hidden">
-    <button class="back-link" onclick="goTo('menu')"><svg class="ic" aria-hidden="true"><use href="#i-back"/></svg>tilbake</button>
+    <button class="back-link" onclick="goTo('menu')"><svg class="ic" aria-hidden="true"><use href="#i-back"/></svg><span data-i18n="back">tilbake</span></button>
     <div class="sheet">
-      <div class="sheet-head"><h2>Toppliste</h2></div>
+      <div class="sheet-head"><h2 data-i18n="lb_h">Toppliste</h2></div>
       <div class="sheet-body" style="max-width:none;">
         <div id="leaderboard-list"><p class="msg">Laster...</p></div>
       </div>
@@ -457,80 +500,80 @@
 
   <!-- SCREEN: SETUP LOCAL -->
   <section id="screen-setup-local" class="hidden">
-    <button class="back-link" onclick="goTo('menu')"><svg class="ic" aria-hidden="true"><use href="#i-back"/></svg>tilbake</button>
+    <button class="back-link" onclick="goTo('menu')"><svg class="ic" aria-hidden="true"><use href="#i-back"/></svg><span data-i18n="back">tilbake</span></button>
     <div class="sheet">
-      <div class="sheet-head"><h2>Lokalt spill</h2></div>
+      <div class="sheet-head"><h2 data-i18n="local_h">Lokalt spill</h2></div>
       <div class="sheet-body">
         <div>
-          <div class="label"><span>Brettstørrelse</span><span class="val" id="local-size-label">5×5</span></div>
+          <div class="label"><span data-i18n="board_size">Brettstørrelse</span><span class="val" id="local-size-label">5×5</span></div>
           <input type="range" min="3" max="20" value="5" id="local-size" oninput="document.getElementById('local-size-label').textContent = this.value+'×'+this.value">
         </div>
-        <label class="check"><input type="checkbox" id="local-timer-on" onchange="document.getElementById('local-timer-row').style.display=this.checked?'flex':'none';"><span><b>Bruk tidsur</b></span></label>
+        <label class="check"><input type="checkbox" id="local-timer-on" onchange="document.getElementById('local-timer-row').style.display=this.checked?'flex':'none';"><span><b><span data-i18n="use_timer">Bruk tidsur</span></b></span></label>
         <div class="inline" id="local-timer-row" style="display:none;">
-          <span class="label">Sekunder per trekk</span>
+          <span class="label" data-i18n="secs_per_move">Sekunder per trekk</span>
           <input type="number" class="num" id="local-timer-secs" value="20" min="5" max="120">
         </div>
-        <div><button class="btn primary" onclick="startLocalGame()">Start spillet</button></div>
+        <div><button class="btn primary" onclick="startLocalGame()" data-i18n="start_game">Start spillet</button></div>
       </div>
     </div>
   </section>
 
   <!-- SCREEN: SETUP BOT -->
   <section id="screen-setup-bot" class="hidden">
-    <button class="back-link" onclick="goTo('menu')"><svg class="ic" aria-hidden="true"><use href="#i-back"/></svg>tilbake</button>
+    <button class="back-link" onclick="goTo('menu')"><svg class="ic" aria-hidden="true"><use href="#i-back"/></svg><span data-i18n="back">tilbake</span></button>
     <div class="sheet">
-      <div class="sheet-head"><h2>Spill mot bot</h2></div>
+      <div class="sheet-head"><h2 data-i18n="bot_h">Spill mot bot</h2></div>
       <div class="sheet-body">
         <div>
-          <div class="label"><span>Brettstørrelse</span><span class="val" id="bot-size-label">5×5</span></div>
+          <div class="label"><span data-i18n="board_size">Brettstørrelse</span><span class="val" id="bot-size-label">5×5</span></div>
           <input type="range" min="3" max="20" value="5" id="bot-size" oninput="onBotSizeChange(this.value)">
         </div>
         <div>
-          <div class="label"><span>Vanskelighetsgrad</span></div>
+          <div class="label"><span data-i18n="difficulty">Vanskelighetsgrad</span></div>
           <select id="bot-difficulty">
-            <option value="easy">Lett — tilfeldige trekk</option>
-            <option value="medium" selected>Middels — blander godt og tilfeldig</option>
-            <option value="perfect" id="perfect-option">Perfekt — gjør alltid riktig trekk</option>
+            <option value="easy" data-i18n="diff_easy">Lett — tilfeldige trekk</option>
+            <option value="medium" selected data-i18n="diff_medium">Middels — blander godt og tilfeldig</option>
+            <option value="perfect" id="perfect-option" data-i18n="diff_perfect">Perfekt — gjør alltid riktig trekk</option>
           </select>
           <p class="msg" id="bot-size-note" style="margin-top:8px;"></p>
         </div>
         <div>
-          <div class="label"><span>Hvem begynner?</span></div>
+          <div class="label"><span data-i18n="who_starts">Hvem begynner?</span></div>
           <select id="bot-first">
-            <option value="you">Jeg begynner</option>
-            <option value="bot">Boten begynner</option>
+            <option value="you" data-i18n="starts_you">Jeg begynner</option>
+            <option value="bot" data-i18n="starts_bot">Boten begynner</option>
           </select>
         </div>
-        <div><button class="btn primary" onclick="startBotGame()">Start spillet</button></div>
+        <div><button class="btn primary" onclick="startBotGame()" data-i18n="start_game">Start spillet</button></div>
       </div>
     </div>
   </section>
 
   <!-- SCREEN: SETUP ONLINE -->
   <section id="screen-setup-online" class="hidden">
-    <button class="back-link" onclick="goTo('menu')"><svg class="ic" aria-hidden="true"><use href="#i-back"/></svg>tilbake</button>
+    <button class="back-link" onclick="goTo('menu')"><svg class="ic" aria-hidden="true"><use href="#i-back"/></svg><span data-i18n="back">tilbake</span></button>
     <div class="sheet">
       <div class="sheet-head">
-        <h2>Spill online</h2>
-        <p class="msg">Del denne siden (samme lenke) med en venn, og gi dem romkoden så blir dere koblet sammen automatisk.</p>
+        <h2 data-i18n="online_h">Spill online</h2>
+        <p class="msg" data-i18n="online_msg">Del denne siden (samme lenke) med en venn, og gi dem romkoden så blir dere koblet sammen automatisk.</p>
       </div>
       <div class="sheet-body">
         <div>
-          <div class="label"><span>Brettstørrelse for nytt rom</span><span class="val" id="online-size-label">5×5</span></div>
+          <div class="label"><span data-i18n="board_size_room">Brettstørrelse for nytt rom</span><span class="val" id="online-size-label">5×5</span></div>
           <input type="range" min="3" max="20" value="5" id="online-size" oninput="document.getElementById('online-size-label').textContent = this.value+'×'+this.value">
         </div>
-        <label class="check"><input type="checkbox" id="online-timer-on" onchange="document.getElementById('online-timer-row').style.display=this.checked?'flex':'none';"><span><b>Bruk tidsur</b></span></label>
+        <label class="check"><input type="checkbox" id="online-timer-on" onchange="document.getElementById('online-timer-row').style.display=this.checked?'flex':'none';"><span><b><span data-i18n="use_timer">Bruk tidsur</span></b></span></label>
         <div class="inline" id="online-timer-row" style="display:none;">
-          <span class="label">Sekunder per trekk</span>
+          <span class="label" data-i18n="secs_per_move">Sekunder per trekk</span>
           <input type="number" class="num" id="online-timer-secs" value="20" min="5" max="120">
         </div>
-        <div><button class="btn primary" onclick="createRoom()">Opprett nytt rom</button></div>
+        <div><button class="btn primary" onclick="createRoom()" data-i18n="create_room">Opprett nytt rom</button></div>
         <hr class="rule">
         <div>
-          <div class="label"><span>Har du en romkode?</span></div>
+          <div class="label"><span data-i18n="have_code">Har du en romkode?</span></div>
           <div class="row">
-            <input type="text" id="join-code" placeholder="F.EKS. 7QXA" maxlength="4" style="text-transform:uppercase;">
-            <button class="btn" onclick="joinRoom()">Bli med</button>
+            <input type="text" id="join-code" placeholder="F.EKS. 7QXA" data-i18n-ph="ph_code" maxlength="4" style="text-transform:uppercase;">
+            <button class="btn" onclick="joinRoom()" data-i18n="join">Bli med</button>
           </div>
         </div>
         <p id="online-msg" class="msg"></p>
@@ -540,112 +583,122 @@
 
   <!-- SCREEN: SETUP ANALYSIS -->
   <section id="screen-setup-analysis" class="hidden">
-    <button class="back-link" onclick="goTo('menu')"><svg class="ic" aria-hidden="true"><use href="#i-back"/></svg>tilbake</button>
+    <button class="back-link" onclick="goTo('menu')"><svg class="ic" aria-hidden="true"><use href="#i-back"/></svg><span data-i18n="back">tilbake</span></button>
     <div class="sheet">
       <div class="sheet-head">
-        <h2>Analysemodus</h2>
-        <p class="msg">Sett opp en hvilken som helst lovlig stilling og spill videre derfra — mot deg selv, med hint tilgjengelig hele tiden. Nyttig for å teste stillinger du har sett eller lurer på.</p>
+        <h2 data-i18n="analysis_h">Analysemodus</h2>
+        <p class="msg" data-i18n="analysis_msg">Sett opp en hvilken som helst lovlig stilling og spill videre derfra — mot deg selv, med hint tilgjengelig hele tiden. Nyttig for å teste stillinger du har sett eller lurer på.</p>
       </div>
       <div class="sheet-body">
         <div>
-          <div class="label"><span>Brettstørrelse</span><span class="val" id="analysis-size-label">5×5</span></div>
+          <div class="label"><span data-i18n="board_size">Brettstørrelse</span><span class="val" id="analysis-size-label">5×5</span></div>
           <input type="range" min="2" max="20" value="5" id="analysis-size" oninput="onAnalysisSizeChange(this.value)">
         </div>
         <div>
-          <div class="label"><span>Antall pinner i hver rad (rad 1 øverst). Hver rad må være ≤ raden over.</span></div>
+          <div class="label"><span data-i18n="rows_label">Antall pinner i hver rad (rad 1 øverst). Hver rad må være ≤ raden over.</span></div>
           <div id="analysis-row-inputs" style="display:flex; flex-direction:column; gap:8px;"></div>
         </div>
         <p class="error" id="analysis-error"></p>
         <div class="row">
-          <button class="btn" onclick="fillAnalysisFull()">Fyll brettet helt</button>
-          <button class="btn" onclick="fillAnalysisEmpty()">Tøm brettet</button>
+          <button class="btn" onclick="fillAnalysisFull()" data-i18n="fill_full">Fyll brettet helt</button>
+          <button class="btn" onclick="fillAnalysisEmpty()" data-i18n="clear_board">Tøm brettet</button>
         </div>
-        <div><button class="btn primary" onclick="startAnalysisGame()">Start analyse</button></div>
+        <div><button class="btn primary" onclick="startAnalysisGame()" data-i18n="start_analysis">Start analyse</button></div>
       </div>
     </div>
   </section>
 
   <!-- SETUP VARIANTS -->
   <section id="screen-setup-variants" class="hidden">
-    <button class="back-link" onclick="goTo('menu')"><svg class="ic" aria-hidden="true"><use href="#i-back"/></svg>tilbake</button>
+    <button class="back-link" onclick="goTo('menu')"><svg class="ic" aria-hidden="true"><use href="#i-back"/></svg><span data-i18n="back">tilbake</span></button>
     <div class="sheet">
       <div class="sheet-head">
-        <h2>Varianter</h2>
-        <p class="msg">Kryss av for de variantene du vil blande inn. Du kan kombinere hvilke som helst — alle kan være med i samme spill, men ingen må.</p>
+        <h2 data-i18n="variants_h">Varianter</h2>
+        <p class="msg" data-i18n="variants_msg">Kryss av for de variantene du vil blande inn. Du kan kombinere hvilke som helst — alle kan være med i samme spill, men ingen må.</p>
       </div>
       <div class="sheet-body">
-        <label class="check"><input type="checkbox" id="var-dynamic" onchange="document.getElementById('var-size-row').style.display=this.checked?'none':'block';"><span><b><svg class="ic" aria-hidden="true"><use href="#i-dice"/></svg> Dynamisk brett</b><small>komplekse, tilfeldige stillinger (5×5 til 10×10)</small></span></label>
+        <label class="check"><input type="checkbox" id="var-dynamic" onchange="document.getElementById('var-size-row').style.display=this.checked?'none':'block';"><span><b><svg class="ic" aria-hidden="true"><use href="#i-dice"/></svg> <span data-i18n="v_dynamic">Dynamisk brett</span></b><small data-i18n="v_dynamic_d">komplekse, tilfeldige stillinger (5×5 til 10×10)</small></span></label>
 
         <div class="opts">
-        <div class="opt-title">Power-ups (plasseres tilfeldig på brettet)</div>
-        <label class="check"><input type="checkbox" id="var-pu-extra"><span><b><svg class="ic tone-ochre" aria-hidden="true"><use href="#i-star"/></svg> Ekstra trekk</b><small>ta den, og du trekker på nytt</small></span></label>
-        <label class="check"><input type="checkbox" id="var-pu-trap"><span><b><svg class="ic tone-red" aria-hidden="true"><use href="#i-trap"/></svg> Fellebrikke</b><small>kamuflert! Den som tar den mister neste tur</small></span></label>
-        <label class="check"><input type="checkbox" id="var-pu-shield"><span><b><svg class="ic tone-teal" aria-hidden="true"><use href="#i-shield"/></svg> Skjold</b><small>ta den, og en tilfeldig pinne låses i 1–3 trekk</small></span></label>
-        <label class="check"><input type="checkbox" id="var-pu-time"><span><b><svg class="ic tone-ink" aria-hidden="true"><use href="#i-hourglass"/></svg> Tidstyv</b><small>motstanderen får 5–10 sek mindre tenketid (krever Turbo/tidsur)</small></span></label>
+        <div class="opt-title" data-i18n="v_powerups">Power-ups (plasseres tilfeldig på brettet)</div>
+        <label class="check"><input type="checkbox" id="var-pu-extra"><span><b><svg class="ic tone-ochre" aria-hidden="true"><use href="#i-star"/></svg> <span data-i18n="v_extra">Ekstra trekk</span></b><small data-i18n="v_extra_d">ta den, og du trekker på nytt</small></span></label>
+        <label class="check"><input type="checkbox" id="var-pu-trap"><span><b><svg class="ic tone-red" aria-hidden="true"><use href="#i-trap"/></svg> <span data-i18n="v_trap">Fellebrikke</span></b><small data-i18n="v_trap_d">kamuflert! Den som tar den mister neste tur</small></span></label>
+        <label class="check"><input type="checkbox" id="var-pu-shield"><span><b><svg class="ic tone-teal" aria-hidden="true"><use href="#i-shield"/></svg> <span data-i18n="v_shield">Skjold</span></b><small data-i18n="v_shield_d">ta den, og en tilfeldig pinne låses i 1–3 trekk</small></span></label>
+        <label class="check"><input type="checkbox" id="var-pu-time"><span><b><svg class="ic tone-ink" aria-hidden="true"><use href="#i-hourglass"/></svg> <span data-i18n="v_time">Tidstyv</span></b><small data-i18n="v_time_d">motstanderen får 5–10 sek mindre tenketid (krever Turbo/tidsur)</small></span></label>
         </div>
 
         <hr class="rule">
-        <label class="check"><input type="checkbox" id="var-turbo" onchange="document.getElementById('var-turbo-row').style.display=this.checked?'flex':'none';"><span><b><svg class="ic" aria-hidden="true"><use href="#i-bolt"/></svg> Turbo-modus</b><small>kort tid per trekk</small></span></label>
+        <label class="check"><input type="checkbox" id="var-turbo" onchange="document.getElementById('var-turbo-row').style.display=this.checked?'flex':'none';"><span><b><svg class="ic" aria-hidden="true"><use href="#i-bolt"/></svg> <span data-i18n="v_turbo">Turbo-modus</span></b><small data-i18n="v_turbo_d">kort tid per trekk</small></span></label>
         <div class="inline" id="var-turbo-row" style="display:none;">
-          <span class="label">Sekunder per trekk</span>
+          <span class="label" data-i18n="secs_per_move">Sekunder per trekk</span>
           <input type="number" class="num" id="var-turbo-secs" value="15" min="8" max="60">
         </div>
 
         <div id="var-size-row">
-          <div class="label"><span>Brettstørrelse</span><span class="val" id="var-size-label">5×5</span></div>
+          <div class="label"><span data-i18n="board_size">Brettstørrelse</span><span class="val" id="var-size-label">5×5</span></div>
           <input type="range" min="3" max="20" value="5" id="var-size" oninput="document.getElementById('var-size-label').textContent = this.value+'×'+this.value">
         </div>
 
         <div>
-          <div class="label"><span>Spillmodus</span></div>
+          <div class="label"><span data-i18n="game_mode">Spillmodus</span></div>
           <select id="var-mode">
-            <option value="local">Lokalt — to spillere</option>
-            <option value="bot">Mot bot (middels)</option>
-            <option value="online">Online — opprett rom for en venn</option>
+            <option value="local" data-i18n="vm_local">Lokalt — to spillere</option>
+            <option value="bot" data-i18n="vm_bot">Mot bot (middels)</option>
+            <option value="online" data-i18n="vm_online">Online — opprett rom for en venn</option>
           </select>
         </div>
         <p class="error" id="var-error"></p>
-        <div><button class="btn primary" onclick="startVariantGame()">Start spillet</button></div>
-        <p class="msg">Online: etter at du har opprettet rommet, blir vennen din med via «Spill online» → «Bli med» og romkoden.</p>
+        <div><button class="btn primary" onclick="startVariantGame()" data-i18n="start_game">Start spillet</button></div>
+        <p class="msg" data-i18n="v_online_note">Online: etter at du har opprettet rommet, blir vennen din med via «Spill online» → «Bli med» og romkoden.</p>
       </div>
     </div>
   </section>
 
   <!-- SCREEN: GAME -->
   <section id="screen-game" class="hidden">
-    <button class="back-link" onclick="leaveGame()"><svg class="ic" aria-hidden="true"><use href="#i-back"/></svg>avslutt spillet</button>
+    <button class="back-link" onclick="leaveGame()"><svg class="ic" aria-hidden="true"><use href="#i-back"/></svg><span data-i18n="back_end">avslutt spillet</span></button>
     <div class="game-wrap">
       <div class="board-area">
         <div class="status-bar">
           <div class="turn-pill" id="turn-pill"><span class="dot" style="background:var(--turn-me);"></span><span id="turn-text">Din tur</span></div>
           <div class="status-tags">
+            <div class="tag hidden" id="stake-pill"></div>
             <div class="tag hidden" id="effect-pill"></div>
             <div class="tag mono hidden" id="timer-pill"><svg class="ic" aria-hidden="true"><use href="#i-clock"/></svg><span id="timer-text">20</span>s</div>
             <div id="room-code-mini" class="hidden"></div>
           </div>
         </div>
+        <div id="puzzle-info" class="puzzle-info hidden"></div>
         <div id="board" class="board"></div>
         <div id="fx-layer" class="fx-layer"></div>
         <div id="move-confirm" class="hidden"></div>
-        <button class="btn" id="hint-btn" onclick="requestHint()" style="display:none;"><svg class="ic" aria-hidden="true"><use href="#i-bulb"/></svg> Vis hint</button>
+        <div class="actions">
+          <button class="btn" id="hint-btn" onclick="requestHint()" style="display:none;"><svg class="ic" aria-hidden="true"><use href="#i-bulb"/></svg> <span data-i18n="hint_btn">Vis hint</span></button>
+          <button class="btn" id="undo-btn" onclick="undoMove()" style="display:none;"><svg class="ic" aria-hidden="true"><use href="#i-undo"/></svg> <span data-i18n="undo">Angre trekk</span></button>
+        </div>
         <div id="hint-box" class="hidden"></div>
         <div id="winner-banner" class="winner-banner hidden"></div>
+        <div class="actions">
+          <button class="btn" id="rematch-btn" onclick="requestRematch()" style="display:none;"><svg class="ic" aria-hidden="true"><use href="#i-rematch"/></svg> <span id="rematch-label">Revansj</span></button>
+          <button class="btn" id="analyze-btn" onclick="analyzeGame()" style="display:none;"><svg class="ic" aria-hidden="true"><use href="#i-chart"/></svg> <span data-i18n="analyze_game">Analyser partiet</span></button>
+        </div>
+        <div id="analysis-box" class="analysis-box hidden"></div>
       </div>
       <aside class="side">
         <section class="panel hidden" id="online-panel">
-          <h3>Rom</h3>
+          <h3 data-i18n="room_h">Rom</h3>
           <div class="room-code" id="side-room-code"></div>
           <p class="msg" id="online-status"></p>
         </section>
         <section class="panel">
-          <h3>Hvordan spille</h3>
-          <p class="msg">Klikk en pinne — den og alt til høyre i raden blir tatt. Er det ikke lovlig i raden, tas den og alt nedover i kolonnen i stedet. Den som tar den siste pinnen vinner.</p>
+          <h3 data-i18n="how_h">Hvordan spille</h3>
+          <p class="msg" data-i18n="how_msg">Klikk en pinne — den og alt til høyre i raden blir tatt. Er det ikke lovlig i raden, tas den og alt nedover i kolonnen i stedet. Den som tar den siste pinnen vinner.</p>
         </section>
         <section class="panel">
-          <h3>Trekkhistorikk</h3>
+          <h3 data-i18n="log_h">Trekkhistorikk</h3>
           <div class="log" id="log"></div>
         </section>
-        <div><button class="btn" onclick="restartSameSetup()">Spill på nytt</button></div>
+        <div><button class="btn" id="restart-btn" onclick="restartSameSetup()"><span id="restart-label" data-i18n="play_again">Spill på nytt</span></button></div>
       </aside>
     </div>
   </section>
@@ -734,8 +787,60 @@
 </script>
 
 <script>
+
 /* ============ GAME ENGINE ============ */
 function icon(name, cls){ return '<svg class="ic' + (cls ? ' ' + cls : '') + '" aria-hidden="true"><use href="#i-' + name + '"/></svg>'; }
+
+/* ============ I18N, TEMA OG INNSTILLINGER ============ */
+const I18N = {"nb": {"doc_title": "Pinnespillet — strategispill for to spillere", "back": "tilbake", "back_end": "avslutt spillet", "theme_to_dark": "Bytt til mørk modus", "theme_to_light": "Bytt til lys modus", "lang_label": "Språk", "loading": "Laster...", "close": "Lukk", "start_game": "Start spillet", "unknown_err": "ukjent feil", "no_storage": "Delt lagring er ikke tilgjengelig her.", "you": "Du", "bot_name": "Boten", "opp_cap": "Motstanderen", "opp_low": "motstanderen", "player_n": "Spiller {n}", "lede": "Ta siste pinne — vinn", "rules": "Klikk en pinne, den og alt til høyre eller under i raden blir tatt. Du kan bare ta fra én rad om gangen. Den som tar den siste pinnen vinner.", "demo_caption": "Eksempel: de to siste pinnene i rad 3 kan tas. Raden kan ikke bli kortere enn raden under.", "m_local_n": "Lokalt — to spillere", "m_local_d": "Del skjerm, bytt på trekk", "m_bot_n": "Mot boten", "m_bot_d": "Lett, middels eller perfekt", "m_online_n": "Spill online", "m_online_d": "Del en romkode med en venn", "m_ranked_n": "Spill rangert", "m_ranked_d": "Krever innlogging — påvirker Elo", "m_puzzle_n": "Dagens oppgave", "m_puzzle_d": "Finn vinnertrekket i en vanskelig stilling", "m_analysis_n": "Analysemodus", "m_analysis_d": "Sett opp en stilling, spill med hint", "m_variants_n": "Varianter", "m_variants_d": "Tilfeldig brett, power-ups, turbo", "m_leader_n": "Se toppliste", "m_leader_d": "Rangering etter Elo", "auth_h": "Logg inn for rangert spill", "auth_msg": "Dette er et enkelt kontosystem for gøy/rangert spilling mellom venner — ikke bruk et passord du bruker andre steder.", "tab_login": "Logg inn", "tab_register": "Opprett konto", "username": "Brukernavn", "password": "Passord", "ph_username": "brukernavn", "ph_password": "passord", "auth_fill": "Fyll ut både brukernavn og passord.", "auth_badname": "Brukernavn: 2–20 tegn, ingen mellomrom.", "auth_taken": "Det brukernavnet er allerede tatt.", "auth_nouser": "Fant ingen konto med det brukernavnet.", "auth_badpass": "Feil passord.", "logout": "Logg ut", "mm_h": "Søker rangert motstander...", "mm_connect": "Kobler til køen...", "mm_note": "Rangerte kamper spilles på fast 6×6-brett, for at Elo skal bety det samme for alle.", "mm_cancel": "Avbryt søk", "mm_nostorage": "Rangert spill krever delt lagring, som bare finnes når dette kjører som et Claude-artifact. Det er ikke tilgjengelig i denne visningen.", "mm_looking": "Ser etter noen som venter...", "mm_waiting": "Venter på en motstander...", "lb_h": "Toppliste", "lb_none": "Ingen rangerte spillere ennå.", "lb_fail": "Kunne ikke laste topplisten akkurat nå.", "lb_rec": "({w}s / {l}t)", "board_size": "Brettstørrelse", "board_size_room": "Brettstørrelse for nytt rom", "use_timer": "Bruk tidsur", "secs_per_move": "Sekunder per trekk", "local_h": "Lokalt spill", "bot_h": "Spill mot bot", "difficulty": "Vanskelighetsgrad", "diff_easy": "Lett — tilfeldige trekk", "diff_medium": "Middels — blander godt og tilfeldig", "diff_perfect": "Perfekt — gjør alltid riktig trekk", "diff_strong": "Sterk — best mulig søk (ikke garantert perfekt over 11×11)", "bot_big_note": "Brett over 11×11 er for store til å analysere fullstendig i nettleseren. «Perfekt» og hint blir da et sterkt søk, ikke en garantert perfekt løsning.", "who_starts": "Hvem begynner?", "starts_you": "Jeg begynner", "starts_bot": "Boten begynner", "online_h": "Spill online", "online_msg": "Del denne siden (samme lenke) med en venn, og gi dem romkoden så blir dere koblet sammen automatisk.", "create_room": "Opprett nytt rom", "have_code": "Har du en romkode?", "ph_code": "F.EKS. 7QXA", "join": "Bli med", "analysis_h": "Analysemodus", "analysis_msg": "Sett opp en hvilken som helst lovlig stilling og spill videre derfra — mot deg selv, med hint tilgjengelig hele tiden. Nyttig for å teste stillinger du har sett eller lurer på.", "rows_label": "Antall pinner i hver rad (rad 1 øverst). Hver rad må være ≤ raden over.", "row_n": "Rad {n}", "row_err": "Rad {a} ({av}) kan ikke være kortere enn rad {b} ({bv}) — brettet må holde trappeformen.", "fill_full": "Fyll brettet helt", "clear_board": "Tøm brettet", "start_analysis": "Start analyse", "variants_h": "Varianter", "variants_msg": "Kryss av for de variantene du vil blande inn. Du kan kombinere hvilke som helst — alle kan være med i samme spill, men ingen må.", "v_dynamic": "Dynamisk brett", "v_dynamic_d": "komplekse, tilfeldige stillinger (5×5 til 10×10)", "v_powerups": "Power-ups (plasseres tilfeldig på brettet)", "v_extra": "Ekstra trekk", "v_extra_d": "ta den, og du trekker på nytt", "v_trap": "Fellebrikke", "v_trap_d": "kamuflert! Den som tar den mister neste tur", "v_shield": "Skjold", "v_shield_d": "ta den, og en tilfeldig pinne låses i 1–3 trekk", "v_time": "Tidstyv", "v_time_d": "motstanderen får 5–10 sek mindre tenketid (krever Turbo/tidsur)", "v_turbo": "Turbo-modus", "v_turbo_d": "kort tid per trekk", "game_mode": "Spillmodus", "vm_local": "Lokalt — to spillere", "vm_bot": "Mot bot (middels)", "vm_online": "Online — opprett rom for en venn", "v_online_note": "Online: etter at du har opprettet rommet, blir vennen din med via «Spill online» → «Bli med» og romkoden.", "v_time_err": "Tidstyv krever at Turbo-modus (tidsur) er slått på.", "v_online_nostorage": "Online krever delt lagring (Claude-artifact eller Firebase satt opp i index.html).", "online_nostorage": "Denne nettleseren/visningen støtter ikke delt lagring, så online-modus kan ikke brukes her. Prøv å åpne den publiserte lenken i en vanlig nettleserfane.", "room_fail": "Kunne ikke opprette rom ({err}). Prøv igjen.", "room_fail_v": "Kunne ikke opprette rom ({err}).", "enter_code": "Skriv inn en romkode.", "room_notfound_code": "Fant ikke det rommet. Sjekk at koden er riktig (4 tegn, store bokstaver/tall).", "room_notfound": "Fant ikke det rommet. Sjekk at koden er riktig.", "room_full": "Rommet er fullt.", "something_wrong": "Noe gikk galt ({err}). Prøv igjen.", "your_turn": "Din tur", "bot_thinking": "Boten tenker...", "waiting_opp": "Venter på motstanderen", "player_turn": "Spiller {n} sin tur", "named_turn": "{name} sin tur", "analysis_turn": "Analyse — trekk {n} sin tur", "you_won": "Du vant!", "bot_won": "Boten vant", "player_won": "Spiller {n} vant", "hint_btn": "Vis hint", "how_h": "Hvordan spille", "how_msg": "Klikk en pinne — den og alt til høyre i raden blir tatt. Er det ikke lovlig i raden, tas den og alt nedover i kolonnen i stedet. Den som tar den siste pinnen vinner.", "log_h": "Trekkhistorikk", "room_h": "Rom", "room_prefix": "Rom: {code}", "play_again": "Spill på nytt", "waiting_join": "Venter på at en venn blir med...", "waiting_join_v": "Venter på at en venn blir med (Spill online → Bli med)...", "connected": "Tilkoblet! Dere kan spille.", "both_connected": "Begge spillere tilkoblet.", "timeout_label": "{who} (tiden løp ut)", "mv_row": "rad {i}, bortover", "mv_col": "kolonne {i}, nedover", "log_took": "{who} tok {n} pinne(r) — {dir}", "log_took_nodir": "{who} tok {n} pinne(r)", "title_extra": "Ekstra trekk", "title_shield": "Skjold: låser en pinne", "title_time": "Tidstyv: motstanderen får mindre tid", "title_lock": "Låst i {n} trekk", "title_corner": "Denne pinnen er alltid den siste som kan tas", "fx_extra": "Ekstra trekk", "fx_trap": "Felle", "fx_shield": "Skjold", "fx_time": "Tidstyv", "fx_skip": "Hopper over", "fxt_extra": "{who} trekker på nytt", "fxt_trap": "{who} gikk i en felle og mister neste tur", "fxt_shield": "En pinne er låst i {n} trekk", "fxt_time": "{who} mister {n} sekunder tenketid", "fxt_skip": "{who} mister turen sin", "lg_extra": "{who} fikk ekstra trekk", "lg_trap": "{who} gikk i en felle og mister neste tur", "lg_shield": "{who} tok et skjold — en pinne er låst i {n} trekk", "lg_time": "{who} stjal {n} sekunder av motstanderens neste tenketid", "lg_skip": "{who} hoppes over (felle)", "lg_pass": "{who} har ingen lovlige trekk (låste pinner) og passerer", "win_bot_you": "Du tok siste pinne — du vant!", "win_bot_bot": "Boten tok siste pinne.", "win_opp_you": "Du tok siste pinne — du vant!", "win_opp": "Motstanderen tok siste pinne.", "win_ranked_you": "Du tok siste pinne — du vant mot {name}!", "win_ranked_opp": "{name} tok siste pinne.", "win_analysis": "Trekk {n} tok siste pinne — den som trakk den vinner herfra.", "win_local": "Spiller {n} tok siste pinne og vant!", "win_forfeit": "Motstanderen forlot partiet — du vant.", "lose_forfeit": "Partiet ble avsluttet fordi forbindelsen ble brutt — motstanderen vant.", "elo_label": "Elo", "stake_tag": "Innsats ×{n}", "hint_thinking": "Analyserer stillingen...", "hint_none_title": "Ingen trekk igjen", "hint_none": "Spillet er over.", "hint_lost_title": "Denne stillingen er faktisk tapt", "hint_lost_body": "Uansett hva du gjør herfra, kan motstanderen finne et vinnende svar — det finnes ikke noe trekk som garanterer seier. Her er et trekk uansett: ta {n} pinne(r) fra {dir}.", "hint_best_title": "Beste trekk (bevist optimalt)", "hint_best_body": "Ta {n} pinne(r) fra {dir}. Dette gjør stillingen tapt for motstanderen — uansett hva de svarer, finnes det et nytt trekk som holder dem i en taperstilling, helt til brettet er tomt.", "hint_strong_title": "Sterkt trekk (søk, ikke bevist optimalt)", "hint_strong_body": "Ta {n} pinne(r) fra {dir}. Brettet er for stort (over {lim}×{lim}) til å analysere fullstendig i sanntid, så dette er det beste trekket et begrenset søk fant — ikke en garantert perfekt løsning.", "play_this": "Spill dette trekket", "undo": "Angre trekk", "analyze_game": "Analyser partiet", "an_h": "Etteranalyse", "an_toolarge": "Etteranalyse krever brett på opptil {lim}×{lim}.", "an_variant": "Power-ups og låser er ikke med i analysen.", "an_none": "Ingen trekk å analysere.", "an_best": "Beste trekk — stillingen forble vunnet", "an_mistake": "Feil — en vunnet stilling gikk tapt", "an_lost": "Tapt stilling — ingen trekk kunne redde den", "an_clean": "Ingen feil — alle valg holdt stillingen vunnet.", "an_first": "Første feil: trekk {n} ({who}).", "an_count": "{n} feil totalt", "an_best_was": "Beste trekk var: ta {k} pinne(r) fra {dir}.", "an_before": "Stillingen", "an_played": "Spilt", "an_better": "Bedre", "an_show": "Vis stillingene", "an_move_line": "{n}. {who}: {dir} (−{k})", "pz_h": "Dagens oppgave", "pz_find": "Finn vinnertrekket", "pz_correct": "Riktig!", "pz_correct_body": "Stillingen du etterlot er tapt for motstanderen, uansett hva de gjør.", "pz_wrong_title": "Ikke helt", "pz_wrong": "Etter det trekket har motstanderen et vinnende svar. Prøv igjen.", "pz_counter_note": "Dette er et moteksempel: stillingen du etterlot er tapt, men «skrell av vinkelen»-regelen ville gitt en vunnet rest.", "pz_nibble_note": "Løsningen er å ta bare én pinne.", "pz_tag_counter": "Moteksempel", "pz_tag_nibble": "Bare én pinne", "pz_tag_many": "Mange fristelser", "pz_daily": "Dagens oppgave nr. {n}", "pz_random": "Ny tilfeldig oppgave", "pz_show": "Vis løsning", "pz_solution": "Løsning: ta {n} pinne(r) fra {dir}.", "pz_streak": "Rekke: {n} dag(er)", "pz_solved_today": "Løst i dag", "pz_attempts": "Forsøk: {n}", "pz_info": "{m} lovlige trekk — bare ett er riktig.", "pz_new": "Ny oppgave", "rematch": "Revansj", "rematch_double": "Revansj — dobbel eller ingenting", "rematch_wait": "Venter på motstanderen...", "rematch_log": "Revansj! Innsats ×{n}", "abandon_warn": "Motstanderen svarer ikke. Du vinner om {s} s hvis de ikke kommer tilbake.", "opp_won": "Motstanderen vant", "named_won": "{name} vant", "locked_n": "{n} låst", "pz_title_random": "Oppgave"}, "en": {"doc_title": "Pinnespillet — a two-player strategy game", "back": "back", "back_end": "leave game", "theme_to_dark": "Switch to dark mode", "theme_to_light": "Switch to light mode", "lang_label": "Language", "loading": "Loading...", "close": "Close", "start_game": "Start game", "unknown_err": "unknown error", "no_storage": "Shared storage is not available here.", "you": "You", "bot_name": "The bot", "opp_cap": "The opponent", "opp_low": "the opponent", "player_n": "Player {n}", "lede": "Take the last stick — win", "rules": "Click a stick: it and everything to its right or below it in the row is taken. You can only take from one row at a time. Whoever takes the last stick wins.", "demo_caption": "Example: the last two sticks in row 3 can be taken. A row can never become shorter than the row below it.", "m_local_n": "Local — two players", "m_local_d": "Share the screen, take turns", "m_bot_n": "Against the bot", "m_bot_d": "Easy, medium or perfect", "m_online_n": "Play online", "m_online_d": "Share a room code with a friend", "m_ranked_n": "Play ranked", "m_ranked_d": "Requires login — affects your Elo", "m_puzzle_n": "Daily puzzle", "m_puzzle_d": "Find the winning move in a tricky position", "m_analysis_n": "Analysis mode", "m_analysis_d": "Set up a position, play with hints", "m_variants_n": "Variants", "m_variants_d": "Random boards, power-ups, turbo", "m_leader_n": "View leaderboard", "m_leader_d": "Ranked by Elo", "auth_h": "Log in to play ranked", "auth_msg": "This is a simple account system for casual/ranked play between friends — do not use a password you use elsewhere.", "tab_login": "Log in", "tab_register": "Create account", "username": "Username", "password": "Password", "ph_username": "username", "ph_password": "password", "auth_fill": "Fill in both username and password.", "auth_badname": "Username: 2–20 characters, no spaces.", "auth_taken": "That username is already taken.", "auth_nouser": "No account found with that username.", "auth_badpass": "Wrong password.", "logout": "Log out", "mm_h": "Looking for a ranked opponent...", "mm_connect": "Connecting to the queue...", "mm_note": "Ranked games are played on a fixed 6×6 board so that Elo means the same for everyone.", "mm_cancel": "Cancel search", "mm_nostorage": "Ranked play needs shared storage, which only exists when this runs as a Claude artifact or with Firebase set up. It is not available in this view.", "mm_looking": "Looking for someone who is waiting...", "mm_waiting": "Waiting for an opponent...", "lb_h": "Leaderboard", "lb_none": "No ranked players yet.", "lb_fail": "Could not load the leaderboard right now.", "lb_rec": "({w}W / {l}L)", "board_size": "Board size", "board_size_room": "Board size for the new room", "use_timer": "Use a turn timer", "secs_per_move": "Seconds per move", "local_h": "Local game", "bot_h": "Play against the bot", "difficulty": "Difficulty", "diff_easy": "Easy — random moves", "diff_medium": "Medium — a mix of good and random", "diff_perfect": "Perfect — always plays the right move", "diff_strong": "Strong — best-effort search (not guaranteed perfect above 11×11)", "bot_big_note": "Boards above 11×11 are too large to analyse completely in the browser. \"Perfect\" and hints then become a strong search, not a guaranteed perfect solution.", "who_starts": "Who starts?", "starts_you": "I start", "starts_bot": "The bot starts", "online_h": "Play online", "online_msg": "Share this page (the same link) with a friend and give them the room code, and you will be connected automatically.", "create_room": "Create a new room", "have_code": "Have a room code?", "ph_code": "E.G. 7QXA", "join": "Join", "analysis_h": "Analysis mode", "analysis_msg": "Set up any legal position and play on from there — against yourself, with hints always available. Useful for testing positions you have seen or are wondering about.", "rows_label": "Number of sticks in each row (row 1 at the top). Each row must be ≤ the row above.", "row_n": "Row {n}", "row_err": "Row {a} ({av}) cannot be shorter than row {b} ({bv}) — the board must keep its staircase shape.", "fill_full": "Fill the board", "clear_board": "Clear the board", "start_analysis": "Start analysis", "variants_h": "Variants", "variants_msg": "Tick the variants you want to mix in. You can combine any of them — all can be in the same game, but none have to be.", "v_dynamic": "Dynamic board", "v_dynamic_d": "complex, random positions (5×5 to 10×10)", "v_powerups": "Power-ups (placed randomly on the board)", "v_extra": "Extra move", "v_extra_d": "take it and you move again", "v_trap": "Trap stick", "v_trap_d": "camouflaged! Whoever takes it loses their next turn", "v_shield": "Shield", "v_shield_d": "take it and a random stick is locked for 1–3 moves", "v_time": "Time thief", "v_time_d": "your opponent gets 5–10 s less thinking time (needs Turbo/timer)", "v_turbo": "Turbo mode", "v_turbo_d": "short time per move", "game_mode": "Game mode", "vm_local": "Local — two players", "vm_bot": "Against the bot (medium)", "vm_online": "Online — create a room for a friend", "v_online_note": "Online: once you have created the room, your friend joins via \"Play online\" → \"Join\" and the room code.", "v_time_err": "Time thief needs Turbo mode (timer) to be switched on.", "v_online_nostorage": "Online play needs shared storage (a Claude artifact, or Firebase set up in index.html).", "online_nostorage": "This browser/view does not support shared storage, so online mode cannot be used here. Try opening the published link in a normal browser tab.", "room_fail": "Could not create the room ({err}). Try again.", "room_fail_v": "Could not create the room ({err}).", "enter_code": "Enter a room code.", "room_notfound_code": "Room not found. Check that the code is correct (4 characters, capital letters/digits).", "room_notfound": "Room not found. Check that the code is correct.", "room_full": "The room is full.", "something_wrong": "Something went wrong ({err}). Try again.", "your_turn": "Your turn", "bot_thinking": "The bot is thinking...", "waiting_opp": "Waiting for the opponent", "player_turn": "Player {n}'s turn", "named_turn": "{name}'s turn", "analysis_turn": "Analysis — move {n}", "you_won": "You won!", "bot_won": "The bot won", "player_won": "Player {n} won", "hint_btn": "Show hint", "how_h": "How to play", "how_msg": "Click a stick — it and everything to its right in the row is taken. If that is not legal, it and everything below it in the column is taken instead. Whoever takes the last stick wins.", "log_h": "Move history", "room_h": "Room", "room_prefix": "Room: {code}", "play_again": "Play again", "waiting_join": "Waiting for a friend to join...", "waiting_join_v": "Waiting for a friend to join (Play online → Join)...", "connected": "Connected! You can play.", "both_connected": "Both players connected.", "timeout_label": "{who} (time ran out)", "mv_row": "row {i}, sideways", "mv_col": "column {i}, downwards", "log_took": "{who} took {n} stick(s) — {dir}", "log_took_nodir": "{who} took {n} stick(s)", "title_extra": "Extra move", "title_shield": "Shield: locks a stick", "title_time": "Time thief: the opponent gets less time", "title_lock": "Locked for {n} moves", "title_corner": "This stick is always the last one that can be taken", "fx_extra": "Extra move", "fx_trap": "Trap", "fx_shield": "Shield", "fx_time": "Time thief", "fx_skip": "Skipped", "fxt_extra": "{who} moves again", "fxt_trap": "{who} hit a trap and loses the next turn", "fxt_shield": "A stick is locked for {n} moves", "fxt_time": "{who} loses {n} seconds of thinking time", "fxt_skip": "{who} loses their turn", "lg_extra": "{who} got an extra move", "lg_trap": "{who} hit a trap and loses the next turn", "lg_shield": "{who} took a shield — a stick is locked for {n} moves", "lg_time": "{who} stole {n} seconds of the opponent's next thinking time", "lg_skip": "{who} is skipped (trap)", "lg_pass": "{who} has no legal moves (locked sticks) and passes", "win_bot_you": "You took the last stick — you won!", "win_bot_bot": "The bot took the last stick.", "win_opp_you": "You took the last stick — you won!", "win_opp": "The opponent took the last stick.", "win_ranked_you": "You took the last stick — you beat {name}!", "win_ranked_opp": "{name} took the last stick.", "win_analysis": "Move {n} took the last stick — whoever made it wins from here.", "win_local": "Player {n} took the last stick and won!", "win_forfeit": "The opponent left the game — you won.", "lose_forfeit": "The game ended because the connection was lost — the opponent won.", "elo_label": "Elo", "stake_tag": "Stake ×{n}", "hint_thinking": "Analysing the position...", "hint_none_title": "No moves left", "hint_none": "The game is over.", "hint_lost_title": "This position is actually lost", "hint_lost_body": "Whatever you do from here, the opponent can find a winning reply — no move guarantees a win. Here is a move anyway: take {n} stick(s) from {dir}.", "hint_best_title": "Best move (proven optimal)", "hint_best_body": "Take {n} stick(s) from {dir}. This makes the position lost for the opponent — whatever they reply, there is another move that keeps them in a losing position until the board is empty.", "hint_strong_title": "Strong move (search, not proven optimal)", "hint_strong_body": "Take {n} stick(s) from {dir}. The board is too large (above {lim}×{lim}) to analyse completely in real time, so this is the best move a limited search found — not a guaranteed perfect solution.", "play_this": "Play this move", "undo": "Undo move", "analyze_game": "Analyse the game", "an_h": "Post-game analysis", "an_toolarge": "Post-game analysis needs a board of at most {lim}×{lim}.", "an_variant": "Power-ups and locks are not included in the analysis.", "an_none": "No moves to analyse.", "an_best": "Best move — the position stayed won", "an_mistake": "Mistake — a won position was thrown away", "an_lost": "Lost position — no move could save it", "an_clean": "No mistakes — every choice kept the position won.", "an_first": "First mistake: move {n} ({who}).", "an_count": "{n} mistake(s) in total", "an_best_was": "The best move was: take {k} stick(s) from {dir}.", "an_before": "The position", "an_played": "Played", "an_better": "Better", "an_show": "Show the positions", "an_move_line": "{n}. {who}: {dir} (−{k})", "pz_h": "Daily puzzle", "pz_find": "Find the winning move", "pz_correct": "Correct!", "pz_correct_body": "The position you left is lost for your opponent, whatever they do.", "pz_wrong_title": "Not quite", "pz_wrong": "After that move your opponent has a winning reply. Try again.", "pz_counter_note": "This is a counterexample: the position you left is lost, but the \"peel off the hook\" rule would give a won remainder.", "pz_nibble_note": "The solution is to take just one stick.", "pz_tag_counter": "Counterexample", "pz_tag_nibble": "Just one stick", "pz_tag_many": "Many temptations", "pz_daily": "Daily puzzle no. {n}", "pz_random": "New random puzzle", "pz_show": "Show the solution", "pz_solution": "Solution: take {n} stick(s) from {dir}.", "pz_streak": "Streak: {n} day(s)", "pz_solved_today": "Solved today", "pz_attempts": "Attempts: {n}", "pz_info": "{m} legal moves — only one is right.", "pz_new": "New puzzle", "rematch": "Rematch", "rematch_double": "Rematch — double or nothing", "rematch_wait": "Waiting for the opponent...", "rematch_log": "Rematch! Stake ×{n}", "abandon_warn": "The opponent is not responding. You win in {s} s if they do not come back.", "opp_won": "The opponent won", "named_won": "{name} won", "locked_n": "{n} locked", "pz_title_random": "Puzzle"}, "es": {"doc_title": "Pinnespillet — juego de estrategia para dos jugadores", "back": "atrás", "back_end": "salir de la partida", "theme_to_dark": "Cambiar a modo oscuro", "theme_to_light": "Cambiar a modo claro", "lang_label": "Idioma", "loading": "Cargando...", "close": "Cerrar", "start_game": "Empezar partida", "unknown_err": "error desconocido", "no_storage": "El almacenamiento compartido no está disponible aquí.", "you": "Tú", "bot_name": "El bot", "opp_cap": "El oponente", "opp_low": "el oponente", "player_n": "Jugador {n}", "lede": "Quita el último palillo y gana", "rules": "Haz clic en un palillo: se quita él y todo lo que haya a su derecha o debajo en la fila. Solo puedes quitar de una fila a la vez. Gana quien quite el último palillo.", "demo_caption": "Ejemplo: se pueden quitar los dos últimos palillos de la fila 3. Una fila nunca puede quedar más corta que la de abajo.", "m_local_n": "Local — dos jugadores", "m_local_d": "Compartan la pantalla, por turnos", "m_bot_n": "Contra el bot", "m_bot_d": "Fácil, medio o perfecto", "m_online_n": "Jugar en línea", "m_online_d": "Comparte un código de sala con un amigo", "m_ranked_n": "Jugar clasificatoria", "m_ranked_d": "Requiere iniciar sesión — afecta a tu Elo", "m_puzzle_n": "Reto del día", "m_puzzle_d": "Encuentra la jugada ganadora en una posición difícil", "m_analysis_n": "Modo análisis", "m_analysis_d": "Crea una posición y juega con pistas", "m_variants_n": "Variantes", "m_variants_d": "Tableros aleatorios, potenciadores, turbo", "m_leader_n": "Ver clasificación", "m_leader_d": "Ordenada por Elo", "auth_h": "Inicia sesión para jugar clasificatoria", "auth_msg": "Es un sistema de cuentas sencillo para jugar entre amigos: no uses una contraseña que uses en otros sitios.", "tab_login": "Iniciar sesión", "tab_register": "Crear cuenta", "username": "Usuario", "password": "Contraseña", "ph_username": "usuario", "ph_password": "contraseña", "auth_fill": "Rellena el usuario y la contraseña.", "auth_badname": "Usuario: de 2 a 20 caracteres, sin espacios.", "auth_taken": "Ese usuario ya está en uso.", "auth_nouser": "No hay ninguna cuenta con ese usuario.", "auth_badpass": "Contraseña incorrecta.", "logout": "Cerrar sesión", "mm_h": "Buscando oponente clasificatorio...", "mm_connect": "Conectando a la cola...", "mm_note": "Las partidas clasificatorias se juegan en un tablero fijo de 6×6 para que el Elo signifique lo mismo para todos.", "mm_cancel": "Cancelar búsqueda", "mm_nostorage": "El juego clasificatorio necesita almacenamiento compartido, que solo existe como artefacto de Claude o con Firebase configurado. No está disponible en esta vista.", "mm_looking": "Buscando a alguien que espere...", "mm_waiting": "Esperando a un oponente...", "lb_h": "Clasificación", "lb_none": "Aún no hay jugadores clasificados.", "lb_fail": "No se pudo cargar la clasificación ahora mismo.", "lb_rec": "({w}G / {l}P)", "board_size": "Tamaño del tablero", "board_size_room": "Tamaño del tablero de la nueva sala", "use_timer": "Usar temporizador", "secs_per_move": "Segundos por jugada", "local_h": "Partida local", "bot_h": "Jugar contra el bot", "difficulty": "Dificultad", "diff_easy": "Fácil — jugadas al azar", "diff_medium": "Medio — mezcla de buenas y al azar", "diff_perfect": "Perfecto — siempre juega bien", "diff_strong": "Fuerte — mejor búsqueda posible (no perfecto por encima de 11×11)", "bot_big_note": "Los tableros de más de 11×11 son demasiado grandes para analizarlos por completo en el navegador. «Perfecto» y las pistas pasan a ser una búsqueda fuerte, no una solución perfecta garantizada.", "who_starts": "¿Quién empieza?", "starts_you": "Empiezo yo", "starts_bot": "Empieza el bot", "online_h": "Jugar en línea", "online_msg": "Comparte esta página (el mismo enlace) con un amigo y dale el código de sala: se conectarán automáticamente.", "create_room": "Crear sala nueva", "have_code": "¿Tienes un código de sala?", "ph_code": "P. EJ. 7QXA", "join": "Unirse", "analysis_h": "Modo análisis", "analysis_msg": "Crea cualquier posición legal y sigue jugando desde ahí, contra ti mismo y con pistas siempre disponibles. Útil para probar posiciones que has visto o que te generan dudas.", "rows_label": "Número de palillos en cada fila (la fila 1 arriba). Cada fila debe ser ≤ la de arriba.", "row_n": "Fila {n}", "row_err": "La fila {a} ({av}) no puede ser más corta que la fila {b} ({bv}): el tablero debe mantener la forma de escalera.", "fill_full": "Llenar el tablero", "clear_board": "Vaciar el tablero", "start_analysis": "Empezar análisis", "variants_h": "Variantes", "variants_msg": "Marca las variantes que quieras mezclar. Puedes combinar las que quieras: todas pueden estar en la misma partida, pero ninguna es obligatoria.", "v_dynamic": "Tablero dinámico", "v_dynamic_d": "posiciones complejas y aleatorias (de 5×5 a 10×10)", "v_powerups": "Potenciadores (colocados al azar en el tablero)", "v_extra": "Jugada extra", "v_extra_d": "tómalo y vuelves a jugar", "v_trap": "Palillo trampa", "v_trap_d": "¡camuflado! Quien lo coja pierde su próximo turno", "v_shield": "Escudo", "v_shield_d": "tómalo y un palillo al azar queda bloqueado de 1 a 3 jugadas", "v_time": "Ladrón de tiempo", "v_time_d": "tu oponente tiene de 5 a 10 s menos para pensar (requiere Turbo/temporizador)", "v_turbo": "Modo turbo", "v_turbo_d": "poco tiempo por jugada", "game_mode": "Modo de juego", "vm_local": "Local — dos jugadores", "vm_bot": "Contra el bot (medio)", "vm_online": "En línea — crear sala para un amigo", "v_online_note": "En línea: tras crear la sala, tu amigo se une desde «Jugar en línea» → «Unirse» con el código de sala.", "v_time_err": "El ladrón de tiempo requiere que el modo turbo (temporizador) esté activado.", "v_online_nostorage": "Jugar en línea requiere almacenamiento compartido (artefacto de Claude o Firebase configurado en index.html).", "online_nostorage": "Este navegador o vista no admite almacenamiento compartido, así que el modo en línea no se puede usar aquí. Prueba a abrir el enlace publicado en una pestaña normal.", "room_fail": "No se pudo crear la sala ({err}). Inténtalo de nuevo.", "room_fail_v": "No se pudo crear la sala ({err}).", "enter_code": "Escribe un código de sala.", "room_notfound_code": "No se encontró la sala. Comprueba el código (4 caracteres, mayúsculas/números).", "room_notfound": "No se encontró la sala. Comprueba el código.", "room_full": "La sala está llena.", "something_wrong": "Algo salió mal ({err}). Inténtalo de nuevo.", "your_turn": "Tu turno", "bot_thinking": "El bot está pensando...", "waiting_opp": "Esperando al oponente", "player_turn": "Turno del jugador {n}", "named_turn": "Turno de {name}", "analysis_turn": "Análisis — jugada {n}", "you_won": "¡Has ganado!", "bot_won": "Ganó el bot", "player_won": "Ganó el jugador {n}", "hint_btn": "Ver pista", "how_h": "Cómo jugar", "how_msg": "Haz clic en un palillo: se quita él y todo lo que está a su derecha en la fila. Si eso no es legal, se quita él y todo lo que hay debajo en la columna. Gana quien quite el último palillo.", "log_h": "Historial de jugadas", "room_h": "Sala", "room_prefix": "Sala: {code}", "play_again": "Jugar de nuevo", "waiting_join": "Esperando a que se una un amigo...", "waiting_join_v": "Esperando a que se una un amigo (Jugar en línea → Unirse)...", "connected": "¡Conectados! Ya pueden jugar.", "both_connected": "Ambos jugadores conectados.", "timeout_label": "{who} (se acabó el tiempo)", "mv_row": "fila {i}, hacia el lado", "mv_col": "columna {i}, hacia abajo", "log_took": "{who} quitó {n} palillo(s) — {dir}", "log_took_nodir": "{who} quitó {n} palillo(s)", "title_extra": "Jugada extra", "title_shield": "Escudo: bloquea un palillo", "title_time": "Ladrón de tiempo: el oponente tiene menos tiempo", "title_lock": "Bloqueado {n} jugadas", "title_corner": "Este palillo es siempre el último que se puede quitar", "fx_extra": "Jugada extra", "fx_trap": "Trampa", "fx_shield": "Escudo", "fx_time": "Ladrón de tiempo", "fx_skip": "Turno perdido", "fxt_extra": "{who} juega de nuevo", "fxt_trap": "{who} cayó en una trampa y pierde el próximo turno", "fxt_shield": "Un palillo queda bloqueado {n} jugadas", "fxt_time": "{who} pierde {n} segundos para pensar", "fxt_skip": "{who} pierde su turno", "lg_extra": "{who} consiguió una jugada extra", "lg_trap": "{who} cayó en una trampa y pierde el próximo turno", "lg_shield": "{who} cogió un escudo: un palillo queda bloqueado {n} jugadas", "lg_time": "{who} robó {n} segundos del próximo tiempo del oponente", "lg_skip": "{who} pierde el turno (trampa)", "lg_pass": "{who} no tiene jugadas legales (palillos bloqueados) y pasa", "win_bot_you": "Quitaste el último palillo: ¡has ganado!", "win_bot_bot": "El bot quitó el último palillo.", "win_opp_you": "Quitaste el último palillo: ¡has ganado!", "win_opp": "El oponente quitó el último palillo.", "win_ranked_you": "Quitaste el último palillo: ¡has ganado a {name}!", "win_ranked_opp": "{name} quitó el último palillo.", "win_analysis": "La jugada {n} quitó el último palillo: quien la hizo gana desde aquí.", "win_local": "¡El jugador {n} quitó el último palillo y ganó!", "win_forfeit": "El oponente abandonó la partida: has ganado.", "lose_forfeit": "La partida terminó porque se perdió la conexión: ganó el oponente.", "elo_label": "Elo", "stake_tag": "Apuesta ×{n}", "hint_thinking": "Analizando la posición...", "hint_none_title": "No quedan jugadas", "hint_none": "La partida ha terminado.", "hint_lost_title": "Esta posición está realmente perdida", "hint_lost_body": "Hagas lo que hagas, el oponente puede encontrar una respuesta ganadora: ninguna jugada garantiza la victoria. Aun así, aquí tienes una: quita {n} palillo(s) de {dir}.", "hint_best_title": "Mejor jugada (óptima demostrada)", "hint_best_body": "Quita {n} palillo(s) de {dir}. Esto deja la posición perdida para el oponente: responda lo que responda, habrá otra jugada que lo mantenga en una posición perdida hasta que el tablero quede vacío.", "hint_strong_title": "Jugada fuerte (búsqueda, no óptima demostrada)", "hint_strong_body": "Quita {n} palillo(s) de {dir}. El tablero es demasiado grande (más de {lim}×{lim}) para analizarlo por completo en tiempo real, así que esta es la mejor jugada que encontró una búsqueda limitada, no una solución perfecta garantizada.", "play_this": "Jugar esta jugada", "undo": "Deshacer jugada", "analyze_game": "Analizar la partida", "an_h": "Análisis posterior", "an_toolarge": "El análisis posterior requiere un tablero de como máximo {lim}×{lim}.", "an_variant": "Los potenciadores y los bloqueos no se incluyen en el análisis.", "an_none": "No hay jugadas que analizar.", "an_best": "Mejor jugada: la posición siguió ganada", "an_mistake": "Error: se perdió una posición ganada", "an_lost": "Posición perdida: ninguna jugada podía salvarla", "an_clean": "Sin errores: todas las elecciones mantuvieron la posición ganada.", "an_first": "Primer error: jugada {n} ({who}).", "an_count": "{n} error(es) en total", "an_best_was": "La mejor jugada era: quitar {k} palillo(s) de {dir}.", "an_before": "La posición", "an_played": "Jugada", "an_better": "Mejor", "an_show": "Ver las posiciones", "an_move_line": "{n}. {who}: {dir} (−{k})", "pz_h": "Reto del día", "pz_find": "Encuentra la jugada ganadora", "pz_correct": "¡Correcto!", "pz_correct_body": "La posición que dejaste está perdida para tu oponente, haga lo que haga.", "pz_wrong_title": "No del todo", "pz_wrong": "Tras esa jugada tu oponente tiene una respuesta ganadora. Inténtalo de nuevo.", "pz_counter_note": "Esto es un contraejemplo: la posición que dejaste está perdida, pero la regla de «quitar el ángulo» daría un resto ganado.", "pz_nibble_note": "La solución es quitar solo un palillo.", "pz_tag_counter": "Contraejemplo", "pz_tag_nibble": "Solo un palillo", "pz_tag_many": "Muchas tentaciones", "pz_daily": "Reto del día n.º {n}", "pz_random": "Nuevo reto al azar", "pz_show": "Ver la solución", "pz_solution": "Solución: quita {n} palillo(s) de {dir}.", "pz_streak": "Racha: {n} día(s)", "pz_solved_today": "Resuelto hoy", "pz_attempts": "Intentos: {n}", "pz_info": "{m} jugadas legales: solo una es correcta.", "pz_new": "Nuevo reto", "rematch": "Revancha", "rematch_double": "Revancha — doble o nada", "rematch_wait": "Esperando al oponente...", "rematch_log": "¡Revancha! Apuesta ×{n}", "abandon_warn": "El oponente no responde. Ganas en {s} s si no vuelve.", "opp_won": "Ganó el oponente", "named_won": "Ganó {name}", "locked_n": "{n} bloqueado(s)", "pz_title_random": "Reto"}};
+const PUZZLES = [{"r":[8,8,8,8,8,7,3,1],"tag":"counter","m":12},{"r":[8,6,5,5,5,5,4,2],"tag":"counter","m":11},{"r":[8,7,7,7,7,7,5,4],"tag":"counter","m":12},{"r":[8,6,6,2,2,2,2,1],"tag":"counter","m":12},{"r":[8,8,8,8,7,7,3],"tag":"nibble","m":12},{"r":[7,4,3,3,3,3,3],"tag":"counter","m":11},{"r":[7,7,7,5,5,1,1],"tag":"counter","m":11},{"r":[7,7,7,7,1,1,1],"tag":"counter","m":12},{"r":[8,8,8,3,3,3,1,1],"tag":"counter","m":13},{"r":[8,8,5,5,5,5,5,5],"tag":"counter","m":14},{"r":[8,8,5,4,4,4,4,1],"tag":"nibble","m":12},{"r":[8,7,7,6,6,6,6,4],"tag":"counter","m":12},{"r":[8,6,4,4,1,1,1,1],"tag":"nibble","m":12},{"r":[8,8,8,2,2,2,2,1],"tag":"many","m":13},{"r":[8,5,5,5,5,5,3,3],"tag":"counter","m":13},{"r":[8,8,7,7,6,2,1,1],"tag":"counter","m":11},{"r":[8,7,5,5,3,1,1,1],"tag":"counter","m":11},{"r":[7,7,7,4,4,4,4,3],"tag":"nibble","m":12},{"r":[7,7,7,7,6,3,3],"tag":"counter","m":11},{"r":[8,6,5,5,5,5,2,2],"tag":"nibble","m":12},{"r":[8,8,8,7,7,5,2,1],"tag":"counter","m":11},{"r":[7,7,7,7,7,7,5,1],"tag":"nibble","m":12},{"r":[8,5,5,5,3,2,2,1],"tag":"counter","m":11},{"r":[8,8,6,6,3,3,3,3],"tag":"many","m":13},{"r":[8,8,5,5,5,5,5,4],"tag":"counter","m":13},{"r":[8,8,8,8,8,7,4,4],"tag":"counter","m":13},{"r":[8,7,5,5,5,5,5,4],"tag":"counter","m":12},{"r":[8,8,5,5,5,5,4,3],"tag":"counter","m":12},{"r":[8,8,8,8,8,4,4],"tag":"nibble","m":13},{"r":[7,6,6,6,6,6,6,4],"tag":"nibble","m":12},{"r":[8,8,8,8,6,5,2,1],"tag":"counter","m":11},{"r":[8,8,8,8,8,7,7,7],"tag":"nibble","m":14},{"r":[8,6,6,2,1,1,1,1],"tag":"nibble","m":12},{"r":[8,8,8,8,8,6,6,2],"tag":"counter","m":13},{"r":[8,8,8,8,8,3,3],"tag":"many","m":13},{"r":[7,7,7,7,5,5,2],"tag":"counter","m":11},{"r":[8,8,8,8,6,2,2,2],"tag":"counter","m":13},{"r":[8,8,8,8,8,5,5],"tag":"many","m":13},{"r":[8,8,4,4,4,2,1,1],"tag":"counter","m":12},{"r":[8,3,3,3,3,3,3,3],"tag":"nibble","m":14},{"r":[8,8,5,5,5,5,4],"tag":"nibble","m":12},{"r":[8,7,5,5,5,5,3,3],"tag":"nibble","m":12},{"r":[8,6,6,3,3,3,3],"tag":"nibble","m":12},{"r":[8,7,7,7,7,7,3,3],"tag":"counter","m":13},{"r":[8,8,6,6,6,6,6],"tag":"many","m":13},{"r":[8,8,8,4,4,3,1,1],"tag":"nibble","m":12},{"r":[8,8,8,8,7,7,5,5],"tag":"many","m":13},{"r":[8,8,8,2,2,2,1,1],"tag":"many","m":13},{"r":[8,6,6,6,5,5,5,3],"tag":"counter","m":12},{"r":[8,5,5,4,4,2,2,1],"tag":"counter","m":11},{"r":[8,8,8,8,7,2,2,2],"tag":"counter","m":13},{"r":[8,8,8,8,8,8,2,1],"tag":"counter","m":13},{"r":[8,8,8,5,4,4,2,2],"tag":"nibble","m":12},{"r":[8,8,8,2,2,1,1,1],"tag":"counter","m":13},{"r":[7,7,6,6,6,6,1,1],"tag":"nibble","m":12},{"r":[8,8,7,6,6,6,6,3],"tag":"counter","m":12},{"r":[7,7,7,7,7,2,2,2],"tag":"many","m":13},{"r":[7,7,7,7,7,7,4,4],"tag":"many","m":13},{"r":[7,7,5,5,5,5,5,5],"tag":"many","m":13},{"r":[7,7,7,7,7,6,6,1],"tag":"nibble","m":12},{"r":[8,8,4,4,4,2,2],"tag":"nibble","m":12},{"r":[5,3,3,3,2],"tag":"nibble","m":7},{"r":[8,8,8,3,3,2,1,1],"tag":"counter","m":12},{"r":[8,8,7,7,3,3,3,3],"tag":"many","m":13},{"r":[8,6,6,3,3,3,3,3],"tag":"counter","m":13},{"r":[7,3,3,3,3,3,3],"tag":"nibble","m":12},{"r":[8,8,8,3,3,2,2,2],"tag":"many","m":13},{"r":[8,8,8,8,5,5,5],"tag":"many","m":13},{"r":[8,8,8,4,4,2,2,1],"tag":"nibble","m":12},{"r":[8,7,7,3,2,2,1,1],"tag":"counter","m":11},{"r":[8,5,5,5,5,5],"tag":"nibble","m":12},{"r":[8,6,5,5,5,5,5,5],"tag":"many","m":13},{"r":[8,8,8,8,8,2,2,2],"tag":"counter","m":14},{"r":[8,8,8,7,7,7,6,4],"tag":"counter","m":12},{"r":[8,7,4,4,4,4,4,4],"tag":"counter","m":13},{"r":[8,8,8,7,7,7,7,2],"tag":"counter","m":13},{"r":[8,8,7,7,7,7,6,1],"tag":"counter","m":12},{"r":[8,8,3,3,3,3,3,3],"tag":"many","m":14},{"r":[8,8,8,4,4,4,4,2],"tag":"many","m":13},{"r":[8,8,8,4,2,2,1,1],"tag":"nibble","m":12}];
+let LANG = 'nb';
+function lsGet(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } }
+function lsSet(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
+function t(key, p){
+  const d = I18N[LANG] || {};
+  let s = d[key];
+  if(s === undefined) s = (I18N.nb || {})[key];
+  if(s === undefined) return key;
+  if(p){ s = s.replace(/\{(\w+)\}/g, (m,k) => (p[k] !== undefined ? p[k] : m)); }
+  return s;
+}
+function updateAuthLabels(){
+  const b = document.getElementById('auth-submit-btn');
+  if(b) b.textContent = (typeof authMode !== 'undefined' && authMode === 'register') ? t('tab_register') : t('tab_login');
+}
+function applyLang(){
+  document.documentElement.lang = LANG === 'nb' ? 'no' : LANG;
+  document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = t(el.getAttribute('data-i18n')); });
+  document.querySelectorAll('[data-i18n-ph]').forEach(el => el.setAttribute('placeholder', t(el.getAttribute('data-i18n-ph'))));
+  document.querySelectorAll('[data-i18n-aria]').forEach(el => el.setAttribute('aria-label', t(el.getAttribute('data-i18n-aria'))));
+  const ls = document.getElementById('lang-select'); if(ls) ls.value = LANG;
+  document.title = t('doc_title');
+  updateAuthLabels(); renderAccountBar(); updateThemeButton();
+  const bs = document.getElementById('bot-size'); if(bs) onBotSizeChange(bs.value);
+  const an = document.getElementById('analysis-size'); if(an) onAnalysisSizeChange(an.value);
+  if(G){
+    renderBoard(); renderStatus();
+    if(G.mode === 'puzzle') renderPuzzleInfo();
+    else if(G.winner !== null) showWinner();
+  }
+}
+function setLang(l){ if(!I18N[l]) return; LANG = l; lsSet('pinne.lang', l); applyLang(); }
+function currentTheme(){ return document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light'; }
+function updateThemeButton(){
+  const b = document.getElementById('theme-btn'); if(!b) return;
+  const dark = currentTheme() === 'dark';
+  const key = dark ? 'theme_to_light' : 'theme_to_dark';
+  b.innerHTML = icon(dark ? 'sun' : 'moon');
+  b.setAttribute('data-i18n-aria', key); b.setAttribute('aria-label', t(key)); b.title = t(key);
+}
+function setTheme(th){
+  document.documentElement.setAttribute('data-theme', th);
+  lsSet('pinne.theme', th);
+  const m = document.querySelector('meta[name="theme-color"]'); if(m) m.setAttribute('content', th === 'dark' ? '#1A1813' : '#EFE8D7');
+  updateThemeButton();
+}
+function toggleTheme(){ setTheme(currentTheme() === 'dark' ? 'light' : 'dark'); }
 
 // state.rows: array length N, non-increasing, values 0..N (row lengths, row 0 = top)
 
@@ -874,11 +979,11 @@ function onBotSizeChange(val){
   const note = document.getElementById('bot-size-note');
   const perfOpt = document.getElementById('perfect-option');
   if(parseInt(val,10) > 11){
-    note.textContent = 'Brett over 11×11 er for store til å analysere fullstendig i nettleseren. "Perfekt" og hint blir da et sterkt søk, ikke en garantert perfekt løsning.';
-    perfOpt.textContent = 'Sterk — best mulig søk (ikke garantert perfekt over 11×11)';
+    note.textContent = t('bot_big_note');
+    perfOpt.textContent = t('diff_strong');
   } else {
     note.textContent = '';
-    perfOpt.textContent = 'Perfekt — gjør alltid riktig trekk';
+    perfOpt.textContent = t('diff_perfect');
   }
 }
 
@@ -896,18 +1001,18 @@ async function hashPassword(username, password){
 function renderAccountBar(){
   const bar = document.getElementById('account-bar');
   if(currentUser){
-    bar.innerHTML = `<span class="elo-badge">${icon('user')} ${escapeHtml(currentUser.username)} · Elo ${currentUser.elo}</span> <button class="btn ghost sm" onclick="logout()">Logg ut</button>`;
+    bar.innerHTML = `<span class="elo-badge">${icon('user')} ${escapeHtml(currentUser.username)} · ${t('elo_label')} ${currentUser.elo}</span> <button class="btn ghost sm" onclick="logout()">${t('logout')}</button>`;
   } else {
-    bar.innerHTML = `<button class="btn sm" onclick="goTo('auth'); afterLoginGoRanked=false;">Logg inn</button>`;
+    bar.innerHTML = `<button class="btn sm" onclick="goTo('auth'); afterLoginGoRanked=false;">${t('tab_login')}</button>`;
   }
 }
-function escapeHtml(s){ return s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function escapeHtml(s){ return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 
 function setAuthTab(mode){
   authMode = mode;
   document.getElementById('tab-login').classList.toggle('active', mode==='login');
   document.getElementById('tab-register').classList.toggle('active', mode==='register');
-  document.getElementById('auth-submit-btn').textContent = mode==='login' ? 'Logg inn' : 'Opprett konto';
+  updateAuthLabels();
   document.getElementById('auth-error').textContent = '';
 }
 
@@ -916,16 +1021,16 @@ async function submitAuth(){
   errEl.textContent = '';
   const username = document.getElementById('auth-username').value.trim();
   const password = document.getElementById('auth-password').value;
-  if(!username || !password){ errEl.textContent = 'Fyll ut både brukernavn og passord.'; return; }
-  if(!/^[a-zA-Z0-9_æøåÆØÅ]{2,20}$/.test(username)){ errEl.textContent = 'Brukernavn: 2–20 tegn, ingen mellomrom.'; return; }
-  if(!storageAvailable()){ errEl.textContent = 'Delt lagring er ikke tilgjengelig her.'; return; }
+  if(!username || !password){ errEl.textContent = t('auth_fill'); return; }
+  if(!/^[a-zA-Z0-9_æøåÆØÅ]{2,20}$/.test(username)){ errEl.textContent = t('auth_badname'); return; }
+  if(!storageAvailable()){ errEl.textContent = t('no_storage'); return; }
   const key = 'user:' + username.toLowerCase();
   const hash = await hashPassword(username, password);
 
   if(authMode === 'register'){
     let existing = null;
     try{ existing = await window.storage.get(key, true); }catch(e){ existing = null; }
-    if(existing){ errEl.textContent = 'Det brukernavnet er allerede tatt.'; return; }
+    if(existing){ errEl.textContent = t('auth_taken'); return; }
     const user = { username, passwordHash: hash, elo: 1200, games: 0, wins: 0, losses: 0 };
     await window.storage.set(key, JSON.stringify(user), true);
     currentUser = user;
@@ -933,9 +1038,9 @@ async function submitAuth(){
   } else {
     let existing = null;
     try{ existing = await window.storage.get(key, true); }catch(e){ existing = null; }
-    if(!existing){ errEl.textContent = 'Fant ingen konto med det brukernavnet.'; return; }
+    if(!existing){ errEl.textContent = t('auth_nouser'); return; }
     const user = JSON.parse(existing.value);
-    if(user.passwordHash !== hash){ errEl.textContent = 'Feil passord.'; return; }
+    if(user.passwordHash !== hash){ errEl.textContent = t('auth_badpass'); return; }
     currentUser = user;
     onLoggedIn();
   }
@@ -966,6 +1071,7 @@ function onRankedClick(){
    nearly the same moment. To survive that, a joiner CLAIMS the slot and then
    re-reads it to confirm the claim actually stuck before trusting it. */
 const RANKED_SIZE = 6;
+function rankedG(state){ return {mode:'ranked', N:state.N, rows:state.rows, turn:state.turn, winner:null, log:[], history:[], playerNames:state.playerNames, gameNo:1, stake:1}; }
 const SLOT_KEY = 'queue:ranked:slot';
 const SLOT_TTL = 60000;
 let matchmakingPoll = null;
@@ -987,13 +1093,13 @@ async function writeSlot(val){
 async function onRankedClickInner(){
   if(!storageAvailable()){
     goTo('matchmaking');
-    document.getElementById('matchmaking-status').textContent = 'Rangert spill krever delt lagring, som bare finnes når dette kjører som et Claude-artifact. Det er ikke tilgjengelig i denne visningen.';
+    document.getElementById('matchmaking-status').textContent = t('mm_nostorage');
     return;
   }
   matchmakingCancelled = false;
   matchmakingAttempts = 0;
   goTo('matchmaking');
-  document.getElementById('matchmaking-status').textContent = 'Ser etter noen som venter...';
+  document.getElementById('matchmaking-status').textContent = t('mm_looking');
   await tryFindOrHost();
 }
 
@@ -1023,7 +1129,7 @@ async function tryFindOrHost(){
         await window.storage.set('room:'+slot.roomCode, JSON.stringify(state), true);
         await writeSlot(null); // free the slot for the next pair of players
         ROOM = {code: slot.roomCode, myPlayerIndex: 1};
-        G = {mode:'ranked', N: state.N, rows: state.rows, turn: state.turn, winner:null, log:[], playerNames: state.playerNames};
+        G = rankedG(state); ROOM.joined = true;
         lastKnownVersion = state.version;
         enterGameScreen();
         startPolling();
@@ -1049,13 +1155,13 @@ async function hostAndWait(){
     N: RANKED_SIZE, rows: Array(RANKED_SIZE).fill(RANKED_SIZE), turn:0,
     players:[myClientId, null],
     playerNames:[currentUser.username, null],
-    winner:null, version:1, ranked:true, log:[]
+    winner:null, version:1, ranked:true, log:[], gameNo:1, stake:1, starter:0, hist:[]
   };
   await window.storage.set('room:'+code, JSON.stringify(state), true);
   ROOM = {code, myPlayerIndex:0};
   lastKnownVersion = 1;
   await writeSlot({username: currentUser.username, roomCode: code, ts: Date.now(), claimedBy:null});
-  document.getElementById('matchmaking-status').textContent = 'Venter på en motstander...';
+  document.getElementById('matchmaking-status').textContent = t('mm_waiting');
 
   matchmakingPoll = setInterval(async () => {
     if(matchmakingCancelled){ clearInterval(matchmakingPoll); return; }
@@ -1073,7 +1179,7 @@ async function hostAndWait(){
       if(state.players[1]){
         clearInterval(matchmakingPoll);
         await writeSlot(null);
-        G = {mode:'ranked', N: state.N, rows: state.rows, turn: state.turn, winner:null, log:[], playerNames: state.playerNames};
+        G = rankedG(state); ROOM.joined = true;
         lastKnownVersion = state.version;
         enterGameScreen();
         startPolling();
@@ -1106,7 +1212,7 @@ async function updateEloAfterRankedGame(iWon){
 
     const expectedMe = 1 / (1 + Math.pow(10, (opp.elo - me.elo)/400));
     const expectedOpp = 1 - expectedMe;
-    const K = 32;
+    const K = 32 * (G.stake || 1);
     const scoreMe = iWon ? 1 : 0;
     const scoreOpp = 1 - scoreMe;
     const newMeElo = Math.round(me.elo + K * (scoreMe - expectedMe));
@@ -1128,16 +1234,16 @@ async function updateEloAfterRankedGame(iWon){
 
     const banner = document.getElementById('winner-banner');
     const sign = delta >= 0 ? '+' : '';
-    banner.innerHTML += `<div style="margin-top:8px; font-size:15px;">Elo: ${sign}${delta} → <strong>${newMeElo}</strong></div>`;
+    G.eloHtml = `<div style="margin-top:8px; font-size:15px;">${t('elo_label')}: ${sign}${delta} → <strong>${newMeElo}</strong></div>`; banner.insertAdjacentHTML('beforeend', G.eloHtml);
   }catch(e){ console.error('Elo-oppdatering feilet:', e); }
 }
 
 async function openLeaderboard(){
   goTo('leaderboard');
   const list = document.getElementById('leaderboard-list');
-  list.innerHTML = '<p class="msg">Laster...</p>';
+  list.innerHTML = '<p class="msg">' + t('loading') + '</p>';
   if(!storageAvailable()){
-    list.innerHTML = '<p class="msg">Delt lagring er ikke tilgjengelig her.</p>';
+    list.innerHTML = '<p class="msg">' + t('no_storage') + '</p>';
     return;
   }
   try{
@@ -1152,16 +1258,16 @@ async function openLeaderboard(){
     }
     users.sort((a,b) => b.elo - a.elo);
     if(users.length === 0){
-      list.innerHTML = '<p class="msg">Ingen rangerte spillere ennå.</p>';
+      list.innerHTML = '<p class="msg">' + t('lb_none') + '</p>';
       return;
     }
     list.innerHTML = users.slice(0,20).map((u,i) => `
       <div class="leaderboard-row">
         <span><span class="rank">#${i+1}</span> ${escapeHtml(u.username)}</span>
-        <span class="elo">${u.elo} <span class="rec">(${u.wins||0}s / ${u.losses||0}t)</span></span>
+        <span class="elo">${u.elo} <span class="rec">${t('lb_rec',{w:u.wins||0,l:u.losses||0})}</span></span>
       </div>`).join('');
   }catch(e){
-    list.innerHTML = '<p class="msg">Kunne ikke laste topplisten akkurat nå.</p>';
+    list.innerHTML = '<p class="msg">' + t('lb_fail') + '</p>';
   }
 }
 
@@ -1182,7 +1288,7 @@ function startLocalGame(){
     winner: null,
     log: [],
     timerSeconds: timerSecs,
-    powerups: []
+    powerups: [], history: []
   };
   enterGameScreen();
 }
@@ -1252,17 +1358,21 @@ function startVariantGame(){
   const err = document.getElementById('var-error');
   err.textContent = '';
   if(cfg.types.includes('time') && !cfg.turbo){
-    err.textContent = 'Tidstyv krever at Turbo-modus (tidsur) er slått på.';
+    err.textContent = t('v_time_err');
     return;
   }
+  launchVariant(cfg);
+}
+
+function launchVariant(cfg){
   const {N, rows, powerups} = buildVariantBoard(cfg);
   if(cfg.mode === 'online'){ createVariantRoom(cfg, N, rows, powerups); return; }
   G = {
     mode: cfg.mode === 'bot' ? 'bot' : 'local',
-    N, rows, turn: 0, winner: null, log: [],
+    N, rows, turn: 0, winner: null, log: [], history: [],
     timerSeconds: cfg.turbo ? cfg.turboSecs : null,
     powerups, locks: [], skip: [false,false], timePenalty: [0,0],
-    difficulty: 'medium', variant: true
+    difficulty: 'medium', variant: true, variantCfg: cfg
   };
   enterGameScreen();
 }
@@ -1270,7 +1380,7 @@ function startVariantGame(){
 async function createVariantRoom(cfg, N, rows, powerups){
   const err = document.getElementById('var-error');
   if(!storageAvailable()){
-    err.textContent = 'Online krever delt lagring (Claude-artifact eller Firebase satt opp i index.html).';
+    err.textContent = t('v_online_nostorage');
     return;
   }
   const code = randCode();
@@ -1278,24 +1388,25 @@ async function createVariantRoom(cfg, N, rows, powerups){
   const state = {
     N, rows, turn:0, players:[myClientId, null], winner:null, version:1, log:[],
     timerSeconds: timerSecs, powerups, locks:[], skip:[false,false], timePenalty:[0,0],
-    variant:true, note:'', noteBy:''
+    variant:true, note:'', noteBy:'', vcfg: Object.assign({}, cfg, {mode:'online'}),
+    gameNo:1, stake:1, starter:0, hist:[]
   };
   try{
     await window.storage.set('room:'+code, JSON.stringify(state), true);
     ROOM = {code, myPlayerIndex:0};
-    G = {mode:'online', N, rows, turn:0, winner:null, log:[], timerSeconds: timerSecs,
-         powerups, locks:[], skip:[false,false], timePenalty:[0,0], variant:true};
+    G = {mode:'online', N, rows, turn:0, winner:null, log:[], history:[], timerSeconds: timerSecs,
+         powerups, locks:[], skip:[false,false], timePenalty:[0,0], variant:true, gameNo:1, stake:1};
     lastKnownVersion = 1;
     enterGameScreen();
     document.getElementById('online-panel').classList.remove('hidden');
     document.getElementById('side-room-code').textContent = code;
     document.getElementById('room-code-mini').classList.remove('hidden');
-    document.getElementById('room-code-mini').textContent = 'Rom: '+code;
-    document.getElementById('online-status').textContent = 'Venter på at en venn blir med (Spill online → Bli med)...';
+    document.getElementById('room-code-mini').textContent = t('room_prefix',{code});
+    document.getElementById('online-status').textContent = t('waiting_join_v');
     startPolling();
   }catch(e){
     console.error(e);
-    err.textContent = 'Kunne ikke opprette rom (' + (e && e.message ? e.message : 'ukjent feil') + ').';
+    err.textContent = t('room_fail_v',{err: (e && e.message ? e.message : t('unknown_err'))});
   }
 }
 
@@ -1311,7 +1422,7 @@ function onAnalysisSizeChange(val){
     const row = document.createElement('div');
     row.className = 'row';
     const defaultVal = i < old.length ? Math.min(old[i], N) : N;
-    row.innerHTML = `<span class="rowlabel">Rad ${i+1}</span>
+    row.innerHTML = `<span class="rowlabel">${t('row_n',{n:i+1})}</span>
       <input type="number" class="num" min="0" max="${N}" value="${defaultVal}" id="arow-${i}" oninput="validateAnalysisRows()">`;
     box.appendChild(row);
   }
@@ -1333,7 +1444,7 @@ function validateAnalysisRows(){
   let err = '';
   for(let i=0;i<rows.length-1;i++){
     if(rows[i] < rows[i+1]){
-      err = `Rad ${i+1} (${rows[i]}) kan ikke være kortere enn rad ${i+2} (${rows[i+1]}) — brettet må holde trappeformen.`;
+      err = t('row_err',{a:i+1, av:rows[i], b:i+2, bv:rows[i+1]});
       break;
     }
   }
@@ -1358,7 +1469,7 @@ function startAnalysisGame(){
   const rows = readAnalysisRows();
   G = {
     mode:'analysis', N,
-    rows, turn: 0, winner: null, log: []
+    rows, turn: 0, winner: null, log: [], history: [], undo: []
   };
   enterGameScreen();
 }
@@ -1373,7 +1484,7 @@ function startBotGame(){
     rows: Array(N).fill(N),
     turn: botFirst ? 1 : 0, // player=0, bot=1
     winner: null,
-    log: []
+    log: [], history: []
   };
   enterGameScreen();
   if(G.turn === 1) setTimeout(botMove, 500);
@@ -1412,13 +1523,13 @@ function botMove(){
     }
   }
   if(removesLocked(G.rows, chosen)) chosen = moves[Math.floor(Math.random()*moves.length)];
-  applyMove(chosen, 'Boten');
+  applyMove(chosen, whoName(1));
 }
 
 function requestHint(){
   const box = document.getElementById('hint-box');
   box.classList.remove('hidden');
-  box.innerHTML = '<span class="thinking">Analyserer stillingen...</span>';
+  box.innerHTML = '<span class="thinking">' + t('hint_thinking') + '</span>';
   // tiny delay so the "thinking" message actually paints before a heavy synchronous computation
   setTimeout(() => {
     const N = G.N;
@@ -1428,28 +1539,25 @@ function requestHint(){
       res.suggested = lm.length ? lm[Math.floor(Math.random()*lm.length)] : null;
       res.exact = false; res.positionIsLost = null;
     }
-    const dirWord = m => m.axis === 'row' ? ('rad '+(m.index+1)+', bortover') : ('kolonne '+(m.index+1)+', nedover');
     if(!res.suggested){
-      box.innerHTML = '<span class="hint-title">Ingen trekk igjen</span>Spillet er over.';
+      box.innerHTML = '<span class="hint-title">' + t('hint_none_title') + '</span>' + t('hint_none');
       return;
     }
     const taken = totalPieces(G.rows) - totalPieces(res.suggested.rows);
+    const dir = dirText(res.suggested.axis, res.suggested.index);
     let html = '';
     if(res.exact){
       if(res.positionIsLost){
-        html += `<span class="hint-title">Denne stillingen er faktisk tapt</span>
-          Uansett hva du gjør herfra, kan motstanderen finne et vinnende svar — det finnes ikke noe trekk som garanterer seier. Her er et trekk uansett: ta ${taken} pinne(r) fra ${dirWord(res.suggested)}.`;
+        html += `<span class="hint-title">${t('hint_lost_title')}</span>${t('hint_lost_body',{n:taken, dir})}`;
       } else {
-        html += `<span class="hint-title">Beste trekk (bevist optimalt)</span>
-          Ta ${taken} pinne(r) fra ${dirWord(res.suggested)}. Dette gjør stillingen tapt for motstanderen — uansett hva de svarer, finnes det et nytt trekk som holder dem i en taperstilling, helt til brettet er tomt.`;
+        html += `<span class="hint-title">${t('hint_best_title')}</span>${t('hint_best_body',{n:taken, dir})}`;
       }
     } else {
-      html += `<span class="hint-title">Sterkt trekk (søk, ikke bevist optimalt)</span>
-        Ta ${taken} pinne(r) fra ${dirWord(res.suggested)}. Brettet er for stort (over ${EXACT_LIMIT}×${EXACT_LIMIT}) til å analysere fullstendig i sanntid, så dette er det beste trekket et begrenset søk fant — ikke en garantert perfekt løsning.`;
+      html += `<span class="hint-title">${t('hint_strong_title')}</span>${t('hint_strong_body',{n:taken, dir, lim:EXACT_LIMIT})}`;
     }
     html += `<div class="hint-actions">
-      <button class="btn primary" onclick="applyHintMove()">Spill dette trekket</button>
-      <button class="btn ghost" onclick="document.getElementById('hint-box').classList.add('hidden')">Lukk</button>
+      <button class="btn primary" onclick="applyHintMove()">${t('play_this')}</button>
+      <button class="btn ghost" onclick="document.getElementById('hint-box').classList.add('hidden')">${t('close')}</button>
     </div>`;
     box.innerHTML = html;
     lastHintMove = res.suggested;
@@ -1474,12 +1582,18 @@ function storageAvailable(){
   return typeof window.storage !== 'undefined' && window.storage !== null;
 }
 
+function setOnlineStatus(txt){ const el = document.getElementById('online-status'); if(el) el.textContent = txt; }
+function showOnlinePanel(code){
+  document.getElementById('online-panel').classList.remove('hidden');
+  document.getElementById('side-room-code').textContent = code;
+  document.getElementById('room-code-mini').classList.remove('hidden');
+  document.getElementById('room-code-mini').textContent = t('room_prefix',{code});
+}
+
 async function createRoom(){
-  document.getElementById('online-msg').textContent = '';
-  if(!storageAvailable()){
-    document.getElementById('online-msg').textContent = 'Denne nettleseren/visningen støtter ikke delt lagring, så online-modus kan ikke brukes her. Prøv å åpne den publiserte lenken i en vanlig nettleserfane.';
-    return;
-  }
+  const msg = document.getElementById('online-msg');
+  msg.textContent = '';
+  if(!storageAvailable()){ msg.textContent = t('online_nostorage'); return; }
   const N = parseInt(document.getElementById('online-size').value,10);
   const timerOn = document.getElementById('online-timer-on').checked;
   const timerSecs = timerOn ? Math.max(3, parseInt(document.getElementById('online-timer-secs').value,10)||20) : null;
@@ -1488,42 +1602,38 @@ async function createRoom(){
     N, rows: Array(N).fill(N), turn:0,
     players:[myClientId, null],
     winner:null, version:1,
-    log:[], timerSeconds: timerSecs
+    log:[], timerSeconds: timerSecs, gameNo:1, stake:1, starter:0, hist:[]
   };
   try{
     await window.storage.set('room:'+code, JSON.stringify(state), true);
     ROOM = {code, myPlayerIndex:0};
-    G = {mode:'online', N, rows: state.rows, turn: state.turn, winner:null, log:[], timerSeconds: timerSecs, powerups: []};
+    G = {mode:'online', N, rows: state.rows, turn: state.turn, winner:null, log:[], history:[], timerSeconds: timerSecs, powerups: [], gameNo:1, stake:1};
+    lastKnownVersion = 1;
     enterGameScreen();
-    document.getElementById('online-panel').classList.remove('hidden');
-    document.getElementById('side-room-code').textContent = code;
-    document.getElementById('room-code-mini').classList.remove('hidden');
-    document.getElementById('room-code-mini').textContent = 'Rom: '+code;
-    document.getElementById('online-status').textContent = 'Venter på at en venn blir med...';
+    showOnlinePanel(code);
+    setOnlineStatus(t('waiting_join'));
     startPolling();
   }catch(e){
     console.error('createRoom feilet:', e);
-    document.getElementById('online-msg').textContent = 'Kunne ikke opprette rom (' + (e && e.message ? e.message : 'ukjent feil') + '). Prøv igjen.';
+    msg.textContent = t('room_fail',{err: (e && e.message ? e.message : t('unknown_err'))});
   }
 }
 
 async function joinRoom(){
-  document.getElementById('online-msg').textContent = '';
-  if(!storageAvailable()){
-    document.getElementById('online-msg').textContent = 'Denne nettleseren/visningen støtter ikke delt lagring, så online-modus kan ikke brukes her. Prøv å åpne den publiserte lenken i en vanlig nettleserfane.';
-    return;
-  }
+  const msg = document.getElementById('online-msg');
+  msg.textContent = '';
+  if(!storageAvailable()){ msg.textContent = t('online_nostorage'); return; }
   const code = document.getElementById('join-code').value.trim().toUpperCase();
-  if(!code){ document.getElementById('online-msg').textContent = 'Skriv inn en romkode.'; return; }
+  if(!code){ msg.textContent = t('enter_code'); return; }
   let res;
   try{
     res = await window.storage.get('room:'+code, true);
   }catch(e){
-    document.getElementById('online-msg').textContent = 'Fant ikke det rommet. Sjekk at koden er riktig (4 tegn, store bokstaver/tall).';
+    msg.textContent = t('room_notfound_code');
     return;
   }
   try{
-    if(!res){ document.getElementById('online-msg').textContent = 'Fant ikke det rommet. Sjekk at koden er riktig.'; return; }
+    if(!res){ msg.textContent = t('room_notfound'); return; }
     const state = JSON.parse(res.value);
     let myIndex;
     if(state.players[1] === null || state.players[1] === myClientId){
@@ -1532,60 +1642,165 @@ async function joinRoom(){
     } else if(state.players[0] === myClientId){
       myIndex = 0;
     } else {
-      document.getElementById('online-msg').textContent = 'Rommet er fullt.';
+      msg.textContent = t('room_full');
       return;
     }
     state.version = (state.version||1) + 1;
     await window.storage.set('room:'+code, JSON.stringify(state), true);
-    ROOM = {code, myPlayerIndex: myIndex};
-    G = {mode:'online', N: state.N, rows: state.rows, turn: state.turn, winner:null, log:[], timerSeconds: state.timerSeconds||null,
-         powerups: state.powerups||[], locks: state.locks||[], skip: state.skip||[false,false], timePenalty: state.timePenalty||[0,0], variant: !!state.variant};
+    ROOM = {code, myPlayerIndex: myIndex, joined: true};
+    G = {mode:'online', N: state.N, rows: state.rows, turn: state.turn, winner:null, log:[], history: state.hist||[], timerSeconds: state.timerSeconds||null,
+         powerups: state.powerups||[], locks: state.locks||[], skip: state.skip||[false,false], timePenalty: state.timePenalty||[0,0], variant: !!state.variant,
+         gameNo: state.gameNo||1, stake: state.stake||1, loggedMoves: (state.hist||[]).length};
+    lastKnownVersion = state.version;
     enterGameScreen();
-    document.getElementById('online-panel').classList.remove('hidden');
-    document.getElementById('side-room-code').textContent = code;
-    document.getElementById('room-code-mini').classList.remove('hidden');
-    document.getElementById('room-code-mini').textContent = 'Rom: '+code;
-    document.getElementById('online-status').textContent = 'Tilkoblet! Dere kan spille.';
+    showOnlinePanel(code);
+    setOnlineStatus(t('connected'));
     startPolling();
   }catch(e){
     console.error('joinRoom feilet:', e);
-    document.getElementById('online-msg').textContent = 'Noe gikk galt (' + (e && e.message ? e.message : 'ukjent feil') + '). Prøv igjen.';
+    msg.textContent = t('something_wrong',{err: (e && e.message ? e.message : t('unknown_err'))});
   }
 }
 
 let lastKnownVersion = 1;
+let ABANDON_WARN_MS = 30000;   // varsel etter 30 s uten livstegn
+let ABANDON_MS = 75000;        // seier til den som er igjen etter 75 s
+const HB_MS = 4000;
+
 function startPolling(){
   if(ROOM.pollHandle) clearInterval(ROOM.pollHandle);
+  if(ROOM.hbHandle) clearInterval(ROOM.hbHandle);
   ROOM.pollHandle = setInterval(pollRoom, 1400);
+  ROOM.hbHandle = setInterval(sendHeartbeat, HB_MS);
+  sendHeartbeat();
 }
+async function sendHeartbeat(){
+  if(!ROOM || ROOM.leaving) return;
+  try{ await window.storage.set('hb:'+ROOM.code+':'+ROOM.myPlayerIndex, JSON.stringify({t:Date.now(), left:false}), true); }catch(e){}
+}
+// Best-effort: si fra at man forlater et pågående online/rangert parti (kalles ved «avslutt» og når fanen lukkes)
+function announceLeaving(){
+  try{
+    if(ROOM && G && (G.mode === 'online' || G.mode === 'ranked') && G.winner === null && ROOM.joined && !ROOM.leaving){
+      ROOM.leaving = true;
+      window.storage.set('hb:'+ROOM.code+':'+ROOM.myPlayerIndex, JSON.stringify({t:Date.now(), left:true}), true);
+    }
+  }catch(e){}
+}
+
+function moveLine(e){
+  const n = totalPieces(e.b) - totalPieces(e.a);
+  return t('log_took',{who: whoName(e.p), n, dir: dirText(e.x, e.i)});
+}
+
+// Felles: legg inn en (fjern)tilstand fra rommet i G
+function applyStateToG(state, remote){
+  const newGame = (state.gameNo||1) !== (G.gameNo||1);
+  if(newGame){
+    document.getElementById('log').innerHTML = '';
+    document.getElementById('winner-banner').classList.add('hidden');
+    document.getElementById('analysis-box').classList.add('hidden');
+    document.getElementById('hint-box').classList.add('hidden');
+    G.history = []; G.loggedMoves = 0; G.forfeit = false; G.eloHtml = null;
+    ROOM.oppSeen = null; ROOM.warned = false; ROOM.rematchSent = false; ROOM.rematchOpp = false;
+    addLog(t('rematch_log',{n: state.stake || 1}));
+  }
+  G.N = state.N || G.N;
+  G.rows = state.rows;
+  G.turn = state.turn;
+  G.winner = (state.winner === undefined ? null : state.winner);
+  G.gameNo = state.gameNo || 1;
+  G.stake = state.stake || 1;
+  G.forfeit = !!state.forfeit;
+  G.powerups = state.powerups || [];
+  G.locks = state.locks || [];
+  G.skip = state.skip || [false,false];
+  G.timePenalty = state.timePenalty || [0,0];
+  if(remote && state.hist){
+    for(let i = (G.loggedMoves||0); i < state.hist.length; i++){
+      const e = state.hist[i];
+      if(e.p !== ROOM.myPlayerIndex) addLog(moveLine(e));
+    }
+    if(state.noteBy !== myClientId && state.fx && state.fx.length){
+      state.fx.forEach(f => { const line = fxLog(f); if(line) addLog(line); });
+      showEffects(state.fx);
+    }
+    G.history = state.hist;
+    G.loggedMoves = state.hist.length;
+  }
+}
+
 async function pollRoom(){
-  if(!ROOM) return;
+  if(!ROOM || !G) return;
   try{
     const res = await window.storage.get('room:'+ROOM.code, true);
     if(!res) return;
     const state = JSON.parse(res.value);
+    if(state.players && state.players[1]) ROOM.joined = true;
     if(state.version !== lastKnownVersion){
       lastKnownVersion = state.version;
-      G.rows = state.rows;
-      G.turn = state.turn;
-      G.winner = state.winner;
-      G.powerups = state.powerups || [];
-      G.locks = state.locks || [];
-      G.skip = state.skip || [false,false];
-      G.timePenalty = state.timePenalty || [0,0];
-      if(state.note && state.noteBy !== myClientId){ addLog(state.note); showEffects(state.fx); }
-      const online2 = state.players[0] && state.players[1];
-      document.getElementById('online-status').textContent = online2 ? 'Begge spillere tilkoblet.' : 'Venter på at en venn blir med...';
+      applyStateToG(state, true);
+      const online2 = state.players && state.players[0] && state.players[1];
+      setOnlineStatus(online2 ? t('both_connected') : t('waiting_join'));
       renderBoard();
       renderStatus();
       restartTurnTimer();
       if(G.winner !== null) showWinner();
     }
+    await checkOpponentPresence(state);
+    await checkRematch(state);
   }catch(e){ /* ignore transient errors */ }
 }
 
+async function checkOpponentPresence(state){
+  if(!ROOM || !G) return;
+  const both = state.players && state.players[0] && state.players[1];
+  if(!both || G.winner !== null){ ROOM.oppSeen = null; return; }
+  const oppIdx = 1 - ROOM.myPlayerIndex;
+  let hb = null;
+  try{ const r = await window.storage.get('hb:'+ROOM.code+':'+oppIdx, true); hb = r ? JSON.parse(r.value) : null; }catch(e){ hb = null; }
+  const now = Date.now();
+  if(hb && hb.left){ await claimForfeit(); return; }
+  if(!ROOM.oppSeen){ ROOM.oppSeen = {t: hb ? hb.t : null, local: now}; return; }
+  if(hb && hb.t !== ROOM.oppSeen.t){
+    ROOM.oppSeen = {t: hb.t, local: now};
+    if(ROOM.warned){ ROOM.warned = false; setOnlineStatus(t('both_connected')); }
+    return;
+  }
+  const idle = now - ROOM.oppSeen.local;
+  if(idle >= ABANDON_MS){ await claimForfeit(); return; }
+  if(idle >= ABANDON_WARN_MS){
+    ROOM.warned = true;
+    setOnlineStatus(t('abandon_warn',{s: Math.max(0, Math.ceil((ABANDON_MS - idle)/1000))}));
+  }
+}
+
+// Motstanderen har forlatt partiet: den som er igjen får seieren (og Elo-oppdateringen i rangerte partier)
+async function claimForfeit(){
+  if(!ROOM || !G || G.winner !== null || ROOM.claiming) return;
+  ROOM.claiming = true;
+  try{
+    const res = await window.storage.get('room:'+ROOM.code, true);
+    const state = JSON.parse(res.value);
+    if(state.winner !== null && state.winner !== undefined) return;
+    state.winner = ROOM.myPlayerIndex;
+    state.forfeit = true;
+    state.fx = [];
+    state.noteBy = myClientId;
+    state.version = (state.version||1) + 1;
+    lastKnownVersion = state.version;
+    await window.storage.set('room:'+ROOM.code, JSON.stringify(state), true);
+    G.winner = ROOM.myPlayerIndex;
+    G.forfeit = true;
+    ROOM.warned = false;
+    renderBoard(); renderStatus(); restartTurnTimer(); showWinner();
+    if(G.mode === 'ranked') updateEloAfterRankedGame(true);
+  }catch(e){ console.error('claimForfeit feilet:', e); }
+  finally{ if(ROOM) ROOM.claiming = false; }
+}
+
 async function pushOnlineMove(newRows, newTurn, winner, extras){
-  extras = extras || {powerups:G.powerups||[], locks:G.locks||[], skip:G.skip||[false,false], timePenalty:G.timePenalty||[0,0], note:G.lastNote||'', fx:G.lastFx||[]};
+  extras = extras || {powerups:G.powerups||[], locks:G.locks||[], skip:G.skip||[false,false], timePenalty:G.timePenalty||[0,0], note:G.lastNote||'', fx:G.lastFx||[], hist:G.history||[]};
   let res = null;
   try{ res = await window.storage.get('room:'+ROOM.code, true); }catch(e){ res = null; }
   const state = res ? JSON.parse(res.value) : {N:G.N, players:[myClientId,null]};
@@ -1598,19 +1813,67 @@ async function pushOnlineMove(newRows, newTurn, winner, extras){
   state.timePenalty = extras.timePenalty;
   state.note = extras.note;
   state.fx = extras.fx || [];
+  state.hist = extras.hist || [];
   state.noteBy = myClientId;
   state.version = (state.version||1) + 1;
   lastKnownVersion = state.version;
   await window.storage.set('room:'+ROOM.code, JSON.stringify(state), true);
 }
 
+/* ---- Revansj (i rangerte partier: dobbel eller ingenting) ---- */
+async function requestRematch(){
+  if(!ROOM || !G || G.winner === null || G.forfeit) return;
+  ROOM.rematchSent = true;
+  updateHintVisibility();
+  try{ await window.storage.set('rm:'+ROOM.code+':'+ROOM.myPlayerIndex, JSON.stringify({game: G.gameNo||1}), true); }catch(e){}
+}
+async function checkRematch(state){
+  if(!ROOM || !G || G.winner === null || G.forfeit) return;
+  const game = state.gameNo || 1;
+  const got = async idx => {
+    try{ const r = await window.storage.get('rm:'+ROOM.code+':'+idx, true); return !!r && JSON.parse(r.value).game === game; }
+    catch(e){ return false; }
+  };
+  const mine = await got(ROOM.myPlayerIndex), theirs = await got(1 - ROOM.myPlayerIndex);
+  if(mine !== ROOM.rematchSent || theirs !== ROOM.rematchOpp){ ROOM.rematchSent = mine; ROOM.rematchOpp = theirs; updateHintVisibility(); }
+  if(mine && theirs && ROOM.myPlayerIndex === 0 && !ROOM.rematchStarting){
+    ROOM.rematchStarting = true;
+    try{ await startRematch(game); } finally{ ROOM.rematchStarting = false; }
+  }
+}
+async function startRematch(game){
+  const res = await window.storage.get('room:'+ROOM.code, true);
+  const st = JSON.parse(res.value);
+  if((st.gameNo||1) !== game || st.winner === null || st.winner === undefined) return;   // allerede startet
+  const ranked = G.mode === 'ranked';
+  let rows, powerups = [];
+  if(st.vcfg){ const b = buildVariantBoard(st.vcfg); rows = b.rows; powerups = b.powerups; st.N = b.N; }
+  else rows = Array(st.N).fill(st.N);
+  st.rows = rows; st.powerups = powerups; st.locks = []; st.skip = [false,false]; st.timePenalty = [0,0];
+  st.starter = 1 - (st.starter || 0);
+  st.turn = st.starter;
+  st.winner = null; st.forfeit = false; st.hist = []; st.fx = []; st.note = ''; st.noteBy = myClientId;
+  st.gameNo = game + 1;
+  st.stake = ranked ? Math.min((st.stake||1) * 2, 8) : 1;
+  st.version = (st.version||1) + 1;
+  lastKnownVersion = st.version;
+  await window.storage.set('room:'+ROOM.code, JSON.stringify(st), true);
+  applyStateToG(st, false);
+  renderBoard(); renderStatus(); restartTurnTimer();
+}
+
 /* ============ SHARED GAME FLOW ============ */
 function enterGameScreen(){
   goTo('game');
+  G.history = G.history || [];
+  G.loggedMoves = G.history.length;
   document.getElementById('online-panel').classList.add('hidden');
   document.getElementById('room-code-mini').classList.add('hidden');
   document.getElementById('winner-banner').classList.add('hidden');
+  document.getElementById('analysis-box').classList.add('hidden');
+  document.getElementById('hint-box').classList.add('hidden');
   document.getElementById('move-confirm').classList.add('hidden');
+  document.getElementById('puzzle-info').classList.add('hidden');
   document.getElementById('log').innerHTML='';
   renderBoard();
   renderStatus();
@@ -1648,7 +1911,7 @@ function tickTimer(){
       const moves = legalMovesNow();
       if(moves.length){
         const m = moves[Math.floor(Math.random()*moves.length)];
-        applyMove(m, playerLabel() + ' (tiden løp ut)');
+        applyMove(m, t('timeout_label',{who: whoName(G.turn)}));
       }
     }
   }
@@ -1659,9 +1922,9 @@ function updateEffectPill(){
   if(!pill) return;
   const parts = [];
   if(G && G.skip){
-    G.skip.forEach((v,i)=>{ if(v) parts.push(icon('trap')+' Spiller '+(i+1)+' mister neste tur'); });
+    G.skip.forEach((v,i)=>{ if(v) parts.push(icon('trap')+' '+escapeHtml(t('fxt_skip',{who:whoName(i)}))); });
   }
-  if(G && G.locks && G.locks.length) parts.push(icon('lock')+' '+G.locks.length+' låst');
+  if(G && G.locks && G.locks.length) parts.push(icon('lock')+' '+escapeHtml(t('locked_n',{n:G.locks.length})));
   if(parts.length){ pill.innerHTML = parts.join(' · '); pill.classList.remove('hidden'); }
   else pill.classList.add('hidden');
 }
@@ -1670,51 +1933,74 @@ function renderStatus(){
   updateEffectPill();
   const pillDot = document.querySelector('#turn-pill .dot');
   const text = document.getElementById('turn-text');
+  const sp = document.getElementById('stake-pill');
+  if(sp){
+    if(G.stake && G.stake > 1){ sp.textContent = t('stake_tag',{n:G.stake}); sp.classList.remove('hidden'); }
+    else sp.classList.add('hidden');
+  }
+  if(G.mode === 'puzzle'){
+    text.textContent = G.puzzle.solved ? t('pz_correct') : t('pz_find');
+    pillDot.style.background = G.puzzle.solved ? 'var(--good)' : 'var(--turn-me)';
+    return;
+  }
   if(G.winner !== null){
-    text.textContent = G.mode === 'bot'
-      ? (G.winner===0 ? 'Du vant!' : 'Boten vant')
-      : 'Spiller '+(G.winner+1)+' vant';
+    if(G.mode === 'bot') text.textContent = G.winner===0 ? t('you_won') : t('bot_won');
+    else if(G.mode === 'online') text.textContent = G.winner===ROOM.myPlayerIndex ? t('you_won') : t('opp_won');
+    else if(G.mode === 'ranked') text.textContent = G.winner===ROOM.myPlayerIndex ? t('you_won') : t('named_won',{name: (G.playerNames && G.playerNames[G.winner]) || t('opp_cap')});
+    else text.textContent = t('player_won',{n:G.winner+1});
     pillDot.style.background = 'var(--good)';
     return;
   }
   if(G.mode === 'bot'){
-    text.textContent = G.turn===0 ? 'Din tur' : 'Boten tenker...';
+    text.textContent = G.turn===0 ? t('your_turn') : t('bot_thinking');
     pillDot.style.background = G.turn===0 ? 'var(--turn-me)' : 'var(--turn-other)';
   } else if(G.mode === 'online'){
     const my = ROOM.myPlayerIndex === G.turn;
-    text.textContent = my ? 'Din tur' : 'Venter på motstanderen';
+    text.textContent = my ? t('your_turn') : t('waiting_opp');
     pillDot.style.background = my ? 'var(--turn-me)' : 'var(--turn-other)';
   } else if(G.mode === 'ranked'){
     const my = ROOM.myPlayerIndex === G.turn;
-    const oppName = G.playerNames ? G.playerNames[1-ROOM.myPlayerIndex] : 'motstanderen';
-    text.textContent = my ? 'Din tur' : (oppName||'Motstanderen')+' sin tur';
+    const oppName = G.playerNames ? G.playerNames[1-ROOM.myPlayerIndex] : null;
+    text.textContent = my ? t('your_turn') : t('named_turn',{name: oppName || t('opp_cap')});
     pillDot.style.background = my ? 'var(--turn-me)' : 'var(--turn-other)';
   } else if(G.mode === 'analysis'){
-    text.textContent = 'Analyse — trekk ' + (G.turn+1) + ' sin tur';
+    text.textContent = t('analysis_turn',{n:G.turn+1});
     pillDot.style.background = 'var(--turn-me)';
   } else {
-    text.textContent = 'Spiller '+(G.turn+1)+' sin tur';
+    text.textContent = t('player_turn',{n:G.turn+1});
     pillDot.style.background = G.turn===0 ? 'var(--turn-me)' : 'var(--turn-other)';
   }
 }
 
 function canIMove(){
+  if(G.mode === 'puzzle') return !G.puzzle.solved;
   if(G.winner !== null) return false;
   if(G.mode === 'bot') return G.turn === 0;
   if(G.mode === 'online' || G.mode === 'ranked') return ROOM.myPlayerIndex === G.turn;
   return true; // local & analysis: whoever's turn, same device
 }
 
+// Viser/skjuler knappene rundt brettet etter modus og tilstand
 function updateHintVisibility(){
-  const btn = document.getElementById('hint-btn');
-  const showable = G.winner === null && (
-    (G.mode === 'bot' && G.turn === 0) ||
-    G.mode === 'analysis'
-  );
-  btn.style.display = showable ? 'inline-block' : 'none';
-  if(!showable){
-    document.getElementById('hint-box').classList.add('hidden');
+  const mode = G.mode;
+  const show = (id, on) => { const el = document.getElementById(id); if(el) el.style.display = on ? 'inline-flex' : 'none'; };
+  const hintOn = G.winner === null && ((mode === 'bot' && G.turn === 0) || mode === 'analysis');
+  show('hint-btn', hintOn);
+  if(!hintOn && mode !== 'puzzle') document.getElementById('hint-box').classList.add('hidden');
+  show('undo-btn', mode === 'analysis' && G.undo && G.undo.length > 0);
+  const online = (mode === 'online' || mode === 'ranked');
+  const rm = document.getElementById('rematch-btn');
+  const rematchOn = online && G.winner !== null && !G.forfeit && ROOM && ROOM.joined;
+  show('rematch-btn', rematchOn);
+  if(rm && rematchOn){
+    rm.disabled = !!ROOM.rematchSent;
+    document.getElementById('rematch-label').textContent =
+      ROOM.rematchSent ? t('rematch_wait') : (mode === 'ranked' ? t('rematch_double') : t('rematch'));
   }
+  show('analyze-btn', ['local','bot','online','ranked'].includes(mode) && G.winner !== null && G.history && G.history.length > 0);
+  const lbl = document.getElementById('restart-label');
+  if(lbl){ const key = mode === 'puzzle' ? 'pz_new' : 'play_again'; lbl.setAttribute('data-i18n', key); lbl.textContent = t(key); }
+  if(mode !== 'puzzle') document.getElementById('puzzle-info').classList.add('hidden');
 }
 
 function renderBoard(){
@@ -1735,13 +2021,13 @@ function renderBoard(){
       if(r===0 && c===0) cell.classList.add('corner-cell');
       const pu = (G.powerups||[]).find(p=>p.r===r && p.c===c);
       const lockedHere = (G.locks||[]).find(l=>l.r===r && l.c===c);
-      if(pu && pu.type==='extra'){ cell.classList.add('powerup-cell'); cell.title='Ekstra trekk'; }
-      else if(pu && pu.type==='shield'){ cell.classList.add('pu-shield'); cell.title='Skjold: låser en pinne'; }
-      else if(pu && pu.type==='time'){ cell.classList.add('pu-time'); cell.title='Tidstyv: motstanderen får mindre tid'; }
+      if(pu && pu.type==='extra'){ cell.classList.add('powerup-cell'); cell.title=t('title_extra'); }
+      else if(pu && pu.type==='shield'){ cell.classList.add('pu-shield'); cell.title=t('title_shield'); }
+      else if(pu && pu.type==='time'){ cell.classList.add('pu-time'); cell.title=t('title_time'); }
       // 'trap' (fellebrikke) vises ikke med vilje — den er kamuflert
-      if(lockedHere){ cell.classList.add('locked'); cell.title='Låst i '+lockedHere.turnsLeft+' trekk'; }
+      if(lockedHere){ cell.classList.add('locked'); cell.title=t('title_lock',{n:lockedHere.turnsLeft}); }
       if(!pu && !lockedHere && r===0 && c===0){
-        cell.title = 'Denne pinnen er alltid den siste som kan tas';
+        cell.title = t('title_corner');
       }
       if(filled && interactive){
         let rowLegal = c >= floorAt(G.rows, r);
@@ -1781,21 +2067,50 @@ function doColMove(r,c){
   applyMove({axis:'col', index:c, value:r, rows:nr}, playerLabel());
 }
 
-function playerLabel(){
-  if(G.mode==='bot') return 'Du';
-  if(G.mode==='online') return 'Spiller '+(G.turn+1);
-  return 'Spiller '+(G.turn+1);
+function whoName(p){
+  if(!G) return t('player_n',{n:p+1});
+  if(G.mode === 'bot') return p === 0 ? t('you') : t('bot_name');
+  if(G.mode === 'online') return (ROOM && p === ROOM.myPlayerIndex) ? t('you') : t('opp_cap');
+  if(G.mode === 'ranked'){
+    if(ROOM && p === ROOM.myPlayerIndex) return t('you');
+    return (G.playerNames && G.playerNames[p]) || t('opp_cap');
+  }
+  return t('player_n',{n:p+1});
 }
+function dirText(axis, index){ return axis === 'row' ? t('mv_row',{i:index+1}) : t('mv_col',{i:index+1}); }
+function playerLabel(){ return whoName(G.turn); }
 
 const FX_STYLE = {
-  extra:  {c:'#E3A92E', icon:'star',      title:'Ekstra trekk', anim:''},
-  trap:   {c:'#E8604A', icon:'trap',      title:'Felle',        anim:'shake'},
-  shield: {c:'#79B6CC', icon:'shield',    title:'Skjold',       anim:''},
-  time:   {c:'#D9CBA5', icon:'hourglass', title:'Tidstyv',      anim:'shake'},
-  skip:   {c:'#E8604A', icon:'skip',      title:'Hopper over',  anim:'shake'}
+  extra:  {c:'#E3A92E', icon:'star',      anim:''},
+  trap:   {c:'#E8604A', icon:'trap',      anim:'shake'},
+  shield: {c:'#79B6CC', icon:'shield',    anim:''},
+  time:   {c:'#D9CBA5', icon:'hourglass', anim:'shake'},
+  skip:   {c:'#E8604A', icon:'skip',      anim:'shake'}
 };
+function fxText(f){
+  switch(f.kind){
+    case 'extra':  return t('fxt_extra',{who:whoName(f.p)});
+    case 'trap':   return t('fxt_trap',{who:whoName(f.p)});
+    case 'shield': return t('fxt_shield',{n:f.n});
+    case 'time':   return t('fxt_time',{who:whoName(1 - f.p), n:f.n});
+    case 'skip':   return t('fxt_skip',{who:whoName(f.p)});
+  }
+  return '';
+}
+function fxLog(f){
+  switch(f.kind){
+    case 'extra':  return t('lg_extra',{who:whoName(f.p)});
+    case 'trap':   return t('lg_trap',{who:whoName(f.p)});
+    case 'shield': return t('lg_shield',{who:whoName(f.p), n:f.n});
+    case 'time':   return t('lg_time',{who:whoName(f.p), n:f.n});
+    case 'skip':   return t('lg_skip',{who:whoName(f.p)});
+    case 'pass':   return t('lg_pass',{who:whoName(f.p)});
+  }
+  return '';
+}
 function showEffect(fx){
-  const st = FX_STYLE[fx.kind] || FX_STYLE.extra;
+  const st = FX_STYLE[fx.kind];
+  if(!st) return;
   const layer = document.getElementById('fx-layer');
   const area = document.querySelector('.board-area');
   const board = document.getElementById('board');
@@ -1803,14 +2118,14 @@ function showEffect(fx){
   const banner = document.createElement('div');
   banner.className = 'fx-banner';
   banner.style.setProperty('--c', st.c);
-  banner.innerHTML = icon(st.icon) + '<div class="fx-body"><div class="fx-title">' + st.title + '</div><div class="fx-text">' + escapeHtml(String(fx.text || '')) + '</div></div>';
+  banner.innerHTML = icon(st.icon) + '<div class="fx-body"><div class="fx-title">' + escapeHtml(t('fx_' + fx.kind)) + '</div><div class="fx-text">' + escapeHtml(fxText(fx)) + '</div></div>';
   layer.appendChild(banner);
   setTimeout(()=>{ if(banner.parentNode) banner.parentNode.removeChild(banner); }, 2700);
   if(area){ area.style.setProperty('--c', st.c); area.classList.remove('fx-flash'); void area.offsetWidth; area.classList.add('fx-flash'); }
   if(board){ board.classList.remove('shake'); void board.offsetWidth; if(st.anim) board.classList.add(st.anim); }
 }
 function showEffects(list){
-  (list||[]).forEach((f,i)=> setTimeout(()=>showEffect(f), i*900));
+  (list||[]).filter(f => FX_STYLE[f.kind]).forEach((f,i)=> setTimeout(()=>showEffect(f), i*900));
 }
 
 function removedCells(prevRows, move, N){
@@ -1826,18 +2141,20 @@ function removedCells(prevRows, move, N){
 }
 
 function applyMove(move, label){
+  if(G.mode === 'puzzle'){ handlePuzzleMove(move); return; }
   G.locks = G.locks || [];
   G.skip = G.skip || [false,false];
   G.timePenalty = G.timePenalty || [0,0];
+  G.history = G.history || [];
   const prevRows = G.rows.slice();
-  const takenCount = totalPieces(G.rows) - totalPieces(move.rows);
-  const dirTxt = move.axis ? (move.axis === 'row' ? 'rad '+(move.index+1)+', bortover' : 'kolonne '+(move.index+1)+', nedover') : '';
-  const notes = [];
-  const fx = [];
-  addLog(`${label} tok ${takenCount} pinne(r)${dirTxt ? ' — '+dirTxt : ''}`);
-
   const mover = G.turn;
   const other = 1 - mover;
+  if(G.mode === 'analysis'){ G.undo = G.undo || []; G.undo.push({rows: prevRows.slice(), turn: mover}); }
+  const takenCount = totalPieces(G.rows) - totalPieces(move.rows);
+  const who = label || whoName(mover);
+  addLog(move.axis ? t('log_took',{who, n:takenCount, dir:dirText(move.axis, move.index)}) : t('log_took_nodir',{who, n:takenCount}));
+  G.history.push({p:mover, x:move.axis||null, i:(move.index !== undefined ? move.index : null), v:(move.value !== undefined ? move.value : null), b:prevRows, a:move.rows.slice()});
+
   const hits = [];
   if(G.powerups && G.powerups.length && move.axis){
     const removed = removedCells(prevRows, move, G.N);
@@ -1854,11 +2171,12 @@ function applyMove(move, label){
   G.rows = move.rows;
   const finished = totalPieces(G.rows) === 0;
   const winner = finished ? mover : null;
+  const fx = [];
 
   let nextTurn = other;
   if(!finished){
-    if(hits.includes('extra')){ nextTurn = mover; notes.push(`${label} fikk ekstra trekk`); fx.push({kind:'extra', text:`${label} trekker på nytt`}); }
-    if(hits.includes('trap')){ G.skip[mover] = true; notes.push(`${label} gikk i en felle og mister neste tur`); fx.push({kind:'trap', text:`${label} gikk i en felle og mister neste tur`}); }
+    if(hits.includes('extra')){ nextTurn = mover; fx.push({kind:'extra', p:mover}); }
+    if(hits.includes('trap')){ G.skip[mover] = true; fx.push({kind:'trap', p:mover}); }
     if(hits.includes('shield')){
       const cells = [];
       for(let r=0;r<G.N;r++) for(let c=0;c<G.rows[r];c++){
@@ -1868,18 +2186,18 @@ function applyMove(move, label){
         const pick = cells[Math.floor(Math.random()*cells.length)];
         const dur = 1 + Math.floor(Math.random()*3);
         G.locks.push({r:pick.r, c:pick.c, turnsLeft:dur});
-        notes.push(`${label} tok et skjold — en pinne er låst i ${dur} trekk`); fx.push({kind:'shield', text:`En pinne er låst i ${dur} trekk`});
+        fx.push({kind:'shield', p:mover, n:dur});
       }
     }
     if(hits.includes('time') && G.timerSeconds){
       const pen = 5 + Math.floor(Math.random()*6);
       G.timePenalty[other] += pen;
-      notes.push(`${label} stjal ${pen} sekunder av motstanderens neste tenketid`); fx.push({kind:'time', text:`Motstanderen mister ${pen} sekunder tenketid`});
+      fx.push({kind:'time', p:mover, n:pen});
     }
     // skipped-turn resolution
     if(G.skip[nextTurn]){
       G.skip[nextTurn] = false;
-      notes.push(`Spiller ${nextTurn+1} hoppes over (felle)`); fx.push({kind:'skip', text:`Spiller ${nextTurn+1} mister turen sin`});
+      fx.push({kind:'skip', p:nextTurn});
       nextTurn = 1 - nextTurn;
     }
   }
@@ -1889,20 +2207,21 @@ function applyMove(move, label){
   // if the player to move has no legal move (all remaining blocked by locks), pass
   let guard = 0;
   while(!finished && legalMovesNow().length === 0 && guard < 4){
-    notes.push(`Spiller ${G.turn+1} har ingen lovlige trekk (låste pinner) og passerer`);
+    fx.push({kind:'pass', p:G.turn});
     G.locks = G.locks.map(l => ({...l, turnsLeft: l.turnsLeft-1})).filter(l => l.turnsLeft > 0);
     G.turn = 1 - G.turn;
     guard++;
   }
-  notes.forEach(n => addLog(n));
-  G.lastNote = notes.join(' · ');
+  fx.forEach(f => { const line = fxLog(f); if(line) addLog(line); });
   G.lastFx = fx;
+  G.lastNote = '';
+  G.loggedMoves = G.history.length;
   showEffects(fx);
 
   if(G.mode === 'online' || G.mode === 'ranked'){
     pushOnlineMove(G.rows, G.turn, G.winner, JSON.parse(JSON.stringify({
       powerups: G.powerups||[], locks: G.locks||[], skip: G.skip||[false,false],
-      timePenalty: G.timePenalty||[0,0], note: G.lastNote||'', fx: G.lastFx||[]
+      timePenalty: G.timePenalty||[0,0], note: '', fx: G.lastFx||[], hist: G.history||[]
     })));
   }
 
@@ -1929,24 +2248,164 @@ function addLog(text){
 function showWinner(){
   const banner = document.getElementById('winner-banner');
   banner.classList.remove('hidden');
+  let text;
   if(G.mode === 'bot'){
-    banner.textContent = G.winner===0 ? 'Du tok siste pinne — du vant!' : 'Boten tok siste pinne.';
+    text = G.winner===0 ? t('win_bot_you') : t('win_bot_bot');
   } else if(G.mode === 'online'){
     const iwon = G.winner === ROOM.myPlayerIndex;
-    banner.textContent = iwon ? 'Du tok siste pinne — du vant!' : 'Motstanderen tok siste pinne.';
+    text = G.forfeit ? (iwon ? t('win_forfeit') : t('lose_forfeit')) : (iwon ? t('win_opp_you') : t('win_opp'));
   } else if(G.mode === 'ranked'){
     const iwon = G.winner === ROOM.myPlayerIndex;
-    const oppName = G.playerNames ? G.playerNames[1-ROOM.myPlayerIndex] : 'motstanderen';
-    banner.textContent = iwon ? 'Du tok siste pinne — du vant mot '+(oppName||'motstanderen')+'!' : (oppName||'Motstanderen')+' tok siste pinne.';
+    const name = (G.playerNames && G.playerNames[G.winner]) || t('opp_cap');
+    const oppName = (G.playerNames && G.playerNames[1-ROOM.myPlayerIndex]) || t('opp_cap');
+    text = G.forfeit ? (iwon ? t('win_forfeit') : t('lose_forfeit')) : (iwon ? t('win_ranked_you',{name: oppName}) : t('win_ranked_opp',{name}));
   } else if(G.mode === 'analysis'){
-    banner.textContent = 'Trekk '+(G.winner+1)+' tok siste pinne — den som trakk den vinner herfra.';
+    text = t('win_analysis',{n:G.winner+1});
   } else {
-    banner.textContent = 'Spiller '+(G.winner+1)+' tok siste pinne og vant!';
+    text = t('win_local',{n:G.winner+1});
   }
+  banner.textContent = text;
+  if(G.eloHtml) banner.insertAdjacentHTML('beforeend', G.eloHtml);
+  updateHintVisibility();
+}
+
+/* ---- Angre (analysemodus) ---- */
+function undoMove(){
+  if(!G || G.mode !== 'analysis' || !G.undo || !G.undo.length) return;
+  const s = G.undo.pop();
+  G.rows = s.rows; G.turn = s.turn; G.winner = null;
+  if(G.history && G.history.length) G.history.pop();
+  const log = document.getElementById('log');
+  if(log.firstChild) log.removeChild(log.firstChild);
+  document.getElementById('winner-banner').classList.add('hidden');
+  document.getElementById('hint-box').classList.add('hidden');
+  renderBoard(); renderStatus(); restartTurnTimer();
+}
+
+/* ---- Dagens oppgave: finn vinnertrekket ---- */
+function dayIndex(){ return Math.floor(Date.now()/86400000); }
+function startPuzzle(kind){
+  let idx;
+  if(kind === 'daily') idx = dayIndex() % PUZZLES.length;
+  else {
+    const cur = (G && G.puzzle) ? G.puzzle.idx : -1;
+    do { idx = Math.floor(Math.random()*PUZZLES.length); } while(idx === cur && PUZZLES.length > 1);
+  }
+  const pz = PUZZLES[idx];
+  const N = Math.max(pz.r.length, pz.r[0]);
+  const rows = pz.r.concat(Array(N - pz.r.length).fill(0));
+  G = {mode:'puzzle', N, rows, turn:0, winner:null, log:[], history:[],
+       puzzle:{idx, daily: kind === 'daily', tag: pz.tag, m: pz.m, wins: bestMoves(rows, N), attempts: 0, solved: false}};
+  enterGameScreen();
+  renderPuzzleInfo();
+}
+function renderPuzzleInfo(){
+  const el = document.getElementById('puzzle-info');
+  if(!el || !G || G.mode !== 'puzzle') return;
+  const pz = G.puzzle, day = dayIndex();
+  const title = pz.daily ? t('pz_daily',{n: day - 20453}) : t('pz_title_random');
+  const solvedToday = pz.daily && lsGet('pinne.pz.last') === String(day);
+  const streak = parseInt(lsGet('pinne.pz.streak') || '0', 10);
+  const lastDay = parseInt(lsGet('pinne.pz.last') || '0', 10);
+  const meta = [t('pz_info',{m: pz.m}), t('pz_attempts',{n: pz.attempts})];
+  if(pz.daily && streak > 0 && lastDay >= day - 1) meta.push(t('pz_streak',{n: streak}));
+  el.innerHTML =
+    `<div class="pz-head"><b>${escapeHtml(title)}</b><span class="tag">${escapeHtml(t('pz_tag_' + pz.tag))}</span>${solvedToday ? `<span class="tag">${escapeHtml(t('pz_solved_today'))}</span>` : ''}</div>` +
+    `<div class="pz-meta">${escapeHtml(meta.join(' · '))}</div>` +
+    `<div class="pz-actions"><button class="btn sm" onclick="showPuzzleSolution()">${t('pz_show')}</button><button class="btn sm" onclick="startPuzzle('random')">${t('pz_random')}</button></div>`;
+  el.classList.remove('hidden');
+}
+function showPuzzleSolution(){
+  if(!G || G.mode !== 'puzzle') return;
+  const m = G.puzzle.wins[0];
+  if(!m) return;
+  const box = document.getElementById('hint-box');
+  box.classList.remove('hidden');
+  box.innerHTML = `<span class="hint-title">${t('pz_show')}</span>${t('pz_solution',{n: totalPieces(G.rows) - totalPieces(m.rows), dir: dirText(m.axis, m.index)})}`;
+}
+function markPuzzleSolved(){
+  const pz = G.puzzle;
+  if(!pz.daily) return;
+  const day = dayIndex();
+  const last = parseInt(lsGet('pinne.pz.last') || '0', 10);
+  if(last === day) return;
+  const streak = parseInt(lsGet('pinne.pz.streak') || '0', 10);
+  lsSet('pinne.pz.streak', String(last === day - 1 ? streak + 1 : 1));
+  lsSet('pinne.pz.last', String(day));
+}
+function handlePuzzleMove(move){
+  const pz = G.puzzle;
+  if(pz.solved) return;
+  pz.attempts++;
+  const box = document.getElementById('hint-box');
+  box.classList.remove('hidden');
+  if(!isWin(move.rows, G.N)){
+    // etterlater en tapt stilling for motstanderen = riktig
+    pz.solved = true;
+    addLog(t('log_took',{who: t('you'), n: totalPieces(G.rows) - totalPieces(move.rows), dir: dirText(move.axis, move.index)}));
+    G.rows = move.rows; G.turn = 1;
+    markPuzzleSolved();
+    let extra = '';
+    if(pz.tag === 'counter') extra = ' ' + t('pz_counter_note');
+    else if(pz.tag === 'nibble') extra = ' ' + t('pz_nibble_note');
+    box.innerHTML = `<span class="hint-title">${t('pz_correct')}</span>${t('pz_correct_body')}${escapeHtml(extra)}`;
+    renderBoard(); renderStatus();
+  } else {
+    box.innerHTML = `<span class="hint-title">${t('pz_wrong_title')}</span>${t('pz_wrong')}`;
+  }
+  renderPuzzleInfo();
+}
+
+/* ---- Etteranalyse ---- */
+function miniBoard(rows, N){
+  let cells = '';
+  for(let r=0;r<N;r++) for(let c=0;c<N;c++) cells += `<div class="cell ${c < rows[r] ? 'filled' : 'empty'}"></div>`;
+  return `<div class="board mini" style="grid-template-columns:repeat(${N},auto);">${cells}</div>`;
+}
+function analyzeGame(){
+  if(!G) return;
+  const box = document.getElementById('analysis-box');
+  box.classList.remove('hidden');
+  const hist = G.history || [];
+  if(!hist.length){ box.innerHTML = `<p class="msg">${t('an_none')}</p>`; return; }
+  const N = G.N;
+  if(N > EXACT_LIMIT){ box.innerHTML = `<p class="msg">${t('an_toolarge',{lim:EXACT_LIMIT})}</p>`; return; }
+  box.innerHTML = `<span class="thinking">${t('hint_thinking')}</span>`;
+  setTimeout(() => {
+    let mistakes = 0, firstMistake = -1;
+    const items = [];
+    hist.forEach((e, idx) => {
+      const wasWin = isWin(e.b, N), afterWin = isWin(e.a, N);
+      const verdict = !wasWin ? 'lost' : (!afterWin ? 'best' : 'mistake');
+      const k = totalPieces(e.b) - totalPieces(e.a);
+      const dir = e.x ? dirText(e.x, e.i) : '';
+      const vkey = verdict === 'best' ? 'an_best' : (verdict === 'lost' ? 'an_lost' : 'an_mistake');
+      let html = `<li class="an-${verdict}"><div class="an-line"><span class="an-move">${escapeHtml(t('an_move_line',{n:idx+1, who:whoName(e.p), dir, k}))}</span><span class="an-verdict">${escapeHtml(t(vkey))}</span></div>`;
+      if(verdict === 'mistake'){
+        mistakes++; if(firstMistake < 0) firstMistake = idx;
+        const best = bestMoves(e.b, N)[0];
+        if(best){
+          const bk = totalPieces(e.b) - totalPieces(best.rows);
+          html += `<p class="msg">${escapeHtml(t('an_best_was',{k:bk, dir:dirText(best.axis, best.index)}))}</p>`;
+          html += `<details><summary>${escapeHtml(t('an_show'))}</summary><div class="an-boards">` +
+                  `<figure>${miniBoard(e.b,N)}<figcaption>${escapeHtml(t('an_before'))}</figcaption></figure>` +
+                  `<figure>${miniBoard(e.a,N)}<figcaption>${escapeHtml(t('an_played'))}</figcaption></figure>` +
+                  `<figure>${miniBoard(best.rows,N)}<figcaption>${escapeHtml(t('an_better'))}</figcaption></figure></div></details>`;
+        }
+      }
+      items.push(html + '</li>');
+    });
+    const summary = mistakes === 0 ? t('an_clean')
+      : t('an_first',{n: firstMistake+1, who: whoName(hist[firstMistake].p)}) + ' ' + t('an_count',{n: mistakes});
+    box.innerHTML = `<h3>${escapeHtml(t('an_h'))}</h3>` + (G.variant ? `<p class="msg">${escapeHtml(t('an_variant'))}</p>` : '') +
+      `<p class="an-summary">${escapeHtml(summary)}</p><ol class="an-list">${items.join('')}</ol>`;
+  }, 30);
 }
 
 function leaveGame(){
+  announceLeaving();
   if(ROOM && ROOM.pollHandle){ clearInterval(ROOM.pollHandle); }
+  if(ROOM && ROOM.hbHandle){ clearInterval(ROOM.hbHandle); }
   if(timerInterval){ clearInterval(timerInterval); timerInterval = null; }
   ROOM = null;
   G = null;
@@ -1954,6 +2413,8 @@ function leaveGame(){
 }
 function restartSameSetup(){
   if(!G) return;
+  if(G.mode==='puzzle'){ startPuzzle('random'); return; }
+  if(G.variantCfg && (G.mode==='local' || G.mode==='bot')){ launchVariant(G.variantCfg); return; }
   if(G.mode==='local'){ document.getElementById('local-size').value = G.N; startLocalGame(); }
   else if(G.mode==='bot'){ document.getElementById('bot-size').value = G.N; startBotGame(); }
   else if(G.mode==='online'){ leaveGame(); goTo('online'); }
@@ -1963,6 +2424,13 @@ function restartSameSetup(){
 
 renderAccountBar();
 onAnalysisSizeChange(5);
+(function initPrefs(){
+  const saved = lsGet('pinne.lang');
+  if(saved && I18N[saved]) LANG = saved;
+  applyLang();
+})();
+window.addEventListener('pagehide', function(){ announceLeaving(); });
+
 </script>
 </body>
 </html>
