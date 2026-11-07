@@ -631,6 +631,38 @@
   .dcard .av{--sz:34px; margin:0 !important;} .dcard.me{border-color:var(--red);}
   .dn{flex:1; font-weight:600; min-width:60px;} .ds{font:700 28px var(--f-display);} .dcard small{width:100%; color:var(--ink-3); font:500 12px var(--f-mono);}
 
+  /* ===== v6: menykategorier, opplæring, oppdrag, forsidebakgrunn per brett ===== */
+  .mode-group{font:600 13px/1 var(--f-mono); letter-spacing:.14em; text-transform:uppercase; color:var(--ink-3); margin:30px 0 10px;}
+  .modes .mode-group:first-child{margin-top:0;}
+  .modes .mode-group + .mode{border-top:1px solid var(--ink);}
+  :root[data-theme="dark"] .modes .mode-group + .mode{border-top-color:var(--hair);}
+  .learn-stage{background:var(--table); border:1.5px solid var(--ink); padding:16px; width:max-content; max-width:100%; overflow-x:auto;}
+  .learn-stage .board{margin:0;}
+  .learn-figs{display:flex; gap:28px; flex-wrap:wrap;}
+  .learn-figs figure{margin:0; display:flex; flex-direction:column; gap:8px; align-items:flex-start; padding:12px; border:1.5px solid var(--ink); background:var(--table);}
+  .learn-figs figure .board{margin:0;}
+  .learn-figs figure.bad{border-color:var(--red);}
+  .learn-figs figcaption{font:600 15px var(--f-body);}
+  .learn-figs .bad figcaption{color:var(--red-ink);}
+  .learn-nav{display:flex; gap:10px; flex-wrap:wrap; align-items:center;}
+  .learn-text h3{font-size:30px; margin:0 0 6px;}
+  :root[data-theme="dark"] .learn-stage, :root[data-theme="dark"] .learn-figs figure{border-color:var(--hair); border-radius:10px;}
+  :root[data-theme="dark"] .learn-figs figure.bad{border-color:var(--red);}
+  .obj-h{grid-column:1/-1; margin:14px 0 0;}
+  .obj-h small{font:500 13px var(--f-mono); color:var(--ink-3); margin-left:10px;}
+  .item .duel-bar{margin:4px 0;}
+  html[data-theme] body[data-board]:not([data-board="classic"]){background-attachment:fixed; background-repeat:no-repeat; background-size:cover;}
+  html[data-theme] body[data-board="marble"] select, html[data-theme] body[data-board="crystal"] select{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231E1C18' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><path d='M6 9l6 6 6-6'/></svg>");}
+  html[data-theme] body[data-board="oak"] select, html[data-theme] body[data-board="cherry"] select, html[data-theme] body[data-board="ebony"] select, html[data-theme] body[data-board="obsidian"] select, html[data-theme] body[data-board="gold"] select, html[data-theme] body[data-board="void"] select{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23EDE6D3' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><path d='M6 9l6 6 6-6'/></svg>");}
+html[data-theme] body[data-board="oak"]{--paper:#2a1c0a; --paper-2:#3a2812; --table:#4a3318; --ink:#FFF6E0; --ink-2:#F0DFBC; --ink-3:#D6BE92; --hair:#6e5230; --red:#E2563C; --red-ink:#F08A74; --teal:#6FB0C8; --ochre:#E0A23A; --good:#7DB578; background-color:#4a3015; background-image:repeating-linear-gradient(90deg, rgba(255,225,160,.05) 0 2px, transparent 2px 9px), repeating-linear-gradient(88deg, rgba(0,0,0,.18) 0 1px, transparent 1px 6px), radial-gradient(circle at 22% 30%, rgba(60,30,6,.5) 0 6px, transparent 22px), radial-gradient(circle at 78% 72%, rgba(60,30,6,.45) 0 5px, transparent 18px), linear-gradient(95deg,#4a3015,#6a4a22 40%,#533618 70%,#40290f);}
+html[data-theme] body[data-board="cherry"]{--paper:#240E08; --paper-2:#3a160e; --table:#4a1a10; --ink:#FFEFE2; --ink-2:#F1D2BD; --ink-3:#D4A98E; --hair:#7a3f2c; --red:#E2563C; --red-ink:#F08A74; --teal:#6FB0C8; --ochre:#E0A23A; --good:#7DB578; background-color:#4a1a10; background-image:repeating-linear-gradient(1deg, rgba(40,8,2,.28) 0 1px, transparent 1px 5px), radial-gradient(900px 500px at 25% 0, rgba(255,150,110,.14), transparent 70%), linear-gradient(100deg,#4a1a10,#6a2a1a 45%,#4e1d12);}
+html[data-theme] body[data-board="ebony"]{--paper:#0E0A07; --paper-2:#1d1510; --table:#1d1510; --ink:#EFE3CF; --ink-2:#D2C3A9; --ink-3:#A8987B; --hair:#4A382A; --red:#E2563C; --red-ink:#F08A74; --teal:#6FB0C8; --ochre:#E0A23A; --good:#7DB578; background-color:#100b08; background-image:repeating-linear-gradient(1deg, rgba(140,95,60,.10) 0 1px, transparent 1px 6px), radial-gradient(900px 500px at 30% 0, rgba(170,120,80,.12), transparent 70%), linear-gradient(100deg,#0d0906,#1c140f 50%,#100b08);}
+html[data-theme] body[data-board="marble"]{--paper:#EDEBE6; --paper-2:#F8F6F1; --table:#E3E0D8; --ink:#1E1C18; --ink-2:#47433B; --ink-3:#6A655A; --hair:#B9B6AD; --red:#C2361F; --red-ink:#9E2A16; --teal:#27576A; --ochre:#C98A12; --good:#3E6B3A; background-color:#EDEBE6; background-image:linear-gradient(112deg, transparent 38%, rgba(110,115,130,.30) 38.2%, transparent 39.2%), linear-gradient(68deg, transparent 52%, rgba(90,95,110,.24) 52.2%, transparent 53.2%), linear-gradient(131deg, transparent 70%, rgba(130,135,150,.27) 70.2%, transparent 71%), linear-gradient(24deg, transparent 20%, rgba(120,125,140,.18) 20.2%, transparent 20.9%), radial-gradient(ellipse at 30% 10%, rgba(255,255,255,.9), transparent 60%), linear-gradient(135deg,#f1efea,#dcdad4 55%,#eceae5);}
+html[data-theme] body[data-board="obsidian"]{--paper:#0a0c14; --paper-2:#141722; --table:#151827; --ink:#ECEAF4; --ink-2:#C9C6D8; --ink-3:#A29FB5; --hair:#2a2e44; --red:#E2563C; --red-ink:#F08A74; --teal:#6FB0C8; --ochre:#E0A23A; --good:#7DB578; background-color:#07080d; background-image:linear-gradient(118deg, transparent 0 57.8%, rgba(232,190,80,.38) 58%, transparent 58.9%), linear-gradient(118deg, transparent 0 64%, rgba(255,255,255,.05) 64% 69%, transparent 69%), linear-gradient(118deg, transparent 0 79.8%, rgba(232,190,80,.2) 80%, transparent 80.6%), radial-gradient(1000px 520px at 50% -140px, #1b2033, transparent 75%), linear-gradient(#0d1019,#07080d);}
+html[data-theme] body[data-board="gold"]{--paper:#0b0a08; --paper-2:#1c150a; --table:#2a1d0a; --ink:#F6E8C2; --ink-2:#E2CC93; --ink-3:#B9A16A; --hair:#5b4719; --red:#E2563C; --red-ink:#F08A74; --teal:#6FB0C8; --ochre:#E0A23A; --good:#7DB578; background-color:#080706; background-image:linear-gradient(115deg, transparent 30%, rgba(212,160,23,.55) 30.15%, transparent 30.5%), linear-gradient(62deg, transparent 55%, rgba(255,215,90,.4) 55.12%, transparent 55.45%), linear-gradient(140deg, transparent 72%, rgba(212,160,23,.5) 72.15%, transparent 72.6%), linear-gradient(98deg, transparent 12%, rgba(255,215,90,.3) 12.1%, transparent 12.4%), linear-gradient(80deg, transparent 88%, rgba(212,160,23,.35) 88.1%, transparent 88.4%), radial-gradient(900px 500px at 15% 0, rgba(212,160,23,.14), transparent 70%), linear-gradient(#0e0c09,#070605);}
+html[data-theme] body[data-board="crystal"]{--paper:#E3F3F9; --paper-2:#EEF8FB; --table:#CFE8F1; --ink:#102A36; --ink-2:#2E5666; --ink-3:#4F7E90; --hair:#A5D2E1; --red:#C2361F; --red-ink:#9E2A16; --teal:#27576A; --ochre:#C98A12; --good:#3E6B3A; background-color:#E3F3F9; background-image:conic-gradient(from 30deg at 28% 38%, #eaf8fd, #b9e0ee, #f6fcff, #9fd2e6, #e3f5fb, #b9e0ee, #eaf8fd), linear-gradient(135deg,#eaf8fd,#cfeaf4);}
+html[data-theme] body[data-board="void"]{--paper:#020204; --paper-2:#0f0a1a; --table:#0f0a1a; --ink:#E8E0FF; --ink-2:#C9BFEA; --ink-3:#9F94C4; --hair:#2A1A44; --red:#E2563C; --red-ink:#F08A74; --teal:#6FB0C8; --ochre:#E0A23A; --good:#7DB578; background-color:#020204; background-image:radial-gradient(1.6px 1.6px at 12% 22%, #fff, transparent), radial-gradient(1.2px 1.2px at 34% 64%, #cfc2ff, transparent), radial-gradient(1.6px 1.6px at 58% 18%, #fff, transparent), radial-gradient(1.2px 1.2px at 77% 52%, #fff, transparent), radial-gradient(1.4px 1.4px at 90% 82%, #d9c9ff, transparent), radial-gradient(1.2px 1.2px at 46% 90%, #fff, transparent), radial-gradient(ellipse at 72% 60%, rgba(139,0,255,.32), transparent 60%), radial-gradient(ellipse at 20% 80%, rgba(60,0,140,.34), transparent 55%);}
+
 </style>
 </head>
 <body data-board="classic" data-pin="wood">
@@ -694,20 +726,20 @@
       </figure>
     </div>
     <nav class="modes" aria-label="Spillmodus">
-      <button class="mode" onclick="goTo('setup-local')"><span class="mode-inner"><span class="mode-text"><span class="mode-name" data-i18n="m_local_n">Lokalt — to spillere</span><span class="mode-desc" data-i18n="m_local_d">Del skjerm, bytt på trekk</span></span><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
+      <h3 class="mode-group" data-i18n="grp_play">Spill</h3>
       <button class="mode" onclick="goTo('setup-bot')"><span class="mode-inner"><span class="mode-text"><span class="mode-name" data-i18n="m_bot_n">Mot boten</span><span class="mode-desc" data-i18n="m_bot_d">Lett, middels eller perfekt</span></span><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
+      <button class="mode" onclick="goTo('setup-local')"><span class="mode-inner"><span class="mode-text"><span class="mode-name" data-i18n="m_local_n">Lokalt — to spillere</span><span class="mode-desc" data-i18n="m_local_d">Del skjerm, bytt på trekk</span></span><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
       <button class="mode" onclick="goTo('setup-online')"><span class="mode-inner"><span class="mode-text"><span class="mode-name" data-i18n="m_online_n">Spill online</span><span class="mode-desc" data-i18n="m_online_d">Del en romkode med en venn</span></span><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
-      <button class="mode" onclick="onRankedClick()"><span class="mode-inner"><span class="mode-text"><span class="mode-name" data-i18n="m_ranked_n">Spill rangert</span><span class="mode-desc" data-i18n="m_ranked_d">Krever innlogging — påvirker Elo</span></span><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
+      <button class="mode" onclick="goTo('ranked')"><span class="mode-inner"><span class="mode-text"><span class="mode-name" data-i18n="m_ranked_n">Spill rangert</span><span class="mode-desc" data-i18n="m_ranked_d">Toppliste og rangerte kamper. Krever innlogging</span></span><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
       <button class="mode" onclick="goTo('tournaments')"><span class="mode-inner"><span class="mode-text"><span class="mode-name" data-i18n="m_tourn_n">Turneringer</span><span class="mode-desc" data-i18n="m_tourn_d">Daglig og ukentlig turnering, og egne med pott</span></span><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
-      <button class="mode" onclick="startPuzzle('daily')"><span class="mode-inner"><span class="mode-text"><span class="mode-name" data-i18n="m_puzzle_n">Dagens oppgave</span><span class="mode-desc" data-i18n="m_puzzle_d">Finn vinnertrekket i en vanskelig stilling</span></span><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
       <button class="mode" onclick="goTo('duel')"><span class="mode-inner"><span class="mode-text"><span class="mode-name" data-i18n="m_duel_n">Taktisk duell</span><span class="mode-desc" data-i18n="m_duel_d">Samme vanskelige stilling til begge. Først til å finne trekket.</span></span><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
+      <button class="mode" onclick="goTo('setup-variants')"><span class="mode-inner"><span class="mode-text"><span class="mode-name" data-i18n="m_variants_n">Varianter</span><span class="mode-desc" data-i18n="m_variants_d">Tilfeldig brett, power-ups, skrelling, omvendt, turbo</span></span><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
+      <h3 class="mode-group" data-i18n="grp_train">Utfordringer og trening</h3>
+      <button class="mode" onclick="goTo('learn')"><span class="mode-inner"><span class="mode-text"><span class="mode-name" data-i18n="m_learn_n">Opplæring</span><span class="mode-desc" data-i18n="m_learn_d">Lær reglene steg for steg, også skrelling</span></span><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
+      <button class="mode" onclick="startPuzzle('daily')"><span class="mode-inner"><span class="mode-text"><span class="mode-name" data-i18n="m_puzzle_n">Dagens oppgave</span><span class="mode-desc" data-i18n="m_puzzle_d">Finn vinnertrekket i en vanskelig stilling</span></span><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
       <button class="mode" onclick="goTo('setup-analysis')"><span class="mode-inner"><span class="mode-text"><span class="mode-name" data-i18n="m_analysis_n">Analysemodus</span><span class="mode-desc" data-i18n="m_analysis_d">Sett opp en stilling, spill med hint</span></span><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
-      <button class="mode" onclick="goTo('setup-variants')"><span class="mode-inner"><span class="mode-text"><span class="mode-name" data-i18n="m_variants_n">Varianter</span><span class="mode-desc" data-i18n="m_variants_d">Tilfeldig brett, power-ups, skrelling, turbo</span></span><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
-      <button class="mode" onclick="openLeaderboard()"><span class="mode-inner"><span class="mode-text"><span class="mode-name" data-i18n="m_leader_n">Se toppliste</span><span class="mode-desc" data-i18n="m_leader_d">Rangering etter Elo</span></span><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
-      <button class="mode" onclick="goTo('shop')"><span class="mode-inner"><span class="mode-text"><span class="mode-name" data-i18n="m_shop_n">Butikk</span><span class="mode-desc" data-i18n="m_shop_d">Brett, pinner, rammer og seiersanimasjoner</span></span><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
-      <button class="mode" onclick="goTo('friends')"><span class="mode-inner"><span class="mode-text"><span class="mode-name" data-i18n="m_friends_n">Venner</span><span class="mode-desc" data-i18n="m_friends_d">Se hvem som er online og se på partier</span></span><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
-      <button class="mode" onclick="goTo('achievements')"><span class="mode-inner"><span class="mode-text"><span class="mode-name" data-i18n="m_ach_n">Merker</span><span class="mode-desc" data-i18n="m_ach_d">Prestasjoner du kan låse opp</span></span><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
-      <button class="mode" onclick="goTo('profile')"><span class="mode-inner"><span class="mode-text"><span class="mode-name" data-i18n="m_profile_n">Profil</span><span class="mode-desc" data-i18n="m_profile_d">Mynter, titler og din samling</span></span><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
+      <h3 class="mode-group" data-i18n="grp_shop">Butikk og oppdrag</h3>
+      <button class="mode" onclick="goTo('shop')"><span class="mode-inner"><span class="mode-text"><span class="mode-name" data-i18n="m_shop_n">Butikk</span><span class="mode-desc" data-i18n="m_shop_d">Brett, pinner, rammer og daglige oppdrag</span></span><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
     </nav>
   </section>
 
@@ -757,14 +789,24 @@
     </div>
   </section>
 
-  <!-- SCREEN: LEADERBOARD -->
-  <section id="screen-leaderboard" class="hidden">
+  <!-- SCREEN: RANKED (toppliste ligger her) -->
+  <section id="screen-ranked" class="hidden">
     <button class="back-link" onclick="goTo('menu')"><svg class="ic" aria-hidden="true"><use href="#i-back"/></svg><span data-i18n="back">tilbake</span></button>
     <div class="sheet">
-      <div class="sheet-head"><h2 data-i18n="lb_h">Toppliste</h2></div>
+      <div class="sheet-head"><h2 data-i18n="m_ranked_n">Spill rangert</h2><p class="msg" data-i18n="rk_msg">To runder mot en annen spiller, og Elo på ukens toppliste. Krever innlogging.</p><div><button class="btn primary" onclick="onRankedClick()" data-i18n="rk_find">Finn motstander</button></div></div>
       <div class="sheet-body" style="max-width:none;">
+        <h3 data-i18n="lb_h">Toppliste</h3>
         <div id="leaderboard-list"><p class="msg">Laster...</p></div>
       </div>
+    </div>
+  </section>
+
+  <!-- SCREEN: LEARN -->
+  <section id="screen-learn" class="hidden">
+    <button class="back-link" onclick="goTo('menu')"><svg class="ic" aria-hidden="true"><use href="#i-back"/></svg><span data-i18n="back">tilbake</span></button>
+    <div class="sheet">
+      <div class="sheet-head"><h2 data-i18n="m_learn_n">Opplæring</h2><p class="msg" data-i18n="learn_sub">Lær reglene steg for steg.</p></div>
+      <div class="sheet-body wide"><div id="learn-body" class="col"></div></div>
     </div>
   </section>
 
@@ -888,6 +930,7 @@
       </div>
       <div class="sheet-body">
         <label class="check"><input type="checkbox" id="var-peel"><span><b><svg class="ic tone-red" aria-hidden="true"><use href="#i-skip"/></svg> <span data-i18n="v_peel">Skrellemodus</span></b><small data-i18n="v_peel_d">hvert 3. trekk faller ytterste vinkel (første rad og kolonne) av brettet. Ingen hint eller analyse.</small></span></label>
+        <label class="check"><input type="checkbox" id="var-misere"><span><b><svg class="ic tone-ink" aria-hidden="true"><use href="#i-undo"/></svg> <span data-i18n="v_misere">Omvendt (misère)</span></b><small data-i18n="v_misere_d">den som tar siste pinne taper. Ingen hint eller analyse.</small></span></label>
         <label class="check"><input type="checkbox" id="var-dynamic" onchange="document.getElementById('var-size-row').style.display=this.checked?'none':'block';"><span><b><svg class="ic" aria-hidden="true"><use href="#i-dice"/></svg> <span data-i18n="v_dynamic">Dynamisk brett</span></b><small data-i18n="v_dynamic_d">komplekse, tilfeldige stillinger (5×5 til 10×10)</small></span></label>
 
         <div class="opts">
@@ -926,7 +969,7 @@
   </section>
 
   <section id="screen-friends" class="hidden">
-    <button class="back-link" onclick="goTo('menu')"><svg class="ic" aria-hidden="true"><use href="#i-back"/></svg><span data-i18n="back">tilbake</span></button>
+    <button class="back-link" onclick="goTo('profile')"><svg class="ic" aria-hidden="true"><use href="#i-back"/></svg><span data-i18n="back">tilbake</span></button>
     <div class="sheet">
       <div class="sheet-head"><h2 data-i18n="m_friends_n">Venner</h2><p class="msg" data-i18n="m_friends_d">Se hvem som er online og se på partier</p></div>
       <div class="sheet-body wide">
@@ -972,7 +1015,7 @@
     </div>
   </section>
   <section id="screen-achievements" class="hidden">
-    <button class="back-link" onclick="goTo('menu')"><svg class="ic" aria-hidden="true"><use href="#i-back"/></svg><span data-i18n="back">tilbake</span></button>
+    <button class="back-link" onclick="goTo('profile')"><svg class="ic" aria-hidden="true"><use href="#i-back"/></svg><span data-i18n="back">tilbake</span></button>
     <div class="sheet">
       <div class="sheet-head"><h2 data-i18n="m_ach_n">Merker</h2><p class="msg" data-i18n="ach_sub">Lås opp merker ved å spille, vinne og samle.</p><p class="msg" id="ach-count"></p></div>
       <div class="sheet-body wide">
@@ -1403,7 +1446,8 @@ function readVariantConfig(){
     types, turbo, turboSecs,
     mode: document.getElementById('var-mode').value,
     fixedSize: parseInt(document.getElementById('var-size').value,10),
-    peel: document.getElementById('var-peel').checked
+    peel: document.getElementById('var-peel').checked,
+    misere: document.getElementById('var-misere').checked
   };
 }
 
@@ -1434,7 +1478,7 @@ function launchVariant(cfg){
     N, rows, turn: 0, winner: null, log: [], history: [],
     timerSeconds: cfg.turbo ? cfg.turboSecs : null,
     powerups, locks: [], skip: [false,false], timePenalty: [0,0],
-    difficulty: 'medium', variant: true, variantCfg: cfg, peel: !!cfg.peel, mc: 0
+    difficulty: 'medium', variant: true, variantCfg: cfg, peel: !!cfg.peel, mc: 0, misere: !!cfg.misere
   };
   enterGameScreen();
 }
@@ -1456,7 +1500,7 @@ async function createVariantRoom(cfg, N, rows, powerups){
   try{
     await window.storage.set('room:'+code, JSON.stringify(state), true);
     ROOM = {code, myPlayerIndex:0};
-    G = {peel: !!cfg.peel, mc: 0, mode:'online', N, rows, turn:0, winner:null, log:[], history:[], timerSeconds: timerSecs,
+    G = {peel: !!cfg.peel, misere: !!cfg.misere, mc: 0, mode:'online', N, rows, turn:0, winner:null, log:[], history:[], timerSeconds: timerSecs,
          powerups, locks:[], skip:[false,false], timePenalty:[0,0], variant:true, gameNo:1, stake:1};
     lastKnownVersion = 1;
     enterGameScreen();
@@ -1686,7 +1730,7 @@ async function joinRoom(){
     state.version = (state.version||1) + 1;
     await window.storage.set('room:'+code, JSON.stringify(state), true);
     ROOM = {code, myPlayerIndex: myIndex, joined: true};
-    G = {peel: !!(state.vcfg && state.vcfg.peel), mc: state.mc || 0, mode:'online', N: state.N, rows: state.rows, turn: state.turn, winner:null, log:[], history: state.hist||[], timerSeconds: state.timerSeconds||null,
+    G = {peel: !!(state.vcfg && state.vcfg.peel), misere: !!(state.vcfg && state.vcfg.misere), mc: state.mc || 0, mode:'online', N: state.N, rows: state.rows, turn: state.turn, winner:null, log:[], history: state.hist||[], timerSeconds: state.timerSeconds||null,
          powerups: state.powerups||[], locks: state.locks||[], skip: state.skip||[false,false], timePenalty: state.timePenalty||[0,0], variant: !!state.variant,
          gameNo: state.gameNo||1, stake: state.stake||1, loggedMoves: (state.hist||[]).length};
     lastKnownVersion = state.version;
@@ -1754,7 +1798,7 @@ function applyStateToG(state, remote){
   G.locks = state.locks || [];
   G.skip = state.skip || [false,false];
   G.timePenalty = state.timePenalty || [0,0];
-  G.peel = !!(state.peel || (state.vcfg && state.vcfg.peel)); G.mc = state.mc || 0;
+  G.peel = !!(state.peel || (state.vcfg && state.vcfg.peel)); G.mc = state.mc || 0; G.misere = !!(state.vcfg && state.vcfg.misere);
   if(state.series) G.series = state.series;
   if(state.pinfo) G.pinfo = state.pinfo;
   if(state.timerSeconds) G.timerSeconds = state.timerSeconds;
@@ -2058,11 +2102,12 @@ function applyMove(move, label){
   G.rows = move.rows;
   G.mc = (G.mc || 0) + 1;
   let finished = totalPieces(G.rows) === 0;
-  let winner = finished ? mover : null;
+  const lastW = G.misere ? other : mover;
+  let winner = finished ? lastW : null;
   const fx = [];
   if(!finished && G.peel && G.mc % 3 === 0){
     G.rows = peelRows(G.rows); peelShift(); fx.push({kind:'peel', p:mover});
-    if(totalPieces(G.rows) === 0){ finished = true; winner = mover; }
+    if(totalPieces(G.rows) === 0){ finished = true; winner = lastW; }
   }
 
   let nextTurn = other;
@@ -2669,6 +2714,7 @@ function onGameEnded(){
 async function refreshMyElo(){ if(!currentUser) return; currentUser.elo = (await wkRec(currentUser.username)).elo; renderAccountBar(); }
 async function rewardBotWin(){
   if(!currentUser) return;
+  if((G.difficulty || 'medium') !== 'easy'){ trackObj('botWin'); if(G.variant) trackObj('variantWin'); }
   const d = G.difficulty || 'medium', mult = d === 'easy' ? 0 : d === 'medium' ? 0.3 : 1, n = Math.round(G.N * G.N / 3 * mult);
   await saveMe(u => { u.stats.games++; u.stats.wins++; if(n > 0){ u.coins += n; u.stats.earned += n; } });
   if(n > 0) toast(t('coin_gain', {n, why:t('why_bot')}));
@@ -2688,7 +2734,7 @@ async function finishSeries(iWon){
   const coins = (80 + 25 * s.pair) * Math.min(stake, 4);
   await saveMe(u => { u.coins += coins; u.stats.earned += coins; u.stats.games++; u.stats.wins++; u.stats.rankedWins++; u.stats.rankedGames++; u.elo = na; });
   await touchUser(oppName, u => { u.stats.games++; u.stats.rankedGames++; });
-  grantAch('first_win'); grantAch('ranked_first'); if(currentUser.stats.rankedWins >= 10) grantAch('ranked_10');
+  grantAch('first_win'); grantAch('ranked_first'); trackObj('rankedWin'); if(currentUser.stats.rankedWins >= 10) grantAch('ranked_10');
   if(s.res[0] && s.res[0].w !== ROOM.myPlayerIndex) grantAch('comeback'); if(s.pair >= 1) grantAch('deep');
   G.eloHtml = '<div class="sub">' + t('elo_label') + ': ' + (delta >= 0 ? '+' : '') + delta + ' → <strong>' + na + '</strong> · ' + escapeHtml(t('coin_gain', {n:coins, why:t('why_ranked')})) + '</div>';
   document.getElementById('winner-banner').insertAdjacentHTML('beforeend', G.eloHtml);
@@ -2746,7 +2792,7 @@ async function startRematch(game){
 
 /* ---- ukentlig toppliste ---- */
 async function openLeaderboard(){
-  goTo('leaderboard'); const list = document.getElementById('leaderboard-list'); list.innerHTML = '<p class="msg">' + t('loading') + '</p>';
+  const list = document.getElementById('leaderboard-list'); list.innerHTML = '<p class="msg">' + t('loading') + '</p>';
   if(!storageAvailable()){ list.innerHTML = '<p class="msg">' + t('no_storage') + '</p>'; return; }
   try{
     const wid = isoWeekId(nowMs()), recs = [];
@@ -2774,7 +2820,7 @@ const ITEMS = [
  ['n_wood','n',0],['n_gold','n',900],['n_live','n',2800],
  ['a_confetti','a',500],['a_gold','a',1200],['a_fireworks','a',1500],['a_lightning','a',2200],['a_void','a',3000],['a_nova','a',4000],['a_phoenix','a',5000]];
 const CAT_DEFAULT = {b:'b_classic', p:'p_wood', v:'v_wood', f:'', t:'t_novice', n:'n_wood', a:''};
-const SHOP_CATS = ['b', 'p', 'v', 'f', 't', 'n', 'a'];
+const SHOP_CATS = ['b', 'p', 'v', 'f', 't', 'n', 'a', 'q'];
 let shopCat = 'b';
 function itemOwned(u, id){ const it = ITEMS.find(x => x[0] === id); if(!it) return false; if(it[3]) return !!u.ach[it[3]]; return it[2] === 0 || u.owned.includes(id); }
 function pinfoOf(u, elo){ return {u:u.username, elo, t:u.eq.t, n:u.eq.n, f:u.eq.f, v:u.eq.v, a:u.eq.a, ch:champStreakOf(u.username)}; }
@@ -2830,6 +2876,7 @@ function renderShop(){
   const box = document.getElementById('shop-body'); if(!box) return; const me = currentUser;
   document.getElementById('shop-coins').textContent = me ? me.coins : 0;
   document.getElementById('shop-tabs').innerHTML = SHOP_CATS.map(c => `<button class="tab-btn ${c === shopCat ? 'active' : ''}" onclick="shopCat='${c}'; renderShop()">${t('shop_c_' + c)}</button>`).join('');
+  if(shopCat === 'q'){ box.innerHTML = renderObjectives(); return; }
   box.innerHTML = ITEMS.filter(i => i[1] === shopCat).map(([id, c, price, ach]) => {
     const owned = me && itemOwned(me, id), on = me && me.eq[c] === id; let btn;
     if(!me) btn = `<button class="btn sm" disabled>${t('fr_login')}</button>`;
@@ -2837,7 +2884,8 @@ function renderShop(){
     else if(owned) btn = `<button class="btn sm primary" onclick="equipItem('${id}')">${t('shop_use')}</button>`;
     else if(ach) btn = `<span class="tag">${icon('lock')} ${escapeHtml(t('ach_req', {name:t('ac_' + ach + '_n')}))}</span>`;
     else btn = `<button class="btn sm primary" onclick="buyItem('${id}')">${price ? t('shop_buy', {n:price}) : t('shop_free')}</button>`;
-    const desc = ach ? t('title_from_ach', {name:t('ac_' + ach + '_n')}) : t('it_' + id + '_d');
+    let desc = ach ? t('title_from_ach', {name:t('ac_' + ach + '_n')}) : t('it_' + id + '_d');
+    if(c === 'b' && id !== 'b_classic') desc += ' ' + t('shop_bg_note');
     return `<div class="item ${on ? 'on' : ''}">${itemPreview(id, c)}<div class="item-name">${t('it_' + id + '_n')}</div><p class="item-desc">${desc}</p><div class="item-foot">${btn}</div></div>`;
   }).join('');
 }
@@ -2861,7 +2909,7 @@ function renderProfile(){
   box.innerHTML =
     `<div class="prof-head">${avatarHTML(info, 84)}<div>${plateHTML(info, u.username)}<div class="prof-title">${escapeHtml(titleText(info))}</div></div></div>` +
     `<div class="stat-grid">` + [[t('coins_label'), u.coins], [t('st_elo'), u.elo || 1200], [t('st_games'), s.games], [t('st_wins'), s.wins], [t('st_ranked'), s.rankedWins], [t('st_tourn'), s.tournWins], [t('st_earned'), s.earned]].map(([k, v]) => `<div class="stat"><b>${v}</b><span>${k}</span></div>`).join('') + `</div>` +
-    `<p class="msg">${t('ach_progress', {a:unlocked, b:ACH.length})} · <a href="#" onclick="goTo('achievements'); return false;">${t('m_ach_n')}</a></p>` +
+    `<p class="msg">${t('ach_progress', {a:unlocked, b:ACH.length})}</p><div class="fr-act"><button class="btn sm" onclick="goTo('friends')">${t('m_friends_n')}</button><button class="btn sm" onclick="goTo('achievements')">${t('m_ach_n')}</button></div>` +
     `<h3>${t('profile_devices')}</h3>` + u.devices.map((d, i) => `<div class="fr-row"><span class="fr-name">${escapeHtml(d.name)}</span><span class="fr-act">${u.devices.length > 1 ? `<button class="btn sm ghost" onclick="removeDevice(${i})">${t('dev_remove')}</button>` : ''}</span></div>`).join('');
 }
 async function removeDevice(i){ await saveMe(u => { u.devices.splice(i, 1); }); renderProfile(); }
@@ -3136,7 +3184,7 @@ async function finishTourn(T, name){
   await saveMe(u => { u.coins += prize; u.stats.earned += prize; u.stats.tournWins++; });
   await sset('tourn:' + T.code, T); await sset('tpi:' + lc(me) + ':' + T.code, {code:T.code, fee:T.fee, st:'settled'});
   toast(t('coin_gain', {n:prize, why:t(T.kind === 'custom' ? 'why_pot' : 'why_tourn')}));
-  grantAch('tourn_win'); if(T.kind === 'weekly') await updateChampion(name);
+  grantAch('tourn_win'); trackObj('tournWin'); if(T.kind === 'weekly') await updateChampion(name);
   MYT.code = null; if(TN_VIEW === T.code) renderTournView(T.code);
 }
 async function updateChampion(name){
@@ -3274,6 +3322,7 @@ function refreshDynamic(){
   if(vis('shop')) renderShop(); if(vis('profile')) renderProfile(); if(vis('achievements')) renderAchievements();
   if(vis('friends')) renderFriends(); if(vis('tournaments')){ if(TN_VIEW) renderTournView(TN_VIEW); else renderTournaments(); }
   if(vis('auth')) showAuthStep(AUTH.step || 1);
+  if(vis('learn')) renderLearn(); if(vis('ranked')) openLeaderboard();
 }
 
 /* ============ V5: skrellemodus og taktisk duell ============ */
@@ -3312,7 +3361,7 @@ function botMove(){
   const rand = a => a[Math.floor(Math.random() * a.length)]; const d = G.difficulty || 'medium'; let chosen;
   if(d === 'easy') chosen = rand(moves);
   else {
-    const good = G.peel ? (G.N <= 8 ? moves.filter(peelGood) : []) : evaluatePosition(G.rows, G.N).goodMoves;
+    const good = G.misere ? ((G.peel || G.N > 9) ? [] : moves.filter(m => !isWinM(m.rows))) : G.peel ? (G.N <= 8 ? moves.filter(peelGood) : []) : evaluatePosition(G.rows, G.N).goodMoves;
     if(d === 'perfect') chosen = good.length ? rand(good) : rand(moves); else chosen = (good.length && Math.random() < 0.55) ? rand(good) : rand(moves);
   }
   if(removesLocked(G.rows, chosen)) chosen = rand(moves);
@@ -3328,7 +3377,7 @@ function leaveGame(){
 /* ---- taktisk duell ---- */
 let DUEL = null, duelTimer = null, DUEL_READY = 3500, DUEL_GAP = 2600, DUEL_MIN = 10, DUEL_BOTSCALE = 1;
 function duelStop(){ if(duelTimer){ clearInterval(duelTimer); duelTimer = null; } DUEL = null; const p = document.getElementById('duel-panel'); if(p) p.classList.add('hidden'); }
-function duelRows(idx){ const pz = PUZZLES[idx], N = Math.max(pz.r.length, pz.r[0]); return {N, rows:pz.r.concat(Array(N - pz.r.length).fill(0))}; }
+function duelRows(idx){ const pz = (idx && typeof idx === 'object') ? idx : PUZZLES[idx], N = Math.max(pz.r.length, pz.r[0]); return {N, rows:pz.r.concat(Array(N - pz.r.length).fill(0))}; }
 function duelPts(me, other, timerMs){
   const pen = ((me && me.wrong) || 0) * 20; if(!me || me.t == null) return -pen;
   const base = 100 + Math.round(Math.max(0, timerMs - me.t) / 1000) * 2, first = (!other || other.t == null || me.t < other.t) ? 50 : 0;
@@ -3354,13 +3403,13 @@ function duelReadOpts(){
 function myDuelName(){ return currentUser ? currentUser.username : t('vs_guest'); }
 function duelBotStart(){
   const o = duelReadOpts(), lvl = document.getElementById('duel-level').value;
-  duelInit({kind:'bot', me:0, rounds:o.rounds, timer:o.timer, lvl, puzzles:shuffled(PUZZLES.length).slice(0, o.rounds), names:[myDuelName(), t('duel_botname')], bot:{tb:null}});
+  duelInit({kind:'bot', me:0, rounds:o.rounds, timer:o.timer, lvl, puzzles:makeDuelPuzzles(o.rounds), names:[myDuelName(), t('duel_botname')], bot:{tb:null}});
 }
 async function duelCreate(){
   const msg = document.getElementById('duel-msg'); msg.textContent = '';
   if(!storageAvailable()){ msg.textContent = t('no_storage'); return; }
   const o = duelReadOpts(), code = randCode();
-  const st = {code, names:[myDuelName(), null], rounds:o.rounds, timer:o.timer, puzzles:shuffled(PUZZLES.length).slice(0, o.rounds), status:'lobby', round:0, roundStart:0, over:false};
+  const st = {code, names:[myDuelName(), null], rounds:o.rounds, timer:o.timer, puzzles:makeDuelPuzzles(o.rounds), status:'lobby', round:0, roundStart:0, over:false};
   await sset('duel:' + code, st);
   duelInit({kind:'online', code, me:0, rounds:o.rounds, timer:o.timer, puzzles:st.puzzles, names:st.names});
 }
@@ -3378,6 +3427,7 @@ function duelBeginRound(r, startMs){
   const D = DUEL; D.round = r; D.roundStart = startMs; D.over = false; D.solved = false; D.locked = false; D.active = false; D.msg = '';
   D.rec[r] = D.rec[r] || [{t:null, wrong:0}, {t:null, wrong:0}];
   const {N, rows} = duelRows(D.puzzles[r]); G.N = N; G.rows = rows; G.turn = 0; G.winner = null;
+  const pp = D.puzzles[r]; D.peel = !!(pp && typeof pp === 'object'); G.peel = D.peel; G.mc = D.peel ? pp.k : 0;
   if(D.kind === 'bot'){ const L = {easy:[.7, 15, 29], medium:[.9, 8, 22], perfect:[1, 4, 14]}[D.lvl] || [.9, 8, 22]; D.bot.tb = Math.random() < L[0] ? Math.round(rnd(L[1], L[2]) * 1000 * DUEL_BOTSCALE) : null; }
   renderBoard(); renderStatus();
 }
@@ -3432,7 +3482,7 @@ function duelWrite(r){ if(DUEL.kind === 'online') sset('dl:' + DUEL.code + ':' +
 function handleDuelMove(move){
   const D = DUEL; if(!D || !D.active || D.solved || D.locked) return;
   const r = D.round, rec = D.rec[r][D.me];
-  if(!isWin(move.rows, G.N)){
+  if(duelCorrect(move)){
     rec.t = nowMs() - D.roundStart; D.solved = true; G.rows = move.rows;
     D.msg = t('duel_solved', {n:duelPts(rec, D.rec[r][1 - D.me], D.timer * 1000)}); duelWrite(r); renderBoard();
   } else {
@@ -3448,6 +3498,7 @@ function duelFinish(){
   banner.textContent = a === b ? t('duel_draw', {a, b}) : (a > b ? t('duel_win_you', {a, b}) : t('duel_win_opp', {name:D.names[1 - me] || t('opp_cap'), a:b, b:a}));
   if(a > b){
     playWinAnim((currentUser && currentUser.eq.a) || 'a_pop');
+    if(currentUser && !(D.kind === 'bot' && D.lvl === 'easy')) trackObj('duelWin');
     if(D.kind === 'bot' && currentUser){ const n = D.lvl === 'easy' ? 0 : D.lvl === 'medium' ? 15 : 30; if(n){ saveMe(u => { u.coins += n; u.stats.earned += n; }).then(() => toast(t('coin_gain', {n, why:t('why_bot')}))); } }
   }
   renderBoard(); renderStatus(); renderDuelPanel();
@@ -3466,7 +3517,7 @@ function renderDuelPanel(){
     const st = rr && rr.t != null ? '✔ ' + t('duel_solve_time', {s:(rr.t / 1000).toFixed(1)}) : (rr && rr.wrong ? '✖ ×' + rr.wrong : '');
     return `<div class="dcard ${i === D.me ? 'me' : ''}">${avatarHTML(info, 34)}<span class="dn">${escapeHtml(nm)}</span><b class="ds">${tot[i]}</b><small>${st}</small></div>`;
   };
-  box.innerHTML = `<div class="duel-head"><b>${D.round >= 0 ? t('duel_round', {n:D.round + 1, t:D.rounds}) : t('m_duel_n')}</b><span>${escapeHtml(status)}</span></div><div class="duel-bar"><i style="width:${pct}%"></i></div><div class="duel-scores">${card(0)}${card(1)}</div>`;
+  box.innerHTML = `<div class="duel-head"><b>${D.round >= 0 ? t('duel_round', {n:D.round + 1, t:D.rounds}) + (D.peel ? ' · ' + t('duel_peel_tag') : '') : t('m_duel_n')}</b><span>${escapeHtml(status)}</span></div><div class="duel-bar"><i style="width:${pct}%"></i></div><div class="duel-scores">${card(0)}${card(1)}</div>`;
 }
 
 
@@ -3483,6 +3534,7 @@ function goTo(id){
   if(id === 'matchmaking') document.getElementById('matchmaking-status').textContent = t('mm_connect');
   if(id === 'shop') renderShop(); if(id === 'profile') renderProfile(); if(id === 'friends') renderFriends();
   if(id === 'tournaments') renderTournaments(); if(id === 'achievements') renderAchievements();
+  if(id === 'ranked') openLeaderboard(); if(id === 'learn'){ learnI = 0; renderLearn(); }
   if(id === 'auth') showAuthStep(AUTH.step || 1);
 }
 function whoName(p){
@@ -3504,7 +3556,7 @@ function canIMove(){
 function updateHintVisibility(){
   const mode = G.mode;
   const show = (id, on) => { const el = document.getElementById(id); if(el) el.style.display = on ? 'inline-flex' : 'none'; };
-  const hintOn = G.winner === null && !G.peel && ((mode === 'bot' && G.turn === 0) || mode === 'analysis');
+  const hintOn = G.winner === null && !G.peel && !G.misere && ((mode === 'bot' && G.turn === 0) || mode === 'analysis');
   show('hint-btn', hintOn);
   if(!hintOn && mode !== 'puzzle') document.getElementById('hint-box').classList.add('hidden');
   show('undo-btn', mode === 'analysis' && G.undo && G.undo.length > 0);
@@ -3512,7 +3564,7 @@ function updateHintVisibility(){
   const rematchOn = online && G.winner !== null && !G.forfeit && ROOM && ROOM.joined && !ROOM.spectating && !G.tm && (mode !== 'ranked' || (G.series && G.series.decided != null));
   show('rematch-btn', rematchOn);
   if(rm && rematchOn){ rm.disabled = !!ROOM.rematchSent; document.getElementById('rematch-label').textContent = ROOM.rematchSent ? t('rematch_wait') : (mode === 'ranked' ? t('rematch_double') : t('rematch')); }
-  show('analyze-btn', ['local', 'bot', 'online', 'ranked'].includes(mode) && !G.peel && G.winner !== null && G.history && G.history.length > 0);
+  show('analyze-btn', ['local', 'bot', 'online', 'ranked'].includes(mode) && !G.peel && !G.misere && G.winner !== null && G.history && G.history.length > 0);
   const lbl = document.getElementById('restart-label');
   if(lbl){ const key = mode === 'puzzle' ? 'pz_new' : (G.tm ? 'tn_view_back' : 'play_again'); lbl.setAttribute('data-i18n', key); lbl.textContent = t(key); }
   if(mode !== 'puzzle') document.getElementById('puzzle-info').classList.add('hidden');
@@ -3520,7 +3572,8 @@ function updateHintVisibility(){
 function showWinner(){
   const banner = document.getElementById('winner-banner'); banner.classList.remove('hidden');
   const spec = ROOM && ROOM.spectating; let text;
-  if(spec) text = t('named_won', {name:(G.playerNames && G.playerNames[G.winner]) || t('opp_cap')});
+  if(G.misere && !spec) text = t('misere_won', {name:whoName(G.winner)});
+  else if(spec) text = t('named_won', {name:(G.playerNames && G.playerNames[G.winner]) || t('opp_cap')});
   else if(G.mode === 'bot') text = G.winner === 0 ? t('win_bot_you') : t('win_bot_bot');
   else if(G.mode === 'online'){ const iwon = G.winner === ROOM.myPlayerIndex; text = G.forfeit ? (iwon ? t('win_forfeit') : t('lose_forfeit')) : (iwon ? t('win_opp_you') : t('win_opp')); }
   else if(G.mode === 'ranked'){
@@ -3564,12 +3617,203 @@ function restartSameSetup(){
   else if(G.mode === 'analysis'){ document.getElementById('analysis-size').value = G.N; onAnalysisSizeChange(G.N); goTo('setup-analysis'); }
 }
 function markPuzzleSolved(){
-  grantAch('puzzle_1');
+  grantAch('puzzle_1'); trackObj('puzzle');
   const pz = G.puzzle; if(!pz.daily) return;
   const day = dayIndex(), last = parseInt(lsGet('pinne.pz.last') || '0', 10); if(last === day) return;
   const streak = parseInt(lsGet('pinne.pz.streak') || '0', 10);
   lsSet('pinne.pz.streak', String(last === day - 1 ? streak + 1 : 1)); lsSet('pinne.pz.last', String(day));
 }
+
+
+/* ============ V6: omvendt (misère), duell med skrelleoppgaver, opplæring, oppdrag ============ */
+const _mw = new Map();
+function isWinM(rows){      // misère: den som tar siste pinne taper. true = spilleren som skal trekke vinner
+  const k = rows.join(','); if(_mw.has(k)) return _mw.get(k);
+  let res = false;
+  if(totalPieces(rows) === 0) res = true;
+  else for(const m of generateMoves(rows, rows.length)){ if(!isWinM(m.rows)){ res = true; break; } }
+  _mw.set(k, res); return res;
+}
+function duelCorrect(move){
+  const p = DUEL.puzzles[DUEL.round];
+  if(p && typeof p === 'object'){ const k2 = (p.k + 1) % 3; let r = move.rows; if(k2 === 0) r = peelRows(r); return !isWinPeel(r, k2); }
+  return !isWin(move.rows, G.N);
+}
+function genPeelPuzzle(){    // enkel skrelleoppgave: lite brett, 1–2 riktige trekk
+  for(let a = 0; a < 500; a++){
+    const N = 3 + Math.floor(Math.random() * 3), k = Math.floor(Math.random() * 3), rows = [N - (Math.random() < 0.3 ? 1 : 0)];
+    for(let i = 1; i < N; i++) rows.push(Math.max(0, rows[i - 1] - (Math.random() < 0.5 ? 0 : 1 + Math.floor(Math.random() * 2))));
+    const mv = generateMoves(rows, N), k2 = (k + 1) % 3;
+    const good = mv.filter(m => !isWinPeel(k2 === 0 ? peelRows(m.rows) : m.rows, k2));
+    if(good.length >= 1 && good.length <= 2 && mv.length >= 5 && mv.length <= 14) return {r:rows, k};
+  }
+  return null;
+}
+function makeDuelPuzzles(n){
+  const a = shuffled(PUZZLES.length).slice(0, n);
+  for(let i = 1; i < n; i += 3){ const p = genPeelPuzzle(); if(p) a[i] = p; }
+  return a;
+}
+
+/* ---- opplæring ---- */
+const LEARN = [
+  {part:0, key:'l1', N:3, rows:[3,3,3]},
+  {part:0, key:'l2', N:3, rows:[3,3,3], mark:[[2,1],[2,2]]},
+  {part:0, key:'l3', N:3, rows:[3,3,1]},
+  {part:0, key:'l4', figs:[{rows:[3,2,1], bad:false}, {rows:[2,3,1], bad:true}]},
+  {part:0, key:'l5', N:3, rows:[3,3,1], mark:[[0,2],[1,2]]},
+  {part:0, key:'l6', N:3, rows:[2,2,1]},
+  {part:0, key:'l7', N:3, rows:[1,0,0], mark:[[0,0]]},
+  {part:0, key:'l8', N:3, rows:[3,3,3], act:'bot'},
+  {part:1, key:'p1', N:4, rows:[4,4,4,4]},
+  {part:1, key:'p2', N:4, rows:[4,4,4,4], mark:[[3,2],[3,3]], chip:1},
+  {part:1, key:'p3', N:4, rows:[4,4,4,2], mark:[[0,3],[1,3],[2,3]], chip:2},
+  {part:1, key:'p4', N:4, rows:[3,3,3,2], mark:[[3,1]], chip:3},
+  {part:1, key:'p5', N:4, rows:[3,3,3,1], mark:[[0,0],[0,1],[0,2],[1,0],[2,0],[3,0]], peel:true},
+  {part:1, key:'p6', N:4, rows:[2,2,0,0]},
+  {part:1, key:'p7', N:4, rows:[2,2,0,0], act:'peel'}
+];
+let learnI = 0;
+function learnGo(i){ learnI = Math.max(0, Math.min(LEARN.length - 1, i)); renderLearn(); }
+function learnBoard(N, rows, mark, cs){
+  let cells = '';
+  for(let r = 0; r < N; r++) for(let c = 0; c < N; c++){
+    const m = mark && mark.some(x => x[0] === r && x[1] === c);
+    cells += `<div class="cell ${c < rows[r] ? 'filled' : 'empty'}${m ? ' ghost' : ''}"></div>`;
+  }
+  return `<div class="board" style="grid-template-columns:repeat(${N},auto);--cs:${cs}px;">${cells}</div>`;
+}
+function renderLearn(){
+  const box = document.getElementById('learn-body'); if(!box) return;
+  const f = LEARN[learnI], n = LEARN.length;
+  const tabs = [0, 1].map(p => `<button class="tab-btn ${f.part === p ? 'active' : ''}" onclick="learnGo(${LEARN.findIndex(x => x.part === p)})">${t('learn_part' + p)}</button>`).join('');
+  const stage = f.figs
+    ? '<div class="learn-figs">' + f.figs.map(g => `<figure class="${g.bad ? 'bad' : 'ok'}">${learnBoard(3, g.rows, null, 34)}<figcaption>${t(g.bad ? 'learn_illegal' : 'learn_legal')}</figcaption></figure>`).join('') + '</div>'
+    : `<div class="learn-stage">${learnBoard(f.N, f.rows, f.mark, f.N > 3 ? 40 : 48)}</div>`;
+  const chip = f.chip ? `<div><span class="tag mono">${t('learn_move_n', {n:f.chip})}</span></div>` : f.peel ? `<div><span class="tag mono">${t('learn_peel_chip')}</span></div>` : '';
+  let act = '';
+  if(f.act === 'bot') act = `<button class="btn primary" onclick="learnPlayBot()">${t('learn_try_bot')}</button>`;
+  if(f.act === 'peel') act = `<button class="btn primary" onclick="learnTryPeel()">${t('learn_try_peel')}</button>`;
+  box.innerHTML = `<div class="tabs">${tabs}</div><p class="step-label">${t('learn_step', {a:learnI + 1, b:n})}</p>` +
+    `<div class="learn-text"><h3>${t('lt_' + f.key)}</h3><p class="msg">${t('ld_' + f.key)}</p></div>${chip}${stage}` +
+    `<div class="learn-nav"><button class="btn" ${learnI === 0 ? 'disabled' : ''} onclick="learnGo(learnI - 1)">${t('learn_prev')}</button>` +
+    (learnI < n - 1 ? `<button class="btn primary" onclick="learnGo(learnI + 1)">${t('learn_next')}</button>` : '') + act + '</div>';
+}
+function learnPlayBot(){
+  G = {mode:'bot', N:3, difficulty:'easy', rows:[3,3,3], turn:0, winner:null, log:[], history:[]};
+  enterGameScreen();
+}
+function learnTryPeel(){ goTo('setup-variants'); document.getElementById('var-peel').checked = true; }
+
+/* ---- oppdrag (daglige og ukentlige) ---- */
+const OBJ = [
+  {id:'d_bot', s:'d', ev:'botWin', n:2, r:40}, {id:'d_puz', s:'d', ev:'puzzle', n:1, r:25}, {id:'d_duel', s:'d', ev:'duelWin', n:1, r:40}, {id:'d_rank', s:'d', ev:'rankedWin', n:1, r:60},
+  {id:'w_bot', s:'w', ev:'botWin', n:10, r:200}, {id:'w_puz', s:'w', ev:'puzzle', n:5, r:150}, {id:'w_rank', s:'w', ev:'rankedWin', n:3, r:250}, {id:'w_var', s:'w', ev:'variantWin', n:3, r:150}, {id:'w_tourn', s:'w', ev:'tournWin', n:1, r:300}
+];
+function objKey(s){ if(s === 'w') return isoWeekId(nowMs()); const p = osloParts(nowMs()); return p.y + '-' + p.m + '-' + p.d; }
+function objState(u){
+  u.obj = u.obj || {};
+  for(const s of ['d', 'w']){ const k = objKey(s); if(!u.obj[s] || u.obj[s].k !== k) u.obj[s] = {k, p:{}, c:{}}; }
+  return u.obj;
+}
+async function trackObj(ev, n){
+  if(!currentUser) return; const done = [];
+  await saveMe(u => {
+    const o = objState(u);
+    OBJ.filter(d => d.ev === ev).forEach(d => {
+      const st = o[d.s]; if(st.c[d.id]) return;
+      st.p[d.id] = (st.p[d.id] || 0) + (n || 1);
+      if(st.p[d.id] >= d.n){ st.c[d.id] = 1; u.coins += d.r; u.stats.earned += d.r; done.push(d); }
+    });
+  });
+  done.forEach(d => toast(t('obj_done', {name:t('ob_' + d.id)}) + ' · ' + t('coin_gain', {n:d.r, why:t('why_obj')})));
+}
+function renderObjectives(){
+  if(!currentUser) return '<p class="msg" style="grid-column:1/-1">' + t('fr_login') + '</p>';
+  const o = objState({obj:JSON.parse(JSON.stringify(currentUser.obj || {}))}), p = osloParts(nowMs());
+  const dow = (new Date(Date.UTC(p.y, p.m - 1, p.d)).getUTCDay() + 6) % 7;
+  const reset = {d:osloToMs(p.y, p.m, p.d + 1, 0, 0), w:osloToMs(p.y, p.m, p.d + 7 - dow, 0, 0)};
+  let h = '';
+  for(const s of ['d', 'w']){
+    h += `<h3 class="obj-h">${t('obj_h_' + s)}<small>${t('obj_reset', {t:fmtIn(reset[s] - nowMs())})}</small></h3>`;
+    OBJ.filter(d => d.s === s).forEach(d => {
+      const pr = Math.min(d.n, o[s].p[d.id] || 0), done = !!o[s].c[d.id];
+      h += `<div class="item ${done ? 'on' : ''}"><div class="item-name">${t('ob_' + d.id)}</div><p class="item-desc">${t('obd_' + d.id)}</p><div class="duel-bar"><i style="width:${Math.round(100 * pr / d.n)}%"></i></div><div class="item-foot"><span class="tag mono">${pr} / ${d.n}</span><span class="tag">+${d.r} ${escapeHtml(t('coins_label').toLowerCase())}</span>${done ? `<span class="tag">${t('obj_complete')}</span>` : ''}</div></div>`;
+    });
+  }
+  return h;
+}
+
+/* ---- tekster (norsk og engelsk; de/es/zh bruker engelsk for lange tekster) ---- */
+Object.assign(I18N.nb, {
+  grp_play:'Spill', grp_train:'Utfordringer og trening', grp_shop:'Butikk og oppdrag',
+  m_learn_n:'Opplæring', m_learn_d:'Lær reglene steg for steg, også skrelling',
+  m_ranked_d:'Toppliste og rangerte kamper. Krever innlogging', m_shop_d:'Brett, pinner, rammer og daglige oppdrag', m_variants_d:'Tilfeldig brett, power-ups, skrelling, omvendt, turbo',
+  rk_msg:'To runder mot en annen spiller, og Elo på ukens toppliste. Krever innlogging.', rk_find:'Finn motstander',
+  v_misere:'Omvendt (misère)', v_misere_d:'den som tar siste pinne taper. Ingen hint eller analyse.', misere_won:'{name} vant. Den andre tok siste pinne.',
+  duel_peel_tag:'Skrellerunde', duel_msg:'Begge får samme vanskelige stilling og konkurrerer om å finne det beste trekket raskest. Riktig løsning gir 100 poeng pluss fartsbonus, 50 ekstra til den første, og −20 for hvert feil forsøk. Noen runder er enkle oppgaver med skrelleregelen.',
+  shop_c_q:'Oppdrag', shop_bg_note:'Gir også ny bakgrunn på forsiden.',
+  obj_h_d:'Daglige oppdrag', obj_h_w:'Ukentlige oppdrag', obj_reset:'Nullstilles om {t}', obj_done:'Oppdrag fullført: {name}', obj_complete:'Fullført', why_obj:'oppdrag',
+  ob_d_bot:'Maskinjeger', obd_d_bot:'Vinn 2 kamper mot boten (middels eller perfekt).', ob_d_puz:'Dagens hjernetrim', obd_d_puz:'Løs en oppgave.',
+  ob_d_duel:'Raskeste hode', obd_d_duel:'Vinn en taktisk duell (ikke mot lett bot).', ob_d_rank:'Inn i arenaen', obd_d_rank:'Vinn en rangert kamp.',
+  ob_w_bot:'Botknuseren', obd_w_bot:'Vinn 10 kamper mot boten (middels eller perfekt).', ob_w_puz:'Oppgavesamler', obd_w_puz:'Løs 5 oppgaver.',
+  ob_w_rank:'Ukens kriger', obd_w_rank:'Vinn 3 rangerte kamper.', ob_w_var:'Variasjonsmester', obd_w_var:'Vinn 3 kamper mot boten i Varianter.',
+  ob_w_tourn:'Turneringsjeger', obd_w_tourn:'Vinn en turnering.',
+  learn_sub:'Lær reglene steg for steg. Først grunnreglene på et 3×3-brett, så skrelleregelen.', learn_part0:'Grunnregler', learn_part1:'Skrellemodus',
+  learn_step:'Steg {a} av {b}', learn_prev:'Forrige', learn_next:'Neste', learn_legal:'Lov', learn_illegal:'Ikke lov', learn_move_n:'Trekk {n} av 3', learn_peel_chip:'Skrelling!',
+  learn_try_bot:'Spill øvingsparti (3×3)', learn_try_peel:'Prøv skrellemodus',
+  lt_l1:'Brettet', ld_l1:'Brettet er rader av pinner. Her er et 3×3-brett: tre rader med tre pinner. To spillere bytter på å ta pinner. Den som tar den siste pinnen, vinner.',
+  lt_l2:'Et trekk', ld_l2:'Du klikker på en pinne. Den og alle pinnene til høyre for den i samme rad tas. Her klikker du på pinne 2 i nederste rad, og de stiplede pinnene forsvinner.',
+  lt_l3:'Resultatet', ld_l3:'Nå er det bare én pinne igjen i nederste rad. Så er det motstanderens tur.',
+  lt_l4:'Trappeformen', ld_l4:'Brettet må alltid ligne en trapp: en rad kan aldri være kortere enn raden under seg. Trekk som ville brutt dette er ikke lov.',
+  lt_l5:'Trekk i kolonnen', ld_l5:'Hvis trekket ikke er lovlig bortover i raden, tar du i stedet pinnen og alt nedover i kolonnen. Her klikker du øverst i høyre kolonne.',
+  lt_l6:'Etter kolonnetrekket', ld_l6:'Kolonnen er blitt kortere, og trappen er fortsatt hel.',
+  lt_l7:'Den siste pinnen', ld_l7:'Pinnen øverst til venstre kan bare tas helt til slutt. Den som tar den siste pinnen vinner.',
+  lt_l8:'Prøv selv', ld_l8:'Spill et øvingsparti mot en lett bot på 3×3. Du begynner. Bruk hint-knappen hvis du står fast.',
+  lt_p1:'Skrelleregelen', ld_p1:'Skrellemodus finner du under Varianter. Da faller en del av brettet bort for hvert tredje trekk. Vi ser på det på et 4×4-brett.',
+  lt_p2:'Trekk 1', ld_p2:'Spillerne trekker som vanlig. Her tar første spiller to pinner i nederste rad. Skrelleregelen teller trekkene.',
+  lt_p3:'Trekk 2', ld_p3:'Andre spiller tar høyre kolonne. Ett trekk igjen før skrellingen.',
+  lt_p4:'Trekk 3', ld_p4:'Første spiller tar pinnen lengst til høyre i nederste rad. Dette er det tredje trekket, så brettet skreller rett etterpå.',
+  lt_p5:'Skrelling', ld_p5:'Etter hvert tredje trekk faller ytterste vinkel av brettet: første rad og første kolonne. De stiplede pinnene forsvinner.',
+  lt_p6:'Brettet er blitt mindre', ld_p6:'Resten rykker opp og til venstre. Telleren starter på nytt, så om tre nye trekk skreller det igjen. Hint og analyse er slått av i skrellemodus.',
+  lt_p7:'Tenk fremover', ld_p7:'Pinner kan forsvinne uten at noen tar dem, så planlegg etter telleren «Skrelling om n trekk» over brettet. Den som tar siste pinne vinner fortsatt.'
+});
+Object.assign(I18N.en, {
+  grp_play:'Play', grp_train:'Challenges and training', grp_shop:'Shop and objectives',
+  m_learn_n:'Tutorial', m_learn_d:'Learn the rules step by step, including peeling',
+  m_ranked_d:'Leaderboard and ranked matches. Requires login', m_shop_d:'Boards, sticks, frames and daily objectives', m_variants_d:'Random boards, power-ups, peeling, reverse, turbo',
+  rk_msg:'Two rounds against another player, and Elo on the weekly leaderboard. Requires login.', rk_find:'Find opponent',
+  v_misere:'Reverse (misère)', v_misere_d:'whoever takes the last stick loses. No hints or analysis.', misere_won:'{name} won. The other took the last stick.',
+  duel_peel_tag:'Peel round', duel_msg:'Both get the same hard position and race to find the best move. A correct solution gives 100 points plus a speed bonus, 50 extra to the first, and −20 per wrong attempt. Some rounds are simple puzzles using the peel rule.',
+  shop_c_q:'Objectives', shop_bg_note:'Also gives a new front page background.',
+  obj_h_d:'Daily objectives', obj_h_w:'Weekly objectives', obj_reset:'Resets in {t}', obj_done:'Objective complete: {name}', obj_complete:'Complete', why_obj:'objective',
+  ob_d_bot:'Machine hunter', obd_d_bot:'Win 2 games against the bot (medium or perfect).', ob_d_puz:'Daily brain teaser', obd_d_puz:'Solve a puzzle.',
+  ob_d_duel:'Quickest mind', obd_d_duel:'Win a tactical duel (not against the easy bot).', ob_d_rank:'Into the arena', obd_d_rank:'Win a ranked match.',
+  ob_w_bot:'Bot crusher', obd_w_bot:'Win 10 games against the bot (medium or perfect).', ob_w_puz:'Puzzle collector', obd_w_puz:'Solve 5 puzzles.',
+  ob_w_rank:'Warrior of the week', obd_w_rank:'Win 3 ranked matches.', ob_w_var:'Variety master', obd_w_var:'Win 3 games against the bot in Variants.',
+  ob_w_tourn:'Tournament hunter', obd_w_tourn:'Win a tournament.',
+  learn_sub:'Learn the rules step by step. The basics on a 3×3 board first, then the peel rule.', learn_part0:'Basic rules', learn_part1:'Peel mode',
+  learn_step:'Step {a} of {b}', learn_prev:'Previous', learn_next:'Next', learn_legal:'Legal', learn_illegal:'Not legal', learn_move_n:'Move {n} of 3', learn_peel_chip:'Peel!',
+  learn_try_bot:'Play a practice game (3×3)', learn_try_peel:'Try peel mode',
+  lt_l1:'The board', ld_l1:'The board is rows of sticks. This is a 3×3 board: three rows of three sticks. Two players take turns taking sticks. Whoever takes the last stick wins.',
+  lt_l2:'A move', ld_l2:'You click a stick. It and every stick to its right in the same row are taken. Here you click stick 2 in the bottom row, and the dashed sticks disappear.',
+  lt_l3:'The result', ld_l3:'Now only one stick is left in the bottom row. Then it is the opponent’s turn.',
+  lt_l4:'The staircase', ld_l4:'The board must always look like a staircase: a row can never be shorter than the row below it. Moves that would break this are not allowed.',
+  lt_l5:'A move in the column', ld_l5:'If the move is not legal along the row, you take the stick and everything below it in the column instead. Here you click the top of the right column.',
+  lt_l6:'After the column move', ld_l6:'The column got shorter, and the staircase is still intact.',
+  lt_l7:'The last stick', ld_l7:'The stick in the top left corner can only be taken at the very end. Whoever takes the last stick wins.',
+  lt_l8:'Try it yourself', ld_l8:'Play a practice game against an easy bot on 3×3. You start. Use the hint button if you get stuck.',
+  lt_p1:'The peel rule', ld_p1:'Peel mode is found under Variants. Every third move, part of the board falls away. We will look at it on a 4×4 board.',
+  lt_p2:'Move 1', ld_p2:'Players move as usual. Here the first player takes two sticks in the bottom row. The peel rule counts the moves.',
+  lt_p3:'Move 2', ld_p3:'The second player takes the right column. One move left before the peel.',
+  lt_p4:'Move 3', ld_p4:'The first player takes the rightmost stick in the bottom row. This is the third move, so the board peels right afterwards.',
+  lt_p5:'Peel', ld_p5:'After every third move the outer hook of the board falls off: the first row and the first column. The dashed sticks disappear.',
+  lt_p6:'The board got smaller', ld_p6:'The rest shifts up and to the left. The counter restarts, so after three more moves it peels again. Hints and analysis are off in peel mode.',
+  lt_p7:'Think ahead', ld_p7:'Sticks can vanish without anyone taking them, so plan around the “Peel in n moves” counter above the board. Whoever takes the last stick still wins.'
+});
+Object.assign(I18N.de, {grp_play:'Spielen', grp_train:'Herausforderungen und Training', grp_shop:'Shop und Aufgaben', m_learn_n:'Lernen', m_learn_d:'Regeln Schritt für Schritt, auch das Schälen', shop_c_q:'Aufgaben', rk_find:'Gegner suchen'});
+Object.assign(I18N.es, {grp_play:'Jugar', grp_train:'Retos y entrenamiento', grp_shop:'Tienda y misiones', m_learn_n:'Tutorial', m_learn_d:'Aprende las reglas paso a paso, incluido el pelado', shop_c_q:'Misiones', rk_find:'Buscar oponente'});
+Object.assign(I18N.zh, {grp_play:'游戏', grp_train:'挑战与训练', grp_shop:'商店与任务', m_learn_n:'教程', m_learn_d:'一步步学习规则，包括剥皮', shop_c_q:'任务', rk_find:'寻找对手'});
 
 renderAccountBar();
 onAnalysisSizeChange(5);
