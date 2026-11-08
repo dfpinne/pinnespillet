@@ -562,16 +562,6 @@
   :root[data-theme="dark"]{
     --paper:#10121A; --paper-2:#181B26; --table:#212534; --ink:#EDEFF7; --ink-2:#C2C8DA; --ink-3:#8E96AD; --hair:#2C3144;
     --red:#E8573F; --red-ink:#FF8C76; --teal:#6FB0C8; --ochre:#E0A23A; --good:#4CC272; --radius:8px; --shadow:0 8px 24px rgba(0,0,0,.45);}
-  :root[data-theme="dark"] body{background:radial-gradient(1100px 520px at 50% -120px, #1b2033, #10121A 72%) fixed, #10121A;}
-  :root[data-theme="dark"] .masthead{border-bottom:1px solid var(--hair);} :root[data-theme="dark"] .masthead::after{display:none;}
-  :root[data-theme="dark"] .sheet{border-top-color:var(--hair);}
-  :root[data-theme="dark"] .mode{border-bottom-color:var(--hair);} :root[data-theme="dark"] .modes .mode:first-child{border-top-color:var(--hair);}
-  :root[data-theme="dark"] .mode:hover{background:var(--paper-2); border-radius:8px;}
-  :root[data-theme="dark"] .btn{border-radius:8px; border-color:#3a4058;} :root[data-theme="dark"] .btn.primary{border-color:transparent;}
-  :root[data-theme="dark"] .tn-card, :root[data-theme="dark"] .item, :root[data-theme="dark"] .stat, :root[data-theme="dark"] .ach, :root[data-theme="dark"] .dcard, :root[data-theme="dark"] .fr-row{border-color:var(--hair); border-radius:10px;}
-  :root[data-theme="dark"] .board-area{border-radius:12px;}
-  :root[data-theme="dark"] input[type=text], :root[data-theme="dark"] input[type=number], :root[data-theme="dark"] input[type=password], :root[data-theme="dark"] select{border-color:#3a4058; border-radius:8px;}
-  :root[data-theme="dark"] .elo-badge, :root[data-theme="dark"] .tag{border-color:var(--hair); border-radius:20px;}
 
   #tn-view{position:fixed; inset:0; z-index:1500; display:flex; align-items:center; justify-content:center; padding:14px; pointer-events:none;}
   #tn-view.hidden{display:none;}
@@ -639,8 +629,6 @@
   .learn-figs .bad figcaption{color:var(--red-ink);}
   .learn-nav{display:flex; gap:10px; flex-wrap:wrap; align-items:center;}
   .learn-text h3{font-size:30px; margin:0 0 6px;}
-  :root[data-theme="dark"] .learn-stage, :root[data-theme="dark"] .learn-figs figure{border-color:var(--hair); border-radius:10px;}
-  :root[data-theme="dark"] .learn-figs figure.bad{border-color:var(--red);}
   .obj-h{grid-column:1/-1; margin:14px 0 0;}
   .obj-h small{font:500 13px var(--f-mono); color:var(--ink-3); margin-left:10px;}
   .item .duel-bar{margin:4px 0;}
@@ -679,8 +667,6 @@ html[data-theme] body[data-board="void"]{--paper:#020204; --paper-2:#0f0a1a; --t
   .mode:hover .mode-lead{background:var(--ink); color:var(--paper);}
   .mode:hover .mode-lead .ic{color:var(--paper);}
   .cat-list .mode{padding:13px 6px 13px 0;}
-  :root[data-theme="dark"] .cat{border-color:var(--hair); border-radius:12px;}
-  :root[data-theme="dark"] .cat-tile, :root[data-theme="dark"] .mode-lead{border-color:var(--hair); border-radius:10px;}
   .cell.hook.filled::before{background:var(--teal);}
   .cell.hook.filled::after{background:var(--teal); box-shadow:none;}
   .cell.hook.ghost.filled::before, .cell.hook.ghost.filled::after{background:transparent;}
@@ -699,10 +685,36 @@ html[data-theme] body[data-board="void"]{--paper:#020204; --paper-2:#0f0a1a; --t
   .learn-dots button{width:12px; height:12px; padding:0; border:1.5px solid var(--ink); background:transparent; cursor:pointer;}
   .learn-dots button.on{background:var(--red); border-color:var(--red);}
 
+  /* ===== v8: brettdetaljer, feilsamler, samleren ===== */
+  .tray{--k:1; position:relative; display:grid; grid-template-columns:auto auto; grid-template-areas:"rows board" ". cols"; align-items:start; width:max-content; max-width:100%; margin:0 auto; padding:16px 16px 8px 8px;
+    background-color:rgba(0,0,0,.16); border:1px solid rgba(0,0,0,.4); box-shadow:inset 0 2px 10px rgba(0,0,0,.35), inset 0 0 0 1px rgba(255,255,255,.08), 0 1px 0 rgba(255,255,255,.12);
+    background-image:radial-gradient(circle at 8px 8px, rgba(255,255,255,.4) 0 1px, rgba(0,0,0,.55) 1.5px 3px, transparent 3.5px), radial-gradient(circle at calc(100% - 8px) 8px, rgba(255,255,255,.4) 0 1px, rgba(0,0,0,.55) 1.5px 3px, transparent 3.5px), radial-gradient(circle at 8px calc(100% - 8px), rgba(255,255,255,.4) 0 1px, rgba(0,0,0,.55) 1.5px 3px, transparent 3.5px), radial-gradient(circle at calc(100% - 8px) calc(100% - 8px), rgba(255,255,255,.4) 0 1px, rgba(0,0,0,.55) 1.5px 3px, transparent 3.5px);}
+  .tray .board{grid-area:board; margin:0;}
+  .tray-rows{grid-area:rows; display:grid; grid-auto-rows:calc(var(--cs) * var(--k)); padding-right:8px;}
+  .tray-cols{grid-area:cols; display:grid; grid-auto-flow:column; grid-auto-columns:calc(var(--cs) * var(--k)); padding-top:4px;}
+  .tray-rows span, .tray-cols span{display:flex; align-items:center; justify-content:center; font:500 11px var(--f-mono); color:var(--ink-3);}
+  .tray-rows span{justify-content:flex-end;}
+  @media (max-width:560px){ .tray{--k:.8;} }
+  body[data-board="classic"] .tray{border-color:#2A1606;} body[data-board="oak"] .tray{border-color:#4a2c0c;} body[data-board="cherry"] .tray{border-color:#2e0e06;} body[data-board="ebony"] .tray{border-color:#3a2a1e;}
+  body[data-board="marble"] .tray{border-color:#8d8a82; background-color:rgba(0,0,0,.07);} body[data-board="obsidian"] .tray{border-color:#6A5ACD;} body[data-board="gold"] .tray{border-color:#D4A017;}
+  body[data-board="crystal"] .tray{border-color:#5fb0cb; background-color:rgba(60,140,180,.1);} body[data-board="void"] .tray{border-color:#8B00FF; box-shadow:inset 0 2px 10px rgba(0,0,0,.6), 0 0 14px rgba(139,0,255,.35);}
+  .cell:not(.powerup-cell):not(.pu-shield):not(.pu-time):not(.locked){background-image:radial-gradient(ellipse 34% 9% at 50% 91%, rgba(0,0,0,.4), transparent 72%); background-size:100% 100%; background-position:0 0;}
+  .prev[class*="prev-b_"]{position:relative; gap:12px; min-height:112px;}
+  .prev[class*="prev-b_"]::after{content:""; position:absolute; inset:7px; border:1px solid rgba(255,255,255,.28); box-shadow:inset 0 0 14px rgba(0,0,0,.35); pointer-events:none;}
+  .mk-grid, .coll-grid{display:flex; flex-wrap:wrap; gap:10px;}
+  .mk-card{display:flex; flex-direction:column; gap:6px; align-items:flex-start; padding:10px; border:1.5px solid var(--ink); background:var(--paper-2);}
+  .mk-card.done{opacity:.6;}
+  .mk-card .board{margin:0;}
+  .mk-card small{font:500 12px var(--f-mono); color:var(--ink-3);}
+  .coll-slot{display:grid; place-items:center; border:1px solid var(--hair); background:var(--paper-2); padding:5px;}
+  .coll-slot.got{border-color:var(--ink);}
+  .coll-slot.got .board{margin:0;}
+  .coll-slot:not(.got){border-style:dashed; color:var(--ink-3); font:500 14px var(--f-mono);}
+
 </style>
 </head>
 <body data-board="classic" data-pin="wood">
-<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><symbol id="i-arrow" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></symbol><symbol id="i-back" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol><symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3l2.8 5.9 6.2.8-4.6 4.3 1.2 6.3L12 17.3 6.4 20.3l1.2-6.3L3 9.7l6.2-.8z"/></symbol><symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 5-3 8.5-7 10-4-1.5-7-5-7-10V6z"/></symbol><symbol id="i-hourglass" viewBox="0 0 24 24"><path d="M6 3h12M6 21h12M7 3v4l5 5-5 5v4M17 3v4l-5 5 5 5v4"/></symbol><symbol id="i-trap" viewBox="0 0 24 24"><path d="M3 14c0-4 4-7 9-7s9 3 9 7M3 14l3 3 3-3 3 3 3-3 3 3 3-3"/></symbol><symbol id="i-skip" viewBox="0 0 24 24"><path d="M5 4l10 8-10 8zM19 5v14"/></symbol><symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="1"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></symbol><symbol id="i-trophy" viewBox="0 0 24 24"><path d="M8 4h8v5a4 4 0 0 1-8 0zM8 6H4v2a3 3 0 0 0 4 3M16 6h4v2a3 3 0 0 1-4 3M12 13v4M8 21h8M10 17h4"/></symbol><symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></symbol><symbol id="i-bulb" viewBox="0 0 24 24"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10.5c.7.7 1 1.5 1 2.5h6c0-1 .3-1.8 1-2.5A6 6 0 0 0 12 3z"/></symbol><symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol><symbol id="i-dice" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h.01M15 9h.01M9 15h.01M15 15h.01M12 12h.01"/></symbol><symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></symbol><symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></symbol><symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol><symbol id="i-undo" viewBox="0 0 24 24"><path d="M9 14L4 9l5-5M4 9h10a6 6 0 0 1 0 12h-3"/></symbol><symbol id="i-rematch" viewBox="0 0 24 24"><path d="M3 12a9 9 0 0 1 15-6.7L21 8M21 3v5h-5M21 12a9 9 0 0 1-15 6.7L3 16M3 21v-5h5"/></symbol><symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-8M22 20H2"/></symbol><symbol id="i-play" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M10 8.5l5.5 3.5-5.5 3.5z"/></symbol><symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2"/></symbol><symbol id="i-bag" viewBox="0 0 24 24"><path d="M5 8h14l-1 12H6zM9 8V6a3 3 0 0 1 6 0v2"/></symbol><symbol id="i-coin" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5.5"/><path d="M12 9.5v5"/></symbol><symbol id="i-crown" viewBox="0 0 24 24"><path d="M3 8l4.5 4L12 5l4.5 7L21 8l-2 11H5z"/></symbol><symbol id="i-flame" viewBox="0 0 24 24"><path d="M12 3c1 3.5 5 5.5 5 10a5 5 0 0 1-10 0c0-2 1-3 2-4 0 2 1 3 2 3 0-3-1-5 1-9z"/></symbol><symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol><symbol id="i-bot" viewBox="0 0 24 24"><rect x="5" y="8" width="14" height="11" rx="2"/><path d="M12 8V4M9 13h.01M15 13h.01M9 16h6"/></symbol><symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></symbol><symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.5-4 3-6 6.5-6s6 2 6.5 6M16 5a3.5 3.5 0 0 1 0 7M18 14c2 .7 3 2.8 3.5 6"/></symbol><symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5.5C6 4.5 9 4.5 12 6c3-1.5 6-1.5 8-.5V19c-2-1-5-1-8 .5-3-1.5-6-1.5-8-.5zM12 6v13.5"/></symbol></defs></svg>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><symbol id="i-arrow" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></symbol><symbol id="i-back" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol><symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3l2.8 5.9 6.2.8-4.6 4.3 1.2 6.3L12 17.3 6.4 20.3l1.2-6.3L3 9.7l6.2-.8z"/></symbol><symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 5-3 8.5-7 10-4-1.5-7-5-7-10V6z"/></symbol><symbol id="i-hourglass" viewBox="0 0 24 24"><path d="M6 3h12M6 21h12M7 3v4l5 5-5 5v4M17 3v4l-5 5 5 5v4"/></symbol><symbol id="i-trap" viewBox="0 0 24 24"><path d="M3 14c0-4 4-7 9-7s9 3 9 7M3 14l3 3 3-3 3 3 3-3 3 3 3-3"/></symbol><symbol id="i-skip" viewBox="0 0 24 24"><path d="M5 4l10 8-10 8zM19 5v14"/></symbol><symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="1"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></symbol><symbol id="i-trophy" viewBox="0 0 24 24"><path d="M8 4h8v5a4 4 0 0 1-8 0zM8 6H4v2a3 3 0 0 0 4 3M16 6h4v2a3 3 0 0 1-4 3M12 13v4M8 21h8M10 17h4"/></symbol><symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></symbol><symbol id="i-bulb" viewBox="0 0 24 24"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10.5c.7.7 1 1.5 1 2.5h6c0-1 .3-1.8 1-2.5A6 6 0 0 0 12 3z"/></symbol><symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol><symbol id="i-dice" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h.01M15 9h.01M9 15h.01M15 15h.01M12 12h.01"/></symbol><symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></symbol><symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></symbol><symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol><symbol id="i-undo" viewBox="0 0 24 24"><path d="M9 14L4 9l5-5M4 9h10a6 6 0 0 1 0 12h-3"/></symbol><symbol id="i-rematch" viewBox="0 0 24 24"><path d="M3 12a9 9 0 0 1 15-6.7L21 8M21 3v5h-5M21 12a9 9 0 0 1-15 6.7L3 16M3 21v-5h5"/></symbol><symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-8M22 20H2"/></symbol><symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></symbol><symbol id="i-play" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M10 8.5l5.5 3.5-5.5 3.5z"/></symbol><symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2"/></symbol><symbol id="i-bag" viewBox="0 0 24 24"><path d="M5 8h14l-1 12H6zM9 8V6a3 3 0 0 1 6 0v2"/></symbol><symbol id="i-coin" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5.5"/><path d="M12 9.5v5"/></symbol><symbol id="i-crown" viewBox="0 0 24 24"><path d="M3 8l4.5 4L12 5l4.5 7L21 8l-2 11H5z"/></symbol><symbol id="i-flame" viewBox="0 0 24 24"><path d="M12 3c1 3.5 5 5.5 5 10a5 5 0 0 1-10 0c0-2 1-3 2-4 0 2 1 3 2 3 0-3-1-5 1-9z"/></symbol><symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol><symbol id="i-bot" viewBox="0 0 24 24"><rect x="5" y="8" width="14" height="11" rx="2"/><path d="M12 8V4M9 13h.01M15 13h.01M9 16h6"/></symbol><symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></symbol><symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.5-4 3-6 6.5-6s6 2 6.5 6M16 5a3.5 3.5 0 0 1 0 7M18 14c2 .7 3 2.8 3.5 6"/></symbol><symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5.5C6 4.5 9 4.5 12 6c3-1.5 6-1.5 8-.5V19c-2-1-5-1-8 .5-3-1.5-6-1.5-8-.5zM12 6v13.5"/></symbol></defs></svg>
 <div class="app">
 
   <header class="masthead">
@@ -762,8 +774,8 @@ html[data-theme] body[data-board="void"]{--paper:#020204; --paper-2:#0f0a1a; --t
       </figure>
     </div>
     <nav class="cats" aria-label="Kategorier">
-      <button class="cat" onclick="goTo('cat-play')"><span class="cat-no">01</span><span class="cat-tile"><svg class="ic" aria-hidden="true"><use href="#i-play"/></svg></span><span class="cat-body"><span class="cat-title" data-i18n="grp_play">Spill</span><span class="cat-desc" data-i18n="cat_play_d">Mot bot, lokalt, online, rangert, turneringer, duell og varianter</span><span class="cat-icons"><svg class="ic" aria-hidden="true"><use href="#i-bot"/></svg><svg class="ic" aria-hidden="true"><use href="#i-users"/></svg><svg class="ic" aria-hidden="true"><use href="#i-globe"/></svg><svg class="ic" aria-hidden="true"><use href="#i-trophy"/></svg><svg class="ic" aria-hidden="true"><use href="#i-crown"/></svg><svg class="ic" aria-hidden="true"><use href="#i-bolt"/></svg><svg class="ic" aria-hidden="true"><use href="#i-dice"/></svg></span><span class="cat-meta" id="cat-meta-play"></span></span><svg class="ic cat-arrow" aria-hidden="true"><use href="#i-arrow"/></svg></button>
-      <button class="cat" onclick="goTo('cat-train')"><span class="cat-no">02</span><span class="cat-tile"><svg class="ic" aria-hidden="true"><use href="#i-target"/></svg></span><span class="cat-body"><span class="cat-title" data-i18n="grp_train">Utfordringer og trening</span><span class="cat-desc" data-i18n="cat_train_d">Lær reglene, løs dagens oppgave og analyser stillinger</span><span class="cat-icons"><svg class="ic" aria-hidden="true"><use href="#i-book"/></svg><svg class="ic" aria-hidden="true"><use href="#i-bulb"/></svg><svg class="ic" aria-hidden="true"><use href="#i-chart"/></svg></span><span class="cat-meta" id="cat-meta-train"></span></span><svg class="ic cat-arrow" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+      <button class="cat" onclick="goTo('cat-play')"><span class="cat-no">01</span><span class="cat-tile"><svg class="ic" aria-hidden="true"><use href="#i-play"/></svg></span><span class="cat-body"><span class="cat-title" data-i18n="grp_play">Spill</span><span class="cat-desc" data-i18n="cat_play_d">Mot bot, lokalt, online, rangert, turneringer, duell og varianter</span><span class="cat-icons"><svg class="ic" aria-hidden="true"><use href="#i-bot"/></svg><svg class="ic" aria-hidden="true"><use href="#i-users"/></svg><svg class="ic" aria-hidden="true"><use href="#i-globe"/></svg><svg class="ic" aria-hidden="true"><use href="#i-trophy"/></svg><svg class="ic" aria-hidden="true"><use href="#i-crown"/></svg><svg class="ic" aria-hidden="true"><use href="#i-bolt"/></svg><svg class="ic" aria-hidden="true"><use href="#i-dice"/></svg><svg class="ic" aria-hidden="true"><use href="#i-eye"/></svg></span><span class="cat-meta" id="cat-meta-play"></span></span><svg class="ic cat-arrow" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+      <button class="cat" onclick="goTo('cat-train')"><span class="cat-no">02</span><span class="cat-tile"><svg class="ic" aria-hidden="true"><use href="#i-target"/></svg></span><span class="cat-body"><span class="cat-title" data-i18n="grp_train">Utfordringer og trening</span><span class="cat-desc" data-i18n="cat_train_d">Lær reglene, løs dagens oppgave og analyser stillinger</span><span class="cat-icons"><svg class="ic" aria-hidden="true"><use href="#i-book"/></svg><svg class="ic" aria-hidden="true"><use href="#i-bulb"/></svg><svg class="ic" aria-hidden="true"><use href="#i-chart"/></svg><svg class="ic" aria-hidden="true"><use href="#i-undo"/></svg><svg class="ic" aria-hidden="true"><use href="#i-grid"/></svg></span><span class="cat-meta" id="cat-meta-train"></span></span><svg class="ic cat-arrow" aria-hidden="true"><use href="#i-arrow"/></svg></button>
       <button class="cat" onclick="goTo('cat-shop')"><span class="cat-no">03</span><span class="cat-tile"><svg class="ic" aria-hidden="true"><use href="#i-bag"/></svg></span><span class="cat-body"><span class="cat-title" data-i18n="grp_shop">Butikk og oppdrag</span><span class="cat-desc" data-i18n="cat_shop_d">Brett, pinner, avatarer, rammer, titler og oppdrag</span><span class="cat-icons"><svg class="ic" aria-hidden="true"><use href="#i-bag"/></svg><svg class="ic" aria-hidden="true"><use href="#i-coin"/></svg></span><span class="cat-meta" id="cat-meta-shop"></span></span><svg class="ic cat-arrow" aria-hidden="true"><use href="#i-arrow"/></svg></button>
     </nav>
   </section>
@@ -774,6 +786,7 @@ html[data-theme] body[data-board="void"]{--paper:#020204; --paper-2:#0f0a1a; --t
       <div class="sheet-head"><h2 data-i18n="grp_play">Spill</h2><p class="msg" data-i18n="cat_play_d">Mot bot, lokalt, online, rangert, turneringer, duell og varianter</p></div>
       <div class="sheet-body wide"><nav class="modes cat-list">
         <button class="mode" onclick="goTo('setup-bot')"><span class="mode-inner"><span class="mode-left"><span class="mode-lead"><svg class="ic" aria-hidden="true"><use href="#i-bot"/></svg></span><span class="mode-text"><span class="mode-name" data-i18n="m_bot_n">Mot boten</span><span class="mode-desc" data-i18n="m_bot_d">Lett, middels eller perfekt</span></span></span><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
+        <button class="mode" onclick="goTo('setup-trap')"><span class="mode-inner"><span class="mode-left"><span class="mode-lead"><svg class="ic" aria-hidden="true"><use href="#i-eye"/></svg></span><span class="mode-text"><span class="mode-name" data-i18n="m_trap_n">Fang boten</span><span class="mode-desc" data-i18n="m_trap_d">Perfekt bot som gjør én feil midt i partiet. Finn den og straff den.</span></span></span><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
         <button class="mode" onclick="goTo('setup-local')"><span class="mode-inner"><span class="mode-left"><span class="mode-lead"><svg class="ic" aria-hidden="true"><use href="#i-users"/></svg></span><span class="mode-text"><span class="mode-name" data-i18n="m_local_n">Lokalt — to spillere</span><span class="mode-desc" data-i18n="m_local_d">Del skjerm, bytt på trekk</span></span></span><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
         <button class="mode" onclick="goTo('setup-online')"><span class="mode-inner"><span class="mode-left"><span class="mode-lead"><svg class="ic" aria-hidden="true"><use href="#i-globe"/></svg></span><span class="mode-text"><span class="mode-name" data-i18n="m_online_n">Spill online</span><span class="mode-desc" data-i18n="m_online_d">Del en romkode med en venn</span></span></span><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
         <button class="mode" onclick="goTo('ranked')"><span class="mode-inner"><span class="mode-left"><span class="mode-lead"><svg class="ic" aria-hidden="true"><use href="#i-trophy"/></svg></span><span class="mode-text"><span class="mode-name" data-i18n="m_ranked_n">Spill rangert</span><span class="mode-desc" data-i18n="m_ranked_d">Toppliste og rangerte kamper. Krever innlogging</span></span></span><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
@@ -791,6 +804,8 @@ html[data-theme] body[data-board="void"]{--paper:#020204; --paper-2:#0f0a1a; --t
       <div class="sheet-body wide"><nav class="modes cat-list">
         <button class="mode" onclick="goTo('learn')"><span class="mode-inner"><span class="mode-left"><span class="mode-lead"><svg class="ic" aria-hidden="true"><use href="#i-book"/></svg></span><span class="mode-text"><span class="mode-name" data-i18n="m_learn_n">Opplæring</span><span class="mode-desc" data-i18n="m_learn_d">Lær reglene steg for steg, og skrellteorien</span></span></span><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
         <button class="mode" onclick="lastCat='cat-train'; startPuzzle('daily')"><span class="mode-inner"><span class="mode-left"><span class="mode-lead"><svg class="ic" aria-hidden="true"><use href="#i-bulb"/></svg></span><span class="mode-text"><span class="mode-name" data-i18n="m_puzzle_n">Dagens oppgave</span><span class="mode-desc" data-i18n="m_puzzle_d">Finn vinnertrekket i en vanskelig stilling</span></span></span><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
+        <button class="mode" onclick="goTo('mistakes')"><span class="mode-inner"><span class="mode-left"><span class="mode-lead"><svg class="ic" aria-hidden="true"><use href="#i-undo"/></svg></span><span class="mode-text"><span class="mode-name" data-i18n="m_mistake_n">Spill fra feilen</span><span class="mode-desc" data-i18n="m_mistake_d">Hopp rett til stillinger der du selv gjorde feil tidligere</span></span></span><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
+        <button class="mode" onclick="goTo('collector')"><span class="mode-inner"><span class="mode-left"><span class="mode-lead"><svg class="ic" aria-hidden="true"><use href="#i-grid"/></svg></span><span class="mode-text"><span class="mode-name" data-i18n="m_coll_n">Samleren</span><span class="mode-desc" data-i18n="m_coll_d">Samle alle tapte stillinger du kan lage for motstanderen</span></span></span><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
         <button class="mode" onclick="goTo('setup-analysis')"><span class="mode-inner"><span class="mode-left"><span class="mode-lead"><svg class="ic" aria-hidden="true"><use href="#i-chart"/></svg></span><span class="mode-text"><span class="mode-name" data-i18n="m_analysis_n">Analysemodus</span><span class="mode-desc" data-i18n="m_analysis_d">Sett opp en stilling, spill med hint</span></span></span><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
       </nav></div>
     </div>
@@ -984,6 +999,18 @@ html[data-theme] body[data-board="void"]{--paper:#020204; --paper-2:#0f0a1a; --t
     </div>
   </section>
 
+    <section id="screen-setup-trap" class="hidden">
+    <button class="back-link" onclick="goTo(lastCat||'menu')"><svg class="ic" aria-hidden="true"><use href="#i-back"/></svg><span data-i18n="back">tilbake</span></button>
+    <div class="sheet">
+      <div class="sheet-head"><h2 data-i18n="m_trap_n">Fang boten</h2><p class="msg" data-i18n="trap_msg">Boten spiller perfekt, men gjør nøyaktig én feil et stykke ut i partiet.</p></div>
+      <div class="sheet-body">
+        <div><div class="label"><span data-i18n="board_size">Brettstørrelse</span><span class="val" id="trap-size-label">6×6</span></div><input type="range" min="4" max="8" value="6" id="trap-size" oninput="document.getElementById('trap-size-label').textContent = this.value+'×'+this.value"></div>
+        <div><div class="label"><span data-i18n="who_starts">Hvem begynner?</span></div><select id="trap-first"><option value="bot" data-i18n="starts_bot">Boten begynner</option><option value="you" data-i18n="starts_you">Jeg begynner</option></select></div>
+        <div><button class="btn primary" onclick="startTrapGame()" data-i18n="start_game">Start spillet</button></div>
+      </div>
+    </div>
+  </section>
+
   <!-- SETUP VARIANTS -->
   <section id="screen-setup-variants" class="hidden">
     <button class="back-link" onclick="goTo(lastCat||'menu')"><svg class="ic" aria-hidden="true"><use href="#i-back"/></svg><span data-i18n="back">tilbake</span></button>
@@ -1113,6 +1140,22 @@ html[data-theme] body[data-board="void"]{--paper:#020204; --paper-2:#0f0a1a; --t
     </div>
   </section>
 
+    <section id="screen-mistakes" class="hidden">
+    <button class="back-link" onclick="goTo(lastCat||'menu')"><svg class="ic" aria-hidden="true"><use href="#i-back"/></svg><span data-i18n="back">tilbake</span></button>
+    <div class="sheet">
+      <div class="sheet-head"><h2 data-i18n="m_mistake_n">Spill fra feilen</h2><p class="msg" data-i18n="mk_sub">Hver feil er en stilling der du hadde et vinnertrekk, men spilte et annet. Finn vinnertrekket nå.</p></div>
+      <div class="sheet-body wide"><div id="mk-body" class="col"></div></div>
+    </div>
+  </section>
+
+  <section id="screen-collector" class="hidden">
+    <button class="back-link" onclick="goTo(lastCat||'menu')"><svg class="ic" aria-hidden="true"><use href="#i-back"/></svg><span data-i18n="back">tilbake</span></button>
+    <div class="sheet">
+      <div class="sheet-head"><h2 data-i18n="m_coll_n">Samleren</h2><p class="msg" data-i18n="coll_sub">Samle tapte stillinger.</p></div>
+      <div class="sheet-body wide" style="max-width:none;"><div id="coll-body" class="col"></div></div>
+    </div>
+  </section>
+
   <!-- SCREEN: GAME -->
   <section id="screen-game" class="hidden">
     <button class="back-link" onclick="leaveGame()"><svg class="ic" aria-hidden="true"><use href="#i-back"/></svg><span data-i18n="back_end">avslutt spillet</span></button>
@@ -1129,7 +1172,7 @@ html[data-theme] body[data-board="void"]{--paper:#020204; --paper-2:#0f0a1a; --t
         </div>
         <div id="duel-panel" class="duel-panel hidden"></div>
         <div id="puzzle-info" class="puzzle-info hidden"></div>
-        <div id="board" class="board"></div>
+        <div class="tray" id="tray"><div class="tray-rows" id="board-rows"></div><div id="board" class="board"></div><div class="tray-cols" id="board-cols"></div></div>
         <div id="fx-layer" class="fx-layer"></div>
         <div id="move-confirm" class="hidden"></div>
         <div class="actions">
@@ -2013,7 +2056,10 @@ function renderBoard(){
   const board = document.getElementById('board');
   board.style.gridTemplateColumns = `repeat(${N}, auto)`;
   board.innerHTML = '';
-  board.style.setProperty('--cs', (N<=10 ? 44 : N<=13 ? 36 : N<=16 ? 30 : 25) + 'px');
+  const csz = (N<=10 ? 44 : N<=13 ? 36 : N<=16 ? 30 : 25) + 'px';
+  board.style.setProperty('--cs', csz);
+  const tray = document.getElementById('tray');
+  if(tray){ tray.style.setProperty('--cs', csz); const lab = f => Array.from({length:N}, (_, i) => '<span>' + f(i) + '</span>').join(''); document.getElementById('board-rows').innerHTML = lab(i => i + 1); document.getElementById('board-cols').innerHTML = lab(i => i + 1); }
   const colH = conjugate(G.rows, N);
   const interactive = canIMove();
 
@@ -2150,6 +2196,7 @@ function applyMove(move, label){
   addLog(move.axis ? t('log_took',{who, n:takenCount, dir:dirText(move.axis, move.index)}) : t('log_took_nodir',{who, n:takenCount}));
   G.history.push({p:mover, x:move.axis||null, i:(move.index !== undefined ? move.index : null), v:(move.value !== undefined ? move.value : null), b:prevRows, a:move.rows.slice()});
 
+  collectAfter(move, mover);
   const hits = [];
   if(G.powerups && G.powerups.length && move.axis){
     const removed = removedCells(prevRows, move, G.N);
@@ -2278,16 +2325,16 @@ function renderPuzzleInfo(){
   const el = document.getElementById('puzzle-info');
   if(!el || !G || G.mode !== 'puzzle') return;
   const pz = G.puzzle, day = dayIndex();
-  const title = pz.daily ? t('pz_daily',{n: day - 20453}) : t('pz_title_random');
+  const title = pz.mk ? t('mk_title') : pz.daily ? t('pz_daily',{n: day - 20453}) : t('pz_title_random');
   const solvedToday = pz.daily && lsGet('pinne.pz.last') === String(day);
   const streak = parseInt(lsGet('pinne.pz.streak') || '0', 10);
   const lastDay = parseInt(lsGet('pinne.pz.last') || '0', 10);
-  const meta = [t('pz_info',{m: pz.m}), t('pz_attempts',{n: pz.attempts})];
+  const meta = pz.mk ? [t('mk_info', {k:pz.mkInfo.took, dir:dirText(pz.mkInfo.x, pz.mkInfo.i)}), t('pz_attempts',{n: pz.attempts})] : [t('pz_info',{m: pz.m}), t('pz_attempts',{n: pz.attempts})];
   if(pz.daily && streak > 0 && lastDay >= day - 1) meta.push(t('pz_streak',{n: streak}));
   el.innerHTML =
     `<div class="pz-head"><b>${escapeHtml(title)}</b><span class="tag">${escapeHtml(t('pz_tag_' + pz.tag))}</span>${solvedToday ? `<span class="tag">${escapeHtml(t('pz_solved_today'))}</span>` : ''}</div>` +
     `<div class="pz-meta">${escapeHtml(meta.join(' · '))}</div>` +
-    `<div class="pz-actions"><button class="btn sm" onclick="showPuzzleSolution()">${t('pz_show')}</button><button class="btn sm" onclick="startPuzzle('random')">${t('pz_random')}</button></div>`;
+    `<div class="pz-actions"><button class="btn sm" onclick="showPuzzleSolution()">${t('pz_show')}</button>${pz.mk ? `<button class="btn sm" onclick="startMistake()">${t('mk_next')}</button>` : `<button class="btn sm" onclick="startPuzzle('random')">${t('pz_random')}</button>`}</div>`;
   el.classList.remove('hidden');
 }
 function showPuzzleSolution(){
@@ -2307,6 +2354,7 @@ function handlePuzzleMove(move){
   if(!isWin(move.rows, G.N)){
     // etterlater en tapt stilling for motstanderen = riktig
     pz.solved = true;
+    if(G.N <= COLL_MAX) collAdd(G.N, move.rows);
     addLog(t('log_took',{who: t('you'), n: totalPieces(G.rows) - totalPieces(move.rows), dir: dirText(move.axis, move.index)}));
     G.rows = move.rows; G.turn = 1;
     markPuzzleSolved();
@@ -2360,10 +2408,11 @@ function analyzeGame(){
       }
       items.push(html + '</li>');
     });
+    if(mistakes) recordMistakes(hist, N, myFilter());
     const summary = mistakes === 0 ? t('an_clean')
       : t('an_first',{n: firstMistake+1, who: whoName(hist[firstMistake].p)}) + ' ' + t('an_count',{n: mistakes});
     box.innerHTML = `<h3>${escapeHtml(t('an_h'))}</h3>` + (G.variant ? `<p class="msg">${escapeHtml(t('an_variant'))}</p>` : '') +
-      `<p class="an-summary">${escapeHtml(summary)}</p><ol class="an-list">${items.join('')}</ol>`;
+      `<p class="an-summary">${escapeHtml(summary)}</p>${mistakes ? '<p class="msg">' + escapeHtml(t('mk_hint')) + '</p>' : ''}<ol class="an-list">${items.join('')}</ol>`;
   }, 30);
 }
 
@@ -2596,7 +2645,7 @@ async function onLoggedIn(){
   ['auth-username', 'auth-password', 'auth-password2', 'auth-dev-name'].forEach(id => { const e = document.getElementById(id); if(e) e.value = ''; });
   AUTH = {step:1}; showAuthStep(1); renderAccountBar(); applyCosmetics(); startPresence();
   if(afterLoginGoRanked){ afterLoginGoRanked = false; onRankedClick(); } else goTo('menu');
-  try{ await loadChampion(); await settleWeek(isoWeekId(nowMs() - 7 * 86400000)); await flushInbox(); await flushTournSettlements(); await restoreMyTourn(); }catch(e){ console.error(e); }
+  try{ await loadChampion(); await settleWeek(isoWeekId(nowMs() - 7 * 86400000)); await flushInbox(); await flushTournSettlements(); await restoreMyTourn(); await claimCollector(); }catch(e){ console.error(e); }
 }
 function forceLogout(){
   stopPresence(); const n = currentUser && currentUser.username;
@@ -2779,7 +2828,7 @@ async function refreshMyElo(){ if(!currentUser) return; currentUser.elo = (await
 async function rewardBotWin(){
   if(!currentUser) return;
   if((G.difficulty || 'medium') !== 'easy'){ trackObj('botWin'); if(G.variant) trackObj('variantWin'); }
-  const d = G.difficulty || 'medium', mult = d === 'easy' ? 0 : d === 'medium' ? 0.3 : 1, n = Math.round(G.N * G.N / 3 * mult);
+  const d = G.difficulty || 'medium', mult = d === 'easy' ? 0 : (d === 'medium' || d === 'trap') ? 0.3 : 1, n = Math.round(G.N * G.N / 3 * mult);
   await saveMe(u => { u.stats.games++; u.stats.wins++; if(n > 0){ u.coins += n; u.stats.earned += n; } });
   if(n > 0) toast(t('coin_gain', {n, why:t('why_bot')}));
   grantAch('first_win'); if(d === 'perfect' && G.N >= 8) grantAch('bot_hard');
@@ -2928,7 +2977,7 @@ function applyCosmetics(){
 }
 function itemPreview(id, c){
   const nm = id.slice(2);
-  if(c === 'b') return `<div class="prev prev-${id}"></div>`;
+  if(c === 'b') return `<div class="prev prev-${id}"><i class="ms"></i><i class="ms"></i><i class="ms"></i></div>`;
   if(c === 'p') return `<div class="prev pin-${nm}"><i class="ms"></i><i class="ms"></i><i class="ms"></i></div>`;
   if(c === 'v') return `<div class="prev">${avatarHTML({u:'P', v:id}, 56)}</div>`;
   if(c === 'f') return `<div class="prev">${avatarHTML({u:'P', f:id}, 44)}</div>`;
@@ -3385,7 +3434,7 @@ function refreshDynamic(){
   if(vis('shop')) renderShop(); if(vis('profile')) renderProfile(); if(vis('achievements')) renderAchievements();
   if(vis('friends')) renderFriends(); if(vis('tournaments')){ if(TN_VIEW) renderTournView(TN_VIEW); else renderTournaments(); }
   if(vis('auth')) showAuthStep(AUTH.step || 1);
-  if(vis('learn')) renderLearn(); if(vis('ranked')) openLeaderboard();
+  if(vis('learn')) renderLearn(); if(vis('ranked')) openLeaderboard(); if(vis('mistakes')) renderMistakes(); if(vis('collector')) renderCollector();
 }
 
 /* ============ V5: skrellemodus og taktisk duell ============ */
@@ -3417,10 +3466,12 @@ function updateEffectPill(){
   if(G && G.skip) G.skip.forEach((v, i) => { if(v) parts.push(icon('trap') + ' ' + escapeHtml(t('fxt_skip', {who:whoName(i)}))); });
   if(G && G.locks && G.locks.length) parts.push(icon('lock') + ' ' + escapeHtml(t('locked_n', {n:G.locks.length})));
   if(G && G.peel && G.winner === null) parts.push(icon('skip') + ' ' + escapeHtml(t('peel_in', {n:3 - ((G.mc || 0) % 3)})));
+  if(G && G.mb && G.winner === null) parts.push(icon('eye') + ' ' + escapeHtml(t('mb_tag')));
   if(parts.length){ pill.innerHTML = parts.join(' · '); pill.classList.remove('hidden'); } else pill.classList.add('hidden');
 }
 function botMove(){
-  if(G.winner !== null) return; const moves = legalMovesNow(); if(!moves.length) return;
+  if(!G || G.mode !== 'bot' || G.turn !== 1 || G.winner !== null) return; const moves = legalMovesNow(); if(!moves.length) return;
+  if(G.mb){ botMoveTrap(moves); return; }
   const rand = a => a[Math.floor(Math.random() * a.length)]; const d = G.difficulty || 'medium'; let chosen;
   if(d === 'easy') chosen = rand(moves);
   else {
@@ -3546,7 +3597,7 @@ function handleDuelMove(move){
   const D = DUEL; if(!D || !D.active || D.solved || D.locked) return;
   const r = D.round, rec = D.rec[r][D.me];
   if(duelCorrect(move)){
-    rec.t = nowMs() - D.roundStart; D.solved = true; G.rows = move.rows;
+    rec.t = nowMs() - D.roundStart; D.solved = true; G.rows = move.rows; if(G.N <= COLL_MAX) collAdd(G.N, move.rows);
     D.msg = t('duel_solved', {n:duelPts(rec, D.rec[r][1 - D.me], D.timer * 1000)}); duelWrite(r); renderBoard();
   } else {
     rec.wrong = (rec.wrong || 0) + 1; D.locked = true; D.msg = t('duel_wrong'); duelWrite(r); renderBoard();
@@ -3580,7 +3631,7 @@ function renderDuelPanel(){
     const st = rr && rr.t != null ? '✔ ' + t('duel_solve_time', {s:(rr.t / 1000).toFixed(1)}) : (rr && rr.wrong ? '✖ ×' + rr.wrong : '');
     return `<div class="dcard ${i === D.me ? 'me' : ''}">${avatarHTML(info, 34)}<span class="dn">${escapeHtml(nm)}</span><b class="ds">${tot[i]}</b><small>${st}</small></div>`;
   };
-  box.innerHTML = `<div class="duel-head"><b>${D.round >= 0 ? t('duel_round', {n:D.round + 1, t:D.rounds}) + (D.peel ? ' · ' + t('duel_peel_tag') : '') : t('m_duel_n')}</b><span>${escapeHtml(status)}</span></div><div class="duel-bar"><i style="width:${pct}%"></i></div>${D.peel && D.round >= 0 && !D.done ? `<p class="msg">${t('duel_theory_hint')}</p>` : ''}<div class="duel-scores">${card(0)}${card(1)}</div>`;
+  box.innerHTML = `<div class="duel-head"><b>${D.round >= 0 ? t('duel_round', {n:D.round + 1, t:D.rounds}) + (D.peel ? ' · ' + t('duel_peel_tag') : '') : t('m_duel_n')}</b><span>${escapeHtml(status)}</span></div><div class="duel-bar"><i style="width:${pct}%"></i></div>${D.peel && D.round >= 0 && !D.done ? `<p class="msg">${t('duel_theory_hint')}${D.puzzles[D.round] && D.puzzles[D.round].lv === 2 ? ' ' + t('duel_theory_trap') : ''}</p>` : ''}<div class="duel-scores">${card(0)}${card(1)}</div>`;
 }
 
 
@@ -3600,6 +3651,7 @@ function goTo(id){
   if(id === 'shop') renderShop(); if(id === 'profile') renderProfile(); if(id === 'friends') renderFriends();
   if(id === 'tournaments') renderTournaments(); if(id === 'achievements') renderAchievements();
   if(id === 'ranked') openLeaderboard(); if(id === 'learn'){ learnI = 0; renderLearn(); }
+  if(id === 'mistakes') renderMistakes(); if(id === 'collector') renderCollector();
   if(id === 'auth') showAuthStep(AUTH.step || 1);
 }
 function whoName(p){
@@ -3621,7 +3673,7 @@ function canIMove(){
 function updateHintVisibility(){
   const mode = G.mode;
   const show = (id, on) => { const el = document.getElementById(id); if(el) el.style.display = on ? 'inline-flex' : 'none'; };
-  const hintOn = G.winner === null && !G.peel && !G.misere && ((mode === 'bot' && G.turn === 0) || mode === 'analysis');
+  const hintOn = G.winner === null && !G.peel && !G.misere && !G.mb && ((mode === 'bot' && G.turn === 0) || mode === 'analysis');
   show('hint-btn', hintOn);
   if(!hintOn && mode !== 'puzzle') document.getElementById('hint-box').classList.add('hidden');
   show('undo-btn', mode === 'analysis' && G.undo && G.undo.length > 0);
@@ -3649,7 +3701,9 @@ function showWinner(){
   banner.textContent = text;
   if(G.mode === 'ranked' && G.series) banner.insertAdjacentHTML('beforeend', seriesBannerHtml());
   if(G.eloHtml) banner.insertAdjacentHTML('beforeend', G.eloHtml);
+  if(G.mb) banner.insertAdjacentHTML('beforeend', mbBannerHtml());
   updateHintVisibility();
+  autoRecordMistakes();
   const tag = G.gameNo + ':' + (G.history ? G.history.length : 0);
   if(G.animFor !== tag){ G.animFor = tag; const a = winnerAnimId(); if(a) playWinAnim(a); }
 }
@@ -3673,7 +3727,8 @@ async function pollRoom(){
 function restartSameSetup(){
   if(!G) return;
   if(G.tm){ returnToTourn(); return; }
-  if(G.mode === 'puzzle'){ startPuzzle('random'); return; }
+  if(G.mode === 'puzzle'){ if(G.puzzle.mk) startMistake(); else startPuzzle('random'); return; }
+  if(G.mb){ launchTrap(G.mb.cfg); return; }
   if(G.variantCfg && (G.mode === 'local' || G.mode === 'bot')){ launchVariant(G.variantCfg); return; }
   if(G.mode === 'local'){ document.getElementById('local-size').value = G.N; startLocalGame(); }
   else if(G.mode === 'bot'){ document.getElementById('bot-size').value = G.N; startBotGame(); }
@@ -3683,6 +3738,7 @@ function restartSameSetup(){
 }
 function markPuzzleSolved(){
   grantAch('puzzle_1'); trackObj('puzzle');
+  if(G.puzzle.mk){ const L = mkLoad(), e = L.find(x => x.k === G.puzzle.mk); if(e){ e.solved = true; e.sd = Date.now(); mkSave(L); } }
   const pz = G.puzzle; if(!pz.daily) return;
   const day = dayIndex(), last = parseInt(lsGet('pinne.pz.last') || '0', 10); if(last === day) return;
   const streak = parseInt(lsGet('pinne.pz.streak') || '0', 10);
@@ -3700,20 +3756,27 @@ function isWinM(rows){      // misère: den som tar siste pinne taper. true = sp
   _mw.set(k, res); return res;
 }
 function duelCorrect(move){ return !isWin(move.rows, G.N); }
-function genTheoryPuzzle(){   // enkel oppgave der skrellteorien gir løsningen: etterlat hel tynn vinkel med tapt posisjon inni
-  for(let a = 0; a < 800; a++){
-    const N = 3 + Math.floor(Math.random() * 3), rows = [N];
+function genTheoryPuzzle(level){
+  level = Math.max(0, Math.min(2, level || 0));
+  const L = [[4, 5, 7, 16, false, false], [5, 6, 12, 30, false, true], [5, 7, 12, 40, true, true]][level];   // [Nmin, Nmax, trekkMin, trekkMax, felle, ett riktig trekk]
+  for(let a = 0; a < 1500; a++){
+    const N = L[0] + Math.floor(Math.random() * (L[1] - L[0] + 1)), rows = [N];
     for(let i = 1; i < N; i++) rows.push(Math.max(1, rows[i - 1] - (Math.random() < 0.5 ? 0 : 1 + Math.floor(Math.random() * 2))));
     if(!isWin(rows, N)) continue;
     const mv = generateMoves(rows, N), good = mv.filter(m => !isWin(m.rows, N));
-    const th = good.filter(m => m.rows[0] === N && m.rows[N - 1] >= 1 && !isWin(peelRows(m.rows), N));
-    if(th.length >= 1 && th.length === good.length && good.length <= 2 && mv.length >= 4 && mv.length <= 14) return {r:rows, th:1};
+    const hookOk = m => m.rows[0] === N && m.rows[N - 1] >= 1 && !isWin(peelRows(m.rows), N);
+    const th = good.filter(hookOk);
+    if(!(th.length >= 1 && th.length === good.length)) continue;
+    if(L[5] && good.length !== 1) continue;
+    if(mv.length < L[2] || mv.length > L[3]) continue;
+    if(L[4] && !mv.some(m => isWin(m.rows, N) && hookOk(m))) continue;     // felle: et trekk som ser riktig ut etter regelen, men er et unntak
+    return {r:rows, th:1, lv:level};
   }
-  return null;
+  return level > 0 ? genTheoryPuzzle(level - 1) : null;
 }
 function makeDuelPuzzles(n){
   const a = shuffled(PUZZLES.length).slice(0, n);
-  for(let i = 1; i < n; i += 3){ const p = genTheoryPuzzle(); if(p) a[i] = p; }
+  for(let i = 1; i < n; i += 3){ const p = genTheoryPuzzle(i === 1 ? 1 : 2); if(p) a[i] = p; }
   return a;
 }
 
@@ -3893,13 +3956,14 @@ Object.assign(I18N.zh, {grp_play:'游戏', grp_train:'挑战与训练', grp_shop
 
 /* ============ V7: kategorier, menyinfo, tekster ============ */
 let lastCat = null;
-const CAT_OF = {'setup-bot':'cat-play', 'setup-local':'cat-play', 'setup-online':'cat-play', 'ranked':'cat-play', 'tournaments':'cat-play', 'duel':'cat-play', 'setup-variants':'cat-play', 'learn':'cat-train', 'setup-analysis':'cat-train', 'shop':'cat-shop'};
+const CAT_OF = {'setup-trap':'cat-play', 'mistakes':'cat-train', 'collector':'cat-train', 'setup-bot':'cat-play', 'setup-local':'cat-play', 'setup-online':'cat-play', 'ranked':'cat-play', 'tournaments':'cat-play', 'duel':'cat-play', 'setup-variants':'cat-play', 'learn':'cat-train', 'setup-analysis':'cat-train', 'shop':'cat-shop'};
 function renderMenuMeta(){
   const set = (id, h) => { const e = document.getElementById(id); if(e) e.innerHTML = h; };
   try{
-    set('cat-meta-play', t('cat_meta_play', {n:7}));
+    set('cat-meta-play', t('cat_meta_play', {n:8}));
     const day = dayIndex(), solved = lsGet('pinne.pz.last') === String(day);
-    set('cat-meta-train', solved ? icon('trophy') + ' ' + t('pz_solved_today') : t('cat_meta_puzzle', {n:day - 20453}));
+    const openMk = mkLoad().filter(e => !e.solved).length;
+    set('cat-meta-train', (solved ? icon('trophy') + ' ' + t('pz_solved_today') : t('cat_meta_puzzle', {n:day - 20453})) + (openMk ? ' · ' + t('cat_meta_mk', {n:openMk}) : ''));
     if(currentUser){
       const o = objState({obj:JSON.parse(JSON.stringify(currentUser.obj || {}))}), dn = OBJ.filter(d => d.s === 'd');
       set('cat-meta-shop', icon('coin') + ' ' + currentUser.coins + ' · ' + t('cat_meta_obj', {a:dn.filter(d => o.d.c[d.id]).length, b:dn.length}));
@@ -3947,6 +4011,168 @@ Object.assign(I18N.en, {
 Object.assign(I18N.de, {cat_play_d:'Gegen den Bot, lokal, online, gewertet, Turniere, Duelle und Varianten', cat_meta_play:'{n} Modi', m_obj_n:'Aufgaben'});
 Object.assign(I18N.es, {cat_play_d:'Contra el bot, local, en línea, clasificatoria, torneos, duelos y variantes', cat_meta_play:'{n} modos', m_obj_n:'Misiones'});
 Object.assign(I18N.zh, {cat_play_d:'对战机器人、本地、在线、排位、锦标赛、对决和变体', cat_meta_play:'{n}种模式', m_obj_n:'任务'});
+
+
+/* ============ V8: Fang boten, Spill fra feilen, Samleren ============ */
+/* ---- Fang boten: perfekt bot som gjør én feil, ikke i starten og ikke helt på slutten ---- */
+function startTrapGame(){ launchTrap({N:parseInt(document.getElementById('trap-size').value, 10) || 6, botFirst:document.getElementById('trap-first').value === 'bot'}); }
+function launchTrap(cfg){
+  const N = cfg.N;
+  G = {mode:'bot', N, difficulty:'trap', rows:Array(N).fill(N), turn:cfg.botFirst ? 1 : 0, winner:null, log:[], history:[],
+       mb:{done:false, at:0, f:0.3 + Math.random() * 0.3, moves:0, total:N * N, cfg}};
+  enterGameScreen(); if(G.turn === 1) setTimeout(botMove, 500);
+}
+function botMoveTrap(moves){
+  const mb = G.mb, rand = a => a[Math.floor(Math.random() * a.length)], N = G.N;
+  const good = moves.filter(m => !isWin(m.rows, N)), left = totalPieces(G.rows), frac = 1 - left / mb.total;
+  let chosen = null;
+  if(!mb.done && good.length && mb.moves >= 1 && frac >= mb.f && left >= 4){
+    let bad = moves.filter(m => isWin(m.rows, N) && totalPieces(m.rows) >= 3); if(!bad.length) bad = moves.filter(m => isWin(m.rows, N));
+    if(bad.length){ chosen = rand(bad); mb.done = true; mb.at = G.history.length + 1; }
+  }
+  if(!chosen) chosen = good.length ? rand(good) : rand(moves);
+  mb.moves++; applyMove(chosen, whoName(1));
+}
+function mbBannerHtml(){
+  const mb = G.mb; if(!mb) return '';
+  if(!mb.done) return '<div class="sub">' + escapeHtml(t('mb_none')) + '</div>';
+  return '<div class="sub">' + escapeHtml(t('mb_reveal', {n:mb.at}) + ' ' + (G.winner === 0 ? t('mb_punished') : t('mb_missed'))) + '</div>';
+}
+
+/* ---- Spill fra feilen: feil fra egne partier lagres og kan øves på ---- */
+function mkLoad(){ try{ return JSON.parse(lsGet('pinne.mistakes') || '[]'); }catch(e){ return []; } }
+function mkSave(a){ lsSet('pinne.mistakes', JSON.stringify(a.slice(-80))); }
+function myFilter(){
+  if(!G || (ROOM && ROOM.spectating)) return () => false;
+  if(G.mode === 'bot') return p => p === 0;
+  if(G.mode === 'online' || G.mode === 'ranked') return p => ROOM && p === ROOM.myPlayerIndex;
+  return () => true;
+}
+function recordMistakes(hist, N, mine){
+  if(!hist || !hist.length || N > EXACT_LIMIT) return 0;
+  const list = mkLoad(); let added = 0;
+  hist.forEach(e => {
+    if(!e.x || !mine(e.p)) return;
+    if(!(isWin(e.b, N) && isWin(e.a, N))) return;          // samme definisjon som etteranalysen: vunnet stilling kastet bort
+    const k = N + '|' + e.b.join(','), old = list.find(x => x.k === k);
+    if(old){ if(old.solved){ old.solved = false; old.d = Date.now(); added++; } return; }
+    list.push({k, N, r:e.b.slice(), x:e.x, i:e.i, took:totalPieces(e.b) - totalPieces(e.a), d:Date.now(), solved:false}); added++;
+  });
+  if(added) mkSave(list); return added;
+}
+function autoRecordMistakes(){
+  try{
+    if(!G || !G.history || !G.history.length || !['local', 'bot', 'online', 'ranked'].includes(G.mode)) return;
+    if((ROOM && ROOM.spectating) || G.variant || G.peel || G.misere || G.N > 8) return;
+    const tag = G.gameNo + ':' + G.history.length + ':' + G.N; if(G.recFor === tag) return; G.recFor = tag;
+    recordMistakes(G.history, G.N, myFilter());
+  }catch(e){}
+}
+function startMistake(i){
+  const L = mkLoad();
+  if(i == null){
+    const cur = (G && G.puzzle && G.puzzle.mk) || null, open = L.map((e, j) => j).filter(j => !L[j].solved && L[j].k !== cur);
+    i = open.length ? open[Math.floor(Math.random() * open.length)] : L.findIndex(e => !e.solved && e.k !== cur);
+    if(i < 0){ toast(t('mk_none')); return; }
+  }
+  const e = L[i]; if(!e) return; lastCat = 'cat-train'; const N = e.N, rows = e.r.slice();
+  G = {mode:'puzzle', N, rows, turn:0, winner:null, log:[], history:[], puzzle:{idx:-1, daily:false, tag:'mistake', m:generateMoves(rows, N).length, wins:bestMoves(rows, N), attempts:0, solved:false, mk:e.k, mkInfo:e}};
+  enterGameScreen(); renderPuzzleInfo();
+}
+function mkClearSolved(){ mkSave(mkLoad().filter(e => !e.solved)); renderMistakes(); }
+function renderMistakes(){
+  const box = document.getElementById('mk-body'); if(!box) return;
+  const L = mkLoad(), open = L.filter(e => !e.solved).length;
+  if(!L.length){ box.innerHTML = '<p class="msg">' + t('mk_empty') + '</p>'; return; }
+  const cards = L.map((e, i) => [e, i]).sort((a, b) => b[0].d - a[0].d).map(([e, i]) => {
+    const cs = e.N <= 5 ? 16 : e.N <= 7 ? 13 : 11;
+    return `<div class="mk-card ${e.solved ? 'done' : ''}">${learnBoard(e.N, e.r, null, cs)}<small>${e.N}×${e.N} · ${new Date(e.d).toLocaleDateString(({nb:'nb-NO', en:'en-GB', es:'es-ES', de:'de-DE', zh:'zh-CN'})[LANG] || 'nb-NO')}</small>` +
+      (e.solved ? `<span class="tag">${t('mk_done')}</span>` : `<button class="btn sm" onclick="startMistake(${i})">${t('mk_open')}</button>`) + '</div>';
+  }).join('');
+  box.innerHTML = `<div class="learn-nav"><button class="btn primary" onclick="startMistake()" ${open ? '' : 'disabled'}>${t('mk_start')}</button><button class="btn" onclick="mkClearSolved()">${t('mk_clear')}</button></div><p class="msg">${t('mk_count', {a:open, b:L.length})}</p><div class="mk-grid">${cards}</div>`;
+}
+
+/* ---- Samleren: alle tapte stillinger du lager for motstanderen, 3×3 til 7×7 ---- */
+const COLL_MAX = 7, COLL_REWARD = {3:30, 4:60, 5:150, 6:400, 7:1000};
+const _collLists = {};
+function collList(N){
+  if(_collLists[N]) return _collLists[N]; const out = [];
+  (function rec(i, prev, cur){
+    if(i === N){ if(cur[0] > 0 && !isWin(cur, N)) out.push(cur.slice()); return; }
+    for(let v = prev; v >= 0; v--){ cur.push(v); rec(i + 1, v, cur); cur.pop(); }
+  })(0, N, []);
+  out.sort((a, b) => totalPieces(a) - totalPieces(b) || (a.join() < b.join() ? -1 : 1));
+  return (_collLists[N] = out);
+}
+function collLoad(){ try{ return JSON.parse(lsGet('pinne.coll') || '{}'); }catch(e){ return {}; } }
+function collAdd(N, rows){
+  if(N < 3 || N > COLL_MAX || totalPieces(rows) === 0) return;
+  const c = collLoad(), k = rows.join(','), arr = c[N] = c[N] || [];
+  if(arr.includes(k) || !collList(N).some(r => r.join(',') === k)) return;
+  arr.push(k); lsSet('pinne.coll', JSON.stringify(c));
+  const total = collList(N).length; toast(t('coll_new', {n:N, a:arr.length, b:total}));
+  if(arr.length >= total) claimCollector();
+}
+function collectAfter(move, mover){
+  try{
+    if(!G || !move.rows || G.N > COLL_MAX || G.N < 3 || G.variant || G.peel || G.misere || (G.powerups && G.powerups.length)) return;
+    const mine = G.mode === 'local' || (G.mode === 'bot' && mover === 0) || ((G.mode === 'online' || G.mode === 'ranked') && ROOM && !ROOM.spectating && mover === ROOM.myPlayerIndex);
+    if(mine && !isWin(move.rows, G.N)) collAdd(G.N, move.rows);
+  }catch(e){}
+}
+async function claimCollector(){
+  if(!currentUser) return; const c = collLoad();
+  for(let N = 3; N <= COLL_MAX; N++){
+    if((c[N] || []).length < collList(N).length || (currentUser.coll && currentUser.coll[N])) continue;
+    let paid = false;
+    await saveMe(u => { u.coll = u.coll || {}; if(!u.coll[N]){ u.coll[N] = nowMs(); u.coins += COLL_REWARD[N]; u.stats.earned += COLL_REWARD[N]; paid = true; } });
+    if(paid) toast(t('coll_done', {n:N}) + ' · ' + t('coin_gain', {n:COLL_REWARD[N], why:t('why_coll')}));
+  }
+}
+let collTab = 3;
+function renderCollector(){
+  const box = document.getElementById('coll-body'); if(!box) return;
+  const c = collLoad();
+  claimCollector().then(() => { const cur = document.getElementById('coll-body'); if(cur && cur.getAttribute('data-n') === String(collTab) && currentUser && currentUser.coll && currentUser.coll[collTab] && !/coll-claimed/.test(cur.innerHTML)) renderCollector(); });
+  const N = collTab, list = collList(N), got = new Set(c[N] || []), n = list.filter(r => got.has(r.join(','))).length, cs = {3:16, 4:14, 5:12, 6:10, 7:9}[N], side = N * cs + 12;
+  const claimed = currentUser && currentUser.coll && currentUser.coll[N];
+  const tabs = [3, 4, 5, 6, 7].map(k => `<button class="tab-btn ${k === N ? 'active' : ''}" onclick="collTab=${k}; renderCollector()">${k}×${k} <small class="rec">${(c[k] || []).length}/${collList(k).length}</small></button>`).join('');
+  const slots = list.map(r => got.has(r.join(',')) ? `<div class="coll-slot got">${learnBoard(N, r, null, cs)}</div>` : `<div class="coll-slot" style="width:${side}px;height:${side}px">?</div>`).join('');
+  box.setAttribute('data-n', N);
+  box.innerHTML = `<div class="tabs">${tabs}</div><p class="msg">${t('coll_progress', {a:n, b:list.length})} · ${claimed ? `<span class="coll-claimed">${t('coll_claimed')}</span>` : t('coll_reward', {n:COLL_REWARD[N]})}${!currentUser && n === list.length ? ' · ' + t('coll_login') : ''}</p><div class="duel-bar"><i style="width:${Math.round(100 * n / list.length)}%"></i></div><div class="coll-grid">${slots}</div>`;
+}
+
+Object.assign(I18N.nb, {
+  cat_play_d:'Bot, lokalt, online, rangert, turneringer, duell, varianter og Fang boten', cat_train_d:'Opplæring, dagens oppgave, læring fra egne feil, samleren og analyse', cat_meta_mk:'{n} feil å øve på',
+  m_trap_n:'Fang boten', m_trap_d:'Perfekt bot som gjør én feil midt i partiet. Finn den og straff den.',
+  trap_msg:'Boten spiller perfekt, men gjør nøyaktig én feil et stykke ut i partiet, helst ikke helt i starten og ikke helt på slutten. Se etter øyeblikket stillingen snur, og straff feilen. Ingen hint i denne modusen. Når partiet er over får du vite hvilket trekk som var feilen.',
+  mb_tag:'Boten gjør én feil', mb_reveal:'Boten gjorde feilen i trekk {n}.', mb_punished:'Du straffet den.', mb_missed:'Du fant ikke straffen. Prøv «Analyser partiet».', mb_none:'Boten fikk ikke anledning til å gjøre feilen denne gangen.',
+  m_mistake_n:'Spill fra feilen', m_mistake_d:'Hopp rett til stillinger der du selv gjorde feil tidligere', mk_title:'Fra feilen din', mk_info:'Her tok du {k} pinne(r) ({dir}) og kastet bort en vunnet stilling. Finn trekket som holdt den vunnet.',
+  mk_next:'Neste feil', mk_start:'Start neste feil', mk_clear:'Fjern løste', mk_count:'{a} åpne av {b} lagrede feil', mk_none:'Ingen åpne feil å øve på.', mk_hint:'Feilene dine er lagret i «Spill fra feilen».', mk_open:'Spill', mk_done:'Løst',
+  mk_sub:'Hver feil er en stilling der du hadde et vinnertrekk, men spilte et annet. Finn vinnertrekket nå.',
+  mk_empty:'Ingen lagrede feil ennå. Feil du gjør i partier mot bot, lokalt, online og rangert (opp til 8×8) lagres automatisk når partiet er over. Feil på større brett lagres når du trykker «Analyser partiet». Feilene lagres på denne enheten.', pz_tag_mistake:'Din feil',
+  m_coll_n:'Samleren', m_coll_d:'Samle alle tapte stillinger du kan lage for motstanderen',
+  coll_sub:'Hver gang du etterlater en tapt stilling for motstanderen lagres den her. Det skjer i partier mot bot, lokalt, online og rangert, og når du løser en oppgave. Samler du alle på ett brett, får du mynter. Virker fra 3×3 til 7×7. Samlingen lagres på denne enheten.',
+  coll_progress:'{a} av {b} samlet', coll_reward:'Belønning: {n} mynter', coll_claimed:'Belønning hentet', coll_new:'Samleren {n}×{n}: ny tapt stilling ({a} av {b})', coll_done:'Samlet alle på {n}×{n}', why_coll:'samleren', coll_login:'Logg inn for å få myntene.',
+  duel_theory_trap:'Obs: noen trekk ser riktige ut etter regelen, men er unntak.'
+});
+Object.assign(I18N.en, {
+  cat_play_d:'Bot, local, online, ranked, tournaments, duels, variants and Catch the bot', cat_train_d:'Tutorial, daily puzzle, learning from your mistakes, the collector and analysis', cat_meta_mk:'{n} mistakes to practise',
+  m_trap_n:'Catch the bot', m_trap_d:'A perfect bot that makes one mistake mid-game. Find it and punish it.',
+  trap_msg:'The bot plays perfectly but makes exactly one mistake some way into the game, preferably not right at the start and not right at the end. Look for the moment the position turns, and punish the mistake. No hints in this mode. When the game is over you learn which move was the mistake.',
+  mb_tag:'The bot makes one mistake', mb_reveal:'The bot made its mistake on move {n}.', mb_punished:'You punished it.', mb_missed:'You did not find the punishment. Try “Analyse the game”.', mb_none:'The bot did not get the chance to make its mistake this time.',
+  m_mistake_n:'Play from the mistake', m_mistake_d:'Jump straight to positions where you went wrong earlier', mk_title:'From your mistake', mk_info:'Here you took {k} stick(s) ({dir}) and threw away a won position. Find the move that kept it won.',
+  mk_next:'Next mistake', mk_start:'Start next mistake', mk_clear:'Remove solved', mk_count:'{a} open of {b} saved mistakes', mk_none:'No open mistakes to practise.', mk_hint:'Your mistakes are saved in “Play from the mistake”.', mk_open:'Play', mk_done:'Solved',
+  mk_sub:'Each mistake is a position where you had a winning move but played another. Find the winning move now.',
+  mk_empty:'No saved mistakes yet. Mistakes you make in games against the bot, local, online and ranked (up to 8×8) are saved automatically when the game ends. Mistakes on bigger boards are saved when you press “Analyse the game”. Mistakes are stored on this device.', pz_tag_mistake:'Your mistake',
+  m_coll_n:'The collector', m_coll_d:'Collect every lost position you can make for your opponent',
+  coll_sub:'Every time you leave a lost position for your opponent it is saved here. This happens in games against the bot, local, online and ranked, and when you solve a puzzle. Collect all of them on one board to get coins. Works from 3×3 to 7×7. The collection is stored on this device.',
+  coll_progress:'{a} of {b} collected', coll_reward:'Reward: {n} coins', coll_claimed:'Reward claimed', coll_new:'Collector {n}×{n}: new lost position ({a} of {b})', coll_done:'Collected all on {n}×{n}', why_coll:'collector', coll_login:'Log in to get the coins.',
+  duel_theory_trap:'Note: some moves look right by the rule but are exceptions.'
+});
+Object.assign(I18N.de, {m_trap_n:'Bot fangen', m_mistake_n:'Ab dem Fehler spielen', m_coll_n:'Der Sammler'});
+Object.assign(I18N.es, {m_trap_n:'Atrapa al bot', m_mistake_n:'Jugar desde el error', m_coll_n:'El coleccionista'});
+Object.assign(I18N.zh, {m_trap_n:'抓住机器人', m_mistake_n:'从错误处开始', m_coll_n:'收藏家'});
 
 renderAccountBar();
 onAnalysisSizeChange(5);
